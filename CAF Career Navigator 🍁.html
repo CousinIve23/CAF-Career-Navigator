@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free bilingual FAQ tool for Canadian Armed Forces members at every career stage — application through release. EN/FR. Not an official CAF product.">
+<meta property="og:title" content="CAF Career Navigator">
+<meta property="og:description" content="Everything you need to know about a CAF career — from first application through mid-career to transition. Bilingual EN/FR. Free.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_CA">
+<title>CAF Career Navigator</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='28' font-size='28'%3E%F0%9F%8D%81%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1E3A5F;
+    --bg: #F8F9FC;
+    --white: #FFFFFF;
+    --text: #1A1A2E;
+    --text-mid: #4A5568;
+    --text-light: #718096;
+    --border: #E2E8F0;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --stage-color: #374151;
+    --stage-bg: #F0F4FF;
+    --stage-mid: #CBD5E1;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --navy: #0F1F35; --bg: #0D1117; --white: #161B22;
+      --text: #E6EDF3; --text-mid: #8B949E; --text-light: #6E7681;
+      --border: #30363D; --shadow: 0 2px 12px rgba(0,0,0,0.4);
+    }
+    .header { background: #0D1117; border-bottom: 1px solid var(--border); }
+    .lang-bar, .jump-nav-wrapper { background: var(--white); }
+    .jump-nav-wrapper::after { background: linear-gradient(to right, transparent, var(--white)); }
+    .mini-crisis { background: #4A0E0E; }
+    .footer { background: #0D1117; }
+    img, svg { opacity: 0.9; }
+  }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition-duration: 0s !important; animation-duration: 0s !important; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .skip-link {
+    position: absolute; top: -100%; left: 50%; transform: translateX(-50%);
+    background: var(--navy); color: white; padding: 8px 16px;
+    border-radius: 0 0 8px 8px; z-index: 200; font-size: 14px; text-decoration: none;
+  }
+  .skip-link:focus { top: 0; }
+
+  /* MINI CRISIS BAR */
+  .mini-crisis {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: #7F1D1D; color: white; font-size: 12px; font-weight: 600;
+    text-align: center; padding: 7px 16px; z-index: 100;
+    transform: translateY(-100%); transition: transform 0.3s ease;
+    letter-spacing: 0.2px;
+  }
+  .mini-crisis.visible { transform: translateY(0); }
+  .mini-crisis a { color: #FCA5A5; text-decoration: none; }
+
+  /* HEADER */
+  .header {
+    background: var(--navy); padding: 32px 20px 28px;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .header::before {
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 200px; height: 200px; background: rgba(255,255,255,0.04); border-radius: 50%;
+  }
+  .header::after {
+    content: ''; position: absolute; bottom: -80px; left: -40px;
+    width: 240px; height: 240px; background: rgba(255,255,255,0.03); border-radius: 50%;
+  }
+  .header-flag { font-size: 36px; margin-bottom: 8px; }
+  .header h1 {
+    font-family: 'Syne', sans-serif; font-size: clamp(20px, 5vw, 32px);
+    font-weight: 800; color: #FFFFFF; line-height: 1.2; margin-bottom: 8px;
+  }
+  .header h1 span { color: #FF6B6B; }
+  .header p {
+    color: rgba(255,255,255,0.75); font-size: 14px;
+    max-width: 520px; margin: 0 auto 16px; line-height: 1.5;
+  }
+  .disclaimer {
+    display: inline-block; background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2); border-radius: 30px;
+    padding: 6px 16px; font-size: 12px; color: rgba(255,255,255,0.8);
+    letter-spacing: 0.3px; max-width: 100%;
+  }
+
+  /* LANG TOGGLE */
+  .lang-bar {
+    background: var(--white); border-bottom: 1px solid var(--border);
+    padding: 10px 20px; display: flex; justify-content: center; gap: 8px;
+  }
+  .lang-btn {
+    padding: 6px 18px; border-radius: 20px; border: 1px solid var(--border);
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    background: transparent; color: var(--text-mid); transition: all .2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .lang-btn.active { background: var(--navy); color: white; border-color: var(--navy); }
+
+  /* JUMP NAV */
+  .jump-nav-wrapper {
+    background: var(--white); border-bottom: 1px solid var(--border); position: relative;
+  }
+  .jump-nav-wrapper::after {
+    content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 40px;
+    background: linear-gradient(to right, transparent, var(--white));
+    pointer-events: none; z-index: 1;
+  }
+  .jump-nav {
+    display: flex; align-items: flex-start; gap: 0;
+    overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+    padding: 12px 16px 14px;
+  }
+  .jump-nav::-webkit-scrollbar { display: none; }
+  .nav-phase-group { flex-shrink: 0; }
+  .nav-phase-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.6px; color: var(--text-light); padding: 0 2px;
+    white-space: nowrap; margin-bottom: 6px;
+  }
+  .nav-pills-row { display: flex; gap: 5px; flex-wrap: nowrap; }
+  .nav-divider {
+    width: 1px; background: var(--border); margin: 0 10px;
+    align-self: stretch; flex-shrink: 0; min-height: 44px;
+  }
+  .jump-pill {
+    flex-shrink: 0; padding: 5px 11px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; cursor: pointer; border: none;
+    transition: opacity .2s; font-family: 'Inter', sans-serif;
+    text-decoration: none; display: inline-block; color: white; white-space: nowrap;
+  }
+  .jump-pill:hover { opacity: 0.8; }
+  .p1pill { background: #C41E3A; } .p2pill { background: #1B4FD8; }
+  .p3pill { background: #1A7A4A; } .p4pill { background: #475569; }
+
+  /* EXPAND / COLLAPSE BAR */
+  .expand-bar {
+    max-width: 680px; margin: 0 auto; padding: 12px 16px 0;
+    display: flex; justify-content: flex-end;
+  }
+  .expand-btn {
+    font-size: 12px; font-weight: 600; color: var(--text-mid);
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 20px; padding: 5px 14px; cursor: pointer;
+    font-family: 'Inter', sans-serif; transition: all .2s;
+  }
+  .expand-btn:hover { border-color: var(--navy); color: var(--navy); }
+
+  /* MAIN */
+  .main { max-width: 680px; margin: 0 auto; padding: 20px 16px 60px; }
+
+  /* PHASE DIVIDERS */
+  .phase-divider { display: flex; align-items: center; gap: 14px; margin: 28px 0 20px; }
+  .phase-divider:first-child { margin-top: 4px; }
+  .phase-tag {
+    font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.8px; white-space: nowrap;
+    padding: 4px 12px; border-radius: 20px; color: white; flex-shrink: 0;
+  }
+  .phase-line { flex: 1; height: 1px; background: var(--border); }
+  .p1tag { background: #C41E3A; } .p2tag { background: #1B4FD8; }
+  .p3tag { background: #1A7A4A; } .p4tag { background: #475569; }
+
+  /* STAGE SECTIONS */
+  .stage {
+    margin-bottom: 20px; border-radius: var(--radius); overflow: hidden;
+    box-shadow: var(--shadow); background: var(--stage-bg);
+  }
+  .stage-header {
+    padding: 18px 18px 14px; display: flex; align-items: flex-start;
+    gap: 14px; background: var(--stage-color);
+  }
+  .stage-header * { color: white !important; opacity: 1 !important; }
+  .stage-num {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 16px;
+    flex-shrink: 0; background: rgba(255,255,255,0.2); color: white;
+  }
+  .stage-title-block { flex: 1; }
+  .stage-emoji { font-size: 18px; margin-bottom: 2px; display: block; }
+  .stage-title {
+    font-family: 'Syne', sans-serif; font-size: 16px;
+    font-weight: 700; line-height: 1.2; margin-bottom: 3px;
+  }
+  .stage-subtitle { font-size: 12px; opacity: 0.8; line-height: 1.4; }
+
+  /* Stage colours */
+  .s1  { --stage-color:#C41E3A; --stage-bg:#FFF5F5; --stage-mid:#FFD0D8; }
+  .s2  { --stage-color:#A8162D; --stage-bg:#FFF2F4; --stage-mid:#FFC8D4; }
+  .s3  { --stage-color:#8C1225; --stage-bg:#FFF0F2; --stage-mid:#FFC0CB; }
+  .s4  { --stage-color:#1B4FD8; --stage-bg:#EEF3FF; --stage-mid:#C7D7FF; }
+  .s5  { --stage-color:#163EB8; --stage-bg:#EDF2FF; --stage-mid:#BFCFFF; }
+  .s6  { --stage-color:#1234A0; --stage-bg:#EDF0FF; --stage-mid:#B8CCFF; }
+  .s7  { --stage-color:#0E2884; --stage-bg:#EEF2FF; --stage-mid:#B3C4FF; }
+  .s8  { --stage-color:#091E68; --stage-bg:#EDF1FF; --stage-mid:#ADC0FF; }
+  .s9  { --stage-color:#1A7A4A; --stage-bg:#EDFAF3; --stage-mid:#B8EECF; }
+  .s10 { --stage-color:#156040; --stage-bg:#EDFAF0; --stage-mid:#B0E8C4; }
+  .s11 { --stage-color:#114833; --stage-bg:#EDFAEE; --stage-mid:#A8E4BC; }
+  .s12 { --stage-color:#475569; --stage-bg:#F1F5F9; --stage-mid:#CBD5E1; }
+  .s13 { --stage-color:#3D4B5C; --stage-bg:#F0F4F8; --stage-mid:#C5D0DC; }
+  .s14 { --stage-color:#333E4E; --stage-bg:#EFF3F7; --stage-mid:#BEC8D4; }
+
+  /* FAQ ITEMS */
+  .faq-list { padding: 0 14px 14px; }
+  .faq-item {
+    margin-bottom: 7px; border-radius: var(--radius-sm);
+    border: 1px solid var(--stage-mid); overflow: hidden; background: var(--white);
+  }
+  .faq-q {
+    padding: 12px 15px; font-size: 14px; font-weight: 600; cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center; gap: 10px;
+    user-select: none; transition: opacity .15s; background: var(--stage-bg);
+    color: var(--stage-color); border: none; width: 100%; text-align: left;
+    font-family: 'Inter', sans-serif; line-height: 1.4;
+  }
+  .faq-q:hover { opacity: 0.85; }
+  .faq-q:focus-visible { outline: 2px solid var(--stage-color); outline-offset: -2px; }
+  .faq-q-text { flex: 1; }
+  .faq-chevron { font-size: 15px; flex-shrink: 0; transition: transform .3s; opacity: 0.6; }
+  .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+  /* Smooth accordion via max-height */
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .faq-item.open .faq-a { max-height: 3000px; }
+  .faq-a-inner {
+    padding: 12px 15px 14px; font-size: 13px; line-height: 1.75;
+    color: var(--text-mid); border-top: 1px solid var(--stage-mid);
+  }
+  .faq-a-inner strong { color: var(--text); font-weight: 600; }
+  .faq-a-inner ul, .faq-a-inner ol { padding-left: 18px; margin: 6px 0; }
+  .faq-a-inner li { margin-bottom: 5px; }
+  .faq-a-inner p + p, .faq-a-inner p + ul, .faq-a-inner ul + p { margin-top: 8px; }
+
+  .tip {
+    display: flex; gap: 10px; align-items: flex-start;
+    background: var(--stage-bg); border-left: 3px solid var(--stage-color);
+    border-radius: 0 8px 8px 0; padding: 10px 12px; margin-top: 10px;
+    font-size: 12px; font-weight: 500; color: var(--text);
+  }
+  .tip-icon { flex-shrink: 0; font-size: 14px; line-height: 1.4; }
+
+  /* CRISIS BANNER */
+  .crisis {
+    background: #7F1D1D; border-radius: var(--radius); padding: 18px 20px;
+    margin-bottom: 20px; color: white;
+  }
+  .crisis-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+  .crisis-body { font-size: 13px; line-height: 1.65; opacity: 0.9; }
+  .crisis-body a { color: #FCA5A5; text-decoration: none; }
+
+  /* BACK TO TOP */
+  .back-to-top {
+    position: fixed; bottom: 24px; right: 20px;
+    background: var(--navy); color: white; border: none; border-radius: 50%;
+    width: 44px; height: 44px; font-size: 20px; cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s;
+    z-index: 50; display: flex; align-items: center; justify-content: center;
+  }
+  .back-to-top.visible { opacity: 1; visibility: visible; }
+
+  /* FOOTER */
+  .footer {
+    background: var(--navy); padding: 28px 20px;
+    color: rgba(255,255,255,0.65); font-size: 12px; line-height: 1.8; text-align: center;
+  }
+  .footer strong { color: rgba(255,255,255,0.9); }
+  .footer-phase-links {
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 16px;
+  }
+  .footer-phase-link {
+    color: rgba(255,255,255,0.7); text-decoration: none; font-size: 11px; font-weight: 600;
+    padding: 4px 10px; border: 1px solid rgba(255,255,255,0.2); border-radius: 12px;
+  }
+  .footer-crisis { margin-top: 12px; font-size: 11px; opacity: 0.7; }
+
+  /* BILINGUAL */
+  .fr { display: none; }
+  body.fr-mode .en { display: none; }
+  body.fr-mode .fr { display: block; }
+  span.fr { display: none; }
+  body.fr-mode span.en { display: none; }
+  body.fr-mode span.fr { display: inline; }
+
+  .noscript-msg { text-align: center; padding: 20px; background: #FEF2F2; color: #7F1D1D; font-weight: 600; }
+
+  @media (max-width: 480px) {
+    .stage-title { font-size: 15px; }
+    .faq-q { font-size: 13px; padding: 11px 13px; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link en">Skip to content</a>
+<a href="#main-content" class="skip-link fr">Aller au contenu</a>
+
+<noscript><div class="noscript-msg en">This page requires JavaScript to expand FAQ sections.</div><div class="noscript-msg fr">Cette page requiert JavaScript pour afficher les sections FAQ.</div></noscript>
+
+<!-- MINI CRISIS BAR -->
+<div class="mini-crisis" id="mini-crisis">
+  <span class="en">988 (crisis) &middot; 1-800-268-7708 (VAC) &middot; 1-800-866-4546 (family)</span>
+  <span class="fr">988 (crise) &middot; 1-800-268-7708 (ACC) &middot; 1-800-866-4546 (famille)</span>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-flag">🍁</div>
+  <h1 class="en">CAF Career <span>Navigator</span></h1>
+  <h1 class="fr">Navigateur de <span>carriere</span> des FAC</h1>
+  <p class="en">Everything you need to know — from first application through mid-career to transition out. Free. Plain English. Built for you.</p>
+  <p class="fr">Tout ce que vous devez savoir — de la candidature initiale a la transition. Gratuit. En francais clair. Concu pour vous.</p>
+  <div class="disclaimer en">Built free by a CAF community member &middot; Powered by Claude AI &middot; Not an official CAF product</div>
+  <div class="disclaimer fr">Cree gratuitement par un membre de la communaute des FAC &middot; Propulse par Claude AI &middot; Pas un produit officiel des FAC</div>
+</div>
+
+<!-- LANG TOGGLE -->
+<div class="lang-bar" role="group" aria-label="Language selection">
+  <button class="lang-btn active" onclick="setLang('en', this)">English</button>
+  <button class="lang-btn" onclick="setLang('fr', this)">Francais</button>
+</div>
+
+<!-- JUMP NAV -->
+<div class="jump-nav-wrapper">
+<nav class="jump-nav" aria-label="Section navigation">
+  <div class="nav-phase-group">
+    <div class="nav-phase-label"><span class="en">Getting In</span><span class="fr">S'enroler</span></div>
+    <div class="nav-pills-row">
+      <a class="jump-pill p1pill" href="#s1"><span class="en">Application</span><span class="fr">Candidature</span></a>
+      <a class="jump-pill p1pill" href="#s2">BMQ</a>
+      <a class="jump-pill p1pill" href="#s3"><span class="en">Trade Training</span><span class="fr">Formation</span></a>
+    </div>
+  </div>
+  <div class="nav-divider"></div>
+  <div class="nav-phase-group">
+    <div class="nav-phase-label"><span class="en">Building Your Career</span><span class="fr">Batir sa carriere</span></div>
+    <div class="nav-pills-row">
+      <a class="jump-pill p2pill" href="#s4"><span class="en">Pay</span><span class="fr">Solde</span></a>
+      <a class="jump-pill p2pill" href="#s5">SISIP</a>
+      <a class="jump-pill p2pill" href="#s6"><span class="en">Progression</span><span class="fr">Progression</span></a>
+      <a class="jump-pill p2pill" href="#s7"><span class="en">Postings</span><span class="fr">Mutations</span></a>
+      <a class="jump-pill p2pill" href="#s8"><span class="en">Deploy</span><span class="fr">Deploiement</span></a>
+    </div>
+  </div>
+  <div class="nav-divider"></div>
+  <div class="nav-phase-group">
+    <div class="nav-phase-label"><span class="en">Your Life &amp; Family</span><span class="fr">Vie et famille</span></div>
+    <div class="nav-pills-row">
+      <a class="jump-pill p3pill" href="#s9"><span class="en">Benefits</span><span class="fr">Avantages</span></a>
+      <a class="jump-pill p3pill" href="#s10">PSP</a>
+      <a class="jump-pill p3pill" href="#s11">MFRC</a>
+    </div>
+  </div>
+  <div class="nav-divider"></div>
+  <div class="nav-phase-group">
+    <div class="nav-phase-label">Transitions</div>
+    <div class="nav-pills-row">
+      <a class="jump-pill p4pill" href="#s12"><span class="en">Help</span><span class="fr">Aide</span></a>
+      <a class="jump-pill p4pill" href="#s13"><span class="en">Changes</span><span class="fr">Changements</span></a>
+      <a class="jump-pill p4pill" href="#s14"><span class="en">Leaving</span><span class="fr">Depart</span></a>
+    </div>
+  </div>
+</nav>
+</div>
+
+<!-- EXPAND/COLLAPSE -->
+<div class="expand-bar">
+  <button class="expand-btn" id="expand-btn" data-state="collapsed" onclick="toggleAll()">
+    <span class="en">Expand all</span><span class="fr">Tout ouvrir</span>
+  </button>
+</div>
+
+<div class="main" id="main-content">
+
+<!-- CRISIS BANNER -->
+<div class="crisis" id="crisis-banner" role="alert">
+  <div class="crisis-title en">In crisis? Help is available 24/7</div>
+  <div class="crisis-title fr">En crise? De l'aide est disponible 24 h/24</div>
+  <div class="crisis-body en">988 Suicide Crisis Helpline: <strong>Call or text 988</strong> &middot; VAC Assistance: <strong>1-800-268-7708</strong> &middot; MFRC Family Line: <strong>1-800-866-4546</strong></div>
+  <div class="crisis-body fr">Ligne de crise suicide 988 : <strong>Appelez ou textez le 988</strong> &middot; Assistance ACC : <strong>1-800-268-7708</strong> &middot; Ligne familiale CRFM : <strong>1-800-866-4546</strong></div>
+</div>
+
+<!-- =============================== -->
+<!-- PHASE 1: GETTING IN             -->
+<!-- =============================== -->
+<div class="phase-divider" id="phase-1">
+  <span class="phase-tag p1tag"><span class="en">Phase 1 &middot; Getting In</span><span class="fr">Phase 1 &middot; S'enroler</span></span>
+  <span class="phase-line"></span>
+</div>
+
+<!-- S1: APPLICATION PROCESS (12 FAQs) -->
+<div class="stage s1" id="s1">
+  <div class="stage-header">
+    <div class="stage-num">1</div>
+    <div class="stage-title-block">
+      <span class="stage-emoji">📋</span>
+      <div class="stage-title en">The Application Process</div>
+      <div class="stage-title fr">Le processus de candidature</div>
+      <div class="stage-subtitle en">What happens after you apply — and how long it actually takes</div>
+      <div class="stage-subtitle fr">Ce qui se passe apres votre candidature — et les delais reels</div>
+    </div>
+  </div>
+  <div class="faq-list">
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">I applied weeks ago and heard nothing. Am I rejected?</span><span class="faq-q-text fr">J'ai soumis ma candidature il y a des semaines sans nouvelles. Suis-je refuse?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>Almost certainly no.</strong> The average CAF application takes <strong>about 250 days</strong> (roughly 8 months) from application to enrolment. Silence does not mean rejection. You have NOT been rejected unless you receive a formal written rejection.</p><p class="fr"><strong>Presque certainement non.</strong> La candidature moyenne aux FAC prend <strong>environ 250 jours</strong> (environ 8 mois) de la demande a l'enrolement. Le silence ne signifie pas un refus. Vous n'avez PAS ete refuse a moins de recevoir un refus ecrit formel.</p><div class="tip"><span class="tip-icon">💡</span><span class="en">Under 60 days: be patient. 60–90 days: email your recruiting centre. Over 90 days: call directly.</span><span class="fr">Moins de 60 jours : soyez patient. 60–90 jours : envoyez un courriel au centre de recrutement. Plus de 90 jours : appelez directement.</span></div></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What are the steps of the application process?</span><span class="faq-q-text fr">Quelles sont les etapes du processus de candidature?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><ol class="en"><li><strong>Apply</strong> — Submit online at forces.ca. Confirmation arrives by email.</li><li><strong>File review</strong> — Basic eligibility check. 2–8 weeks.</li><li><strong>CFAT</strong> — Canadian Forces Aptitude Test. Practice online first.</li><li><strong>Medical exam</strong> — Bring all records. Asthma, anxiety, ADHD now often accepted under updated 2024 standards.</li><li><strong>Security screening</strong> — The longest step. 3–12 months. Managed by DND.</li><li><strong>Interview</strong> — Know why you want to serve. Be honest.</li><li><strong>Enrolment offer</strong> — Specific trade and start date.</li><li><strong>BMQ</strong> — Basic Military Qualification. Training begins.</li></ol><ol class="fr"><li><strong>Postuler</strong> — Soumettez votre demande en ligne sur forces.ca.</li><li><strong>Examen du dossier</strong> — Verification d'admissibilite. 2–8 semaines.</li><li><strong>EATFC</strong> — Epreuve d'aptitude des Forces canadiennes.</li><li><strong>Examen medical</strong> — Apportez tous vos dossiers. Asthme, anxiete, TDAH souvent acceptes (normes 2024).</li><li><strong>Habilitation de securite</strong> — L'etape la plus longue. 3–12 mois. Geree par le MDN.</li><li><strong>Entrevue</strong> — Sachez pourquoi vous voulez servir.</li><li><strong>Offre d'enrolement</strong> — Metier et date de debut.</li><li><strong>QMB</strong> — Qualification militaire de base.</li></ol></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">My security screening form was returned. What did I do wrong?</span><span class="faq-q-text fr">Mon formulaire d'habilitation de securite a ete retourne. Qu'est-ce que j'ai mal fait?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>A large proportion of forms are returned on first submission</strong> — you're not alone. Most common errors: missing addresses, incomplete employment history, forgotten international travel, vague responses. List every address for the past 10 years. Every employer. Every country visited. Never leave a field blank.</p><p class="fr"><strong>Une grande proportion de formulaires sont retournes a la premiere soumission</strong> — vous n'etes pas seul. Erreurs courantes : adresses manquantes, historique d'emploi incomplet, voyages oublies, reponses vagues. Inscrivez chaque adresse des 10 dernieres annees. Chaque employeur. Chaque pays visite.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">I have ADHD / anxiety / asthma — can I still join?</span><span class="faq-q-text fr">J'ai un TDAH / de l'anxiete / de l'asthme — puis-je m'enroler?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>Possibly yes.</strong> The CAF updated its Common Enrolment Medical Standard in 2024 to allow many previously excluded conditions. Each case is assessed individually. <strong>Always declare everything honestly</strong> — hiding a condition is a disqualifier; having one often isn't.</p><p class="fr"><strong>Possiblement oui.</strong> Les FAC ont mis a jour leur Norme commune d'enrolement medical en 2024. Chaque cas est evalue individuellement. <strong>Declarez toujours tout honnetement</strong> — dissimuler une condition est motif de disqualification; en avoir une ne l'est souvent pas.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">How do I track my application status?</span><span class="faq-q-text fr">Comment suivre l'etat de ma candidature?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">Use the <strong>Online Applicant Portal</strong> at forces.ca — upload documents, book appointments, and track progress. Check your email daily including spam. Keep your phone number current.</p><p class="fr">Utilisez le <strong>Portail en ligne pour les candidats</strong> sur forces.ca — televersez des documents, prenez des rendez-vous et suivez l'avancement. Verifiez vos courriels quotidiennement, y compris les indesirables.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What should I do during the 8-month wait?</span><span class="faq-q-text fr">Que faire pendant les 8 mois d'attente?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><ul class="en"><li><strong>Get physically ready.</strong> Run, bodyweight exercises, carry weight. Aim for 5 km without stopping.</li><li><strong>Get your documents in order.</strong> Every address for 10 years, every employer, passport, SIN.</li><li><strong>Research your trade choices.</strong> Full descriptions on forces.ca. Watch videos from serving members.</li><li><strong>Get finances in order.</strong> Automatic bill payments. Small emergency fund. During BMQ you won't have easy phone/bank access.</li><li><strong>Prepare your family.</strong> Limited phone for 10+ weeks. The MFRC can help families prepare before enrolment.</li><li><strong>Stay on top of your file.</strong> Check the portal weekly. Respond to any communication within 24 hours.</li></ul><ul class="fr"><li><strong>Preparez-vous physiquement.</strong> Course, exercices au poids du corps. Visez 5 km sans arret.</li><li><strong>Mettez vos documents en ordre.</strong> Chaque adresse des 10 dernieres annees, chaque employeur, NAS.</li><li><strong>Recherchez vos choix de metier.</strong> Descriptions sur forces.ca.</li><li><strong>Mettez vos finances en ordre.</strong> Paiements automatiques. Fonds d'urgence.</li><li><strong>Preparez votre famille.</strong> Contact telephonique limite pendant 10+ semaines.</li><li><strong>Suivez votre dossier.</strong> Consultez le portail chaque semaine.</li></ul></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">Can I join with a criminal record?</span><span class="faq-q-text fr">Puis-je m'enroler avec un casier judiciaire?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>A record does not automatically disqualify you.</strong> The CAF assesses each case individually. Severity of the offence, how long ago, whether you received a record suspension (pardon), and your chosen trade all factor in. Some offences are absolute bars — particularly serious violent or sexual offences. For most minor or dated offences, apply and let the screening assess your case. <strong>The single most important rule: declare everything honestly.</strong> Concealing a record is far more likely to disqualify you than the record itself.</p><p class="fr"><strong>Un casier judiciaire ne vous disqualifie pas automatiquement.</strong> Les FAC evaluent chaque cas individuellement. La gravite de l'infraction, quand elle s'est produite, si vous avez obtenu une suspension du casier (pardon) et votre metier vise sont tous des facteurs. Certaines infractions sont des causes absolues de disqualification. Pour la plupart des infractions mineures ou datant de plusieurs annees, postulez. <strong>La regle la plus importante : declarez tout honnetement.</strong> Dissimuler un casier est bien plus susceptible de vous disqualifier que le casier lui-meme.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What are the age, citizenship, and education requirements?</span><span class="faq-q-text fr">Quelles sont les exigences d'age, de citoyennete et de scolarite?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><ul class="en"><li><strong>Age:</strong> 16 for Reserve (with parental consent), 17 for Regular Force. No strict upper age limit, but you must complete training and serve meaningfully.</li><li><strong>Citizenship:</strong> Canadian citizen or permanent resident. Some positions require citizenship.</li><li><strong>Education:</strong> NCM trades vary — most require minimum Grade 10, some require Grade 12 or specific subjects. Officers require a university degree (or RMC entry).</li></ul><ul class="fr"><li><strong>Age :</strong> 16 ans pour la Reserve (consentement parental), 17 ans pour la Force reguliere. Pas de limite d'age superieure stricte.</li><li><strong>Citoyennete :</strong> Citoyen canadien ou resident permanent. Certains postes exigent la citoyennete.</li><li><strong>Scolarite :</strong> Les metiers MR varient — la plupart exigent un minimum de 10e annee. Les officiers doivent avoir un diplome universitaire (ou entrer au CMR).</li></ul></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What about tattoos, piercings, and appearance standards?</span><span class="faq-q-text fr">Qu'en est-il des tatouages, piercings et normes d'apparence?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">The CAF <strong>significantly relaxed its appearance policy</strong>. Visible tattoos are now generally permitted. Restrictions remain for face, neck, and scalp tattoos in certain contexts. One pair of small earrings is permitted in uniform; other piercings must be removed. Hair: more flexibility than in the past — natural textures are accommodated. <strong>Many people with tattoos assume they can't join — most can.</strong> Check the current CANFORGEN on Dress Instructions. Your recruiter can advise.</p><p class="fr">Les FAC ont <strong>considerablement assoupli leur politique d'apparence</strong>. Les tatouages visibles sont maintenant generalement permis. Des restrictions demeurent pour les tatouages au visage, cou et cuir chevelu dans certains contextes. Une paire de petites boucles d'oreilles est permise en uniforme. Cheveux : plus de souplesse — les textures naturelles sont accommodees. <strong>Beaucoup de personnes tatouees supposent qu'elles ne peuvent pas s'enroler — la plupart le peuvent.</strong></p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What are the vision requirements? Can I join with glasses or get LASIK?</span><span class="faq-q-text fr">Quelles sont les exigences de vision? Puis-je m'enroler avec des lunettes?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">Glasses and contacts are fine for most CAF trades. Vision requirements vary by occupation — some require full colour vision or uncorrected acuity thresholds (pilots, maritime surface officers). For certain operational trades, the CAF may fund <strong>PRK corrective surgery</strong>. Always declare your actual vision on the medical form. Do not try to memorize the eye chart — concealing a vision condition is far more damaging than the condition itself.</p><p class="fr">Les lunettes et verres de contact conviennent a la grande majorite des metiers des FAC. Les exigences varient selon le metier — certains exigent une vision des couleurs complete. Pour certains metiers operationnels, les FAC peuvent financer la <strong>chirurgie correctrice PRK</strong>. Declarez toujours votre vision reelle sur le formulaire medical.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">Army, Navy, or Air Force — how do I choose?</span><span class="faq-q-text fr">Armee, Marine ou Aviation — comment choisir?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><ul class="en"><li><strong>Army:</strong> Land operations. Bases: Gagetown, Petawawa, Edmonton, Valcartier, Shilo. Field environments are common.</li><li><strong>Navy:</strong> Maritime operations. Esquimalt BC and Halifax NS. Sea rotations of 4–8 months.</li><li><strong>Air Force:</strong> Aerospace, space, cyberspace. Bases across Canada. Many technical trades.</li></ul><p class="en">Your <strong>trade choice largely determines your element</strong> — not the other way around. CFAT scores and trade availability will narrow your options more than your initial preference. Visit your recruiting centre to discuss what's actually available.</p><ul class="fr"><li><strong>Armee :</strong> Operations terrestres. Bases : Gagetown, Petawawa, Edmonton, Valcartier, Shilo.</li><li><strong>Marine :</strong> Operations maritimes. Esquimalt CB et Halifax NE. Rotations en mer de 4–8 mois.</li><li><strong>Aviation :</strong> Aerospatiale, espace, cyberespace. Bases partout au Canada.</li></ul><p class="fr">Votre <strong>choix de metier determine largement votre environnement</strong> — et non l'inverse. Vos resultats a l'EATFC et la disponibilite des metiers limiteront vos options davantage que votre preference initiale.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What is the probationary period?</span><span class="faq-q-text fr">Qu'est-ce que la periode de probation?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">As of December 31, 2024, all new CAF members serve a <strong>probationary period</strong> while security clearances and admin requirements are processed. Your conduct and values are assessed. Treat it seriously — it sets the tone for your career.</p><p class="fr">Depuis le 31 decembre 2024, tous les nouveaux membres des FAC effectuent une <strong>periode de probation</strong> pendant que les habilitations de securite et les exigences administratives sont traitees. Votre conduite et vos valeurs sont evaluees.</p></div></div></div>
+
+  </div>
+</div>
+
+<!-- S2: BMQ (5 FAQs) -->
+<div class="stage s2" id="s2">
+  <div class="stage-header">
+    <div class="stage-num">2</div>
+    <div class="stage-title-block">
+      <span class="stage-emoji">🎖️</span>
+      <div class="stage-title en">BMQ — Basic Training</div>
+      <div class="stage-title fr">QMB — Instruction de base</div>
+      <div class="stage-subtitle en">What to expect at Basic Military Qualification</div>
+      <div class="stage-subtitle fr">Ce a quoi vous attendre a la Qualification militaire de base</div>
+    </div>
+  </div>
+  <div class="faq-list">
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What is BMQ and where does it happen?</span><span class="faq-q-text fr">Qu'est-ce que la QMB et ou se deroule-t-elle?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>BMQ (Basic Military Qualification)</strong> is the entry-level training every CAF member must complete. Regular Force BMQ is at the <strong>CAF Leadership and Recruit School (CAFLRS)</strong> in Saint-Jean-sur-Richelieu, Quebec — approximately <strong>10 weeks</strong>. Reserve BMQ is typically done on weekends and/or a full-time summer block.</p><p class="fr"><strong>La QMB (Qualification militaire de base)</strong> est la formation initiale que chaque membre des FAC doit completer. La QMB de la Force reguliere se deroule a l'<strong>Ecole de leadership et de recrues des FAC (ELRFC)</strong> a Saint-Jean-sur-Richelieu — environ <strong>10 semaines</strong>. La QMB de la Reserve se fait generalement les fins de semaine ou lors d'un bloc estival.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What should I expect during BMQ?</span><span class="faq-q-text fr">A quoi dois-je m'attendre pendant la QMB?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><ul class="en"><li>The first 2–3 weeks are the hardest — sleep deprivation, physical exhaustion, and homesickness are normal and by design</li><li><strong>Phone access is heavily restricted</strong> early on. Tell your family in advance.</li><li>You will be issued uniforms, equipment, and a service number</li><li>Training covers drill, weapons handling, first aid, field craft, CAF values, and fitness</li><li>You will complete the <strong>FORCE test</strong> (fitness standard)</li></ul><ul class="fr"><li>Les 2–3 premieres semaines sont les plus difficiles — manque de sommeil, epuisement et ennui du foyer sont normaux</li><li><strong>L'acces au telephone est tres limite</strong> au debut. Prevenez votre famille.</li><li>Vous recevrez uniformes, equipement et numero de service</li><li>Formation : exercice militaire, armes, premiers soins, campagne, valeurs des FAC, condition physique</li><li>Vous completerez le <strong>test FORCE</strong></li></ul></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What is the FORCE test?</span><span class="faq-q-text fr">Qu'est-ce que le test FORCE?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">The <strong>FORCE test</strong> is the universal fitness standard. 4 components:</p><ul class="en"><li><strong>Sandbag Lift</strong> — lift 20 kg to 1 metre, repeatedly</li><li><strong>Intermittent Loaded Shuttles</strong> — carry 20 kg over 20 m with rest intervals</li><li><strong>20-Metre Rushes</strong> — sprint, drop to prone, get up, repeat</li><li><strong>Sandbag Drag</strong> — drag 20 kg over 20 m without stopping</li></ul><p class="en">The minimum standard is achievable with basic fitness. You retake the FORCE test annually.</p><p class="fr">Le <strong>test FORCE</strong> est la norme de condition physique universelle. 4 composantes :</p><ul class="fr"><li><strong>Lever de sacs de sable</strong> — soulever 20 kg a 1 m, de facon repetee</li><li><strong>Navettes avec charge</strong> — transporter 20 kg sur 20 m avec intervalles</li><li><strong>Courses de 20 m</strong> — sprinter, se coucher, se relever, repeter</li><li><strong>Trainee de sac de sable</strong> — trainer 20 kg sur 20 m sans arret</li></ul><p class="fr">La norme minimale est atteignable avec une condition physique de base. Vous repasserez le test annuellement.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What happens if I get injured during training?</span><span class="faq-q-text fr">Que se passe-t-il si je me blesse pendant la formation?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>An injury does not mean automatic release.</strong> You'll be assessed at base medical. If you need recovery time, you may be placed on <strong>Duty with Limitations (DwL)</strong> — a temporary status restricting certain physical activities. For extended recovery, you may move to a rehab/holding platoon. <strong>Medical Employment Limitations (MELs)</strong> document what duties you can perform. Do not hide injuries to keep pace — this makes things worse. Most members recover and complete their course.</p><p class="fr"><strong>Une blessure ne signifie pas une liberation automatique.</strong> Vous serez evalue a la clinique medicale. Si vous avez besoin de recuperer, vous pourriez etre place en <strong>Service avec restrictions (SAS)</strong>. Pour une recuperation prolongee, vous pourriez etre transfere a un peloton de rehabilitation. Les <strong>limitations d'emploi medical (LEM)</strong> documentent vos restrictions. Ne cachez pas les blessures — cela aggrave les choses.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What happens if I fail or want to quit during BMQ?</span><span class="faq-q-text fr">Que se passe-t-il si j'echoue ou veux quitter la QMB?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>You are not trapped.</strong> Voluntary release during BMQ is possible but strongly discouraged in the first few weeks. If you fail a component, you may be <strong>recoursed</strong> — sent to redo the failed portion. Talk to your Platoon Warrant before making any decision.</p><div class="tip"><span class="tip-icon">💡</span><span class="en">Training staff consistently observe: the overwhelming majority of recruits who want to quit in the first 2 weeks are glad they stayed by week 6. Seek support before deciding anything permanent.</span><span class="fr">Les instructeurs observent systematiquement : la grande majorite des recrues qui veulent partir dans les 2 premieres semaines sont contentes d'etre restees a la 6e semaine.</span></div><p class="fr"><strong>Vous n'etes pas coince.</strong> La liberation volontaire pendant la QMB est possible, mais fortement deconseilee dans les premieres semaines. Si vous echouez a un composant, vous pourriez etre <strong>remis en cycle</strong>. Parlez a votre adjudant de peloton avant toute decision.</p></div></div></div>
+
+  </div>
+</div>
+
+<!-- S3: TRADE TRAINING & FIRST UNIT (2 FAQs) -->
+<div class="stage s3" id="s3">
+  <div class="stage-header">
+    <div class="stage-num">3</div>
+    <div class="stage-title-block">
+      <span class="stage-emoji">🔧</span>
+      <div class="stage-title en">Trade Training &amp; First Unit</div>
+      <div class="stage-title fr">Formation de metier et premiere unite</div>
+      <div class="stage-subtitle en">After BMQ — learning your job and understanding the rank structure</div>
+      <div class="stage-subtitle fr">Apres la QMB — apprendre votre metier et comprendre la structure des grades</div>
+    </div>
+  </div>
+  <div class="faq-list">
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">I finished BMQ — what happens next?</span><span class="faq-q-text fr">J'ai termine la QMB — que se passe-t-il ensuite?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>Trade training.</strong> You'll be posted to a training establishment for your occupation-specific course (DP1).</p><ul class="en"><li><strong>Duration varies:</strong> Combat arms 3–4 months. Technical trades 6–12+ months. You are paid throughout.</li><li><strong>Location:</strong> CFB Borden (support/tech), CFB Gagetown (Army combat), CFB Esquimalt/Halifax (Navy), others.</li><li><strong>PAT platoon:</strong> You may wait weeks or months for your course. Use the time — get fit, study, volunteer.</li><li><strong>After trade training:</strong> Posted to your first operational unit for on-the-job training (OJT).</li></ul><p class="fr"><strong>Formation de metier.</strong> Vous serez mute a un etablissement de formation pour votre cours specifique (PD1).</p><ul class="fr"><li><strong>Duree variable :</strong> Armes de combat 3–4 mois. Metiers techniques 6–12+ mois. Vous etes paye.</li><li><strong>Lieu :</strong> BFC Borden, BFC Gagetown, BFC Esquimalt/Halifax, et autres.</li><li><strong>Peloton PAT :</strong> Attente possible de semaines ou mois. Utilisez le temps — condition physique, etude, benevolat.</li><li><strong>Apres la formation :</strong> Mutation a votre premiere unite operationnelle pour formation en cours d'emploi.</li></ul></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What are the ranks and how do promotions work?</span><span class="faq-q-text fr">Quels sont les grades et comment fonctionnent les promotions?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>NCM ranks:</strong> Private → Corporal (~4 yrs) → Master Corporal → Sergeant → Warrant Officer → MWO → CWO</p><p class="en"><strong>Officer ranks:</strong> Officer Cadet → 2Lt → Lt → Capt → Maj → LCol → Col → General ranks</p><p class="en">Pte to Cpl is largely time-based (~4 years). Above Corporal, promotions are merit-based through selection boards. Your annual <strong>PERs matter enormously</strong>.</p><p class="fr"><strong>Grades MR :</strong> Soldat → Caporal (~4 ans) → Caporal-chef → Sergent → Adjudant → Adjudant-maitre → Adjudant-chef</p><p class="fr"><strong>Grades d'officier :</strong> Eleve-officier → Slt → Lt → Capt → Maj → Lcol → Col → Grades de general</p><p class="fr">De soldat a caporal, c'est principalement base sur le temps. Au-dessus, les promotions sont au merite par des comites de selection. Vos <strong>RER comptent enormement</strong>.</p></div></div></div>
+
+  </div>
+</div>
+
+<!-- =============================== -->
+<!-- PHASE 2: BUILDING YOUR CAREER   -->
+<!-- =============================== -->
+<div class="phase-divider" id="phase-2">
+  <span class="phase-tag p2tag"><span class="en">Phase 2 &middot; Building Your Career</span><span class="fr">Phase 2 &middot; Batir sa carriere</span></span>
+  <span class="phase-line"></span>
+</div>
+
+<!-- S4: PAY & ALLOWANCES (7 FAQs) -->
+<div class="stage s4" id="s4">
+  <div class="stage-header">
+    <div class="stage-num">4</div>
+    <div class="stage-title-block">
+      <span class="stage-emoji">💰</span>
+      <div class="stage-title en">Pay &amp; Allowances</div>
+      <div class="stage-title fr">Solde et indemnites</div>
+      <div class="stage-subtitle en">What you earn, hidden benefits, and what the 2025–26 changes mean</div>
+      <div class="stage-subtitle fr">Ce que vous gagnez, avantages meconnus et changements 2025–26</div>
+    </div>
+  </div>
+  <div class="faq-list">
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">How much will I actually earn?</span><span class="faq-q-text fr">Combien vais-je reellement gagner?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">Approximate <strong>2025–26 base pay</strong> before allowances and the Military Factor:</p><ul class="en"><li><strong>Private (Basic):</strong> ~$3,578/month ($42,936/year)</li><li><strong>Private (Trained):</strong> ~$4,560/month ($54,720/year)</li><li><strong>Corporal (~4 yrs):</strong> ~$5,472/month ($65,664/year)</li><li><strong>Officer Cadet:</strong> ~$2,982/month</li><li><strong>2nd Lieutenant:</strong> ~$4,830/month</li><li><strong>Captain:</strong> ~$7,176/month ($86,112/year)</li></ul><p class="en">The Military Factor, CFHD, and other allowances stack on top. For exact current rates, check the CAF pay tables at canada.ca.</p><p class="fr">Taux de <strong>solde de base approximatifs 2025–26</strong> avant indemnites et facteur militaire :</p><ul class="fr"><li><strong>Soldat (de base) :</strong> ~3 578 $/mois</li><li><strong>Soldat (instruit) :</strong> ~4 560 $/mois</li><li><strong>Caporal :</strong> ~5 472 $/mois</li><li><strong>Eleve-officier :</strong> ~2 982 $/mois</li><li><strong>Sous-lieutenant :</strong> ~4 830 $/mois</li><li><strong>Capitaine :</strong> ~7 176 $/mois</li></ul><p class="fr">Le facteur militaire, le DLFC et d'autres indemnites s'ajoutent. Pour les taux exacts, consultez les tables de solde sur canada.ca.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">When does my first pay arrive?</span><span class="faq-q-text fr">Quand ma premiere paie arrive-t-elle?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">CAF members are paid <strong>bi-weekly</strong>. First pay arrives 2–4 weeks after enrolment. Ensure your direct deposit is on file with your Orderly Room from day one.</p><p class="fr">Les membres des FAC sont payes <strong>aux deux semaines</strong>. Premiere paie : 2–4 semaines apres l'enrolement. Assurez-vous que vos coordonnees bancaires sont enregistrees aupres du Bureau de l'adjudant.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What is the Military Factor?</span><span class="faq-q-text fr">Qu'est-ce que le facteur militaire?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">As of August 2025, the <strong>Military Factor</strong> is a pensionable percentage added to base salary. It compensates for reduced personal freedoms, unpredictable family separations, and geographic posting uncertainty. Applied retroactively to April 1, 2025 — most members received a lump sum. This is pensionable income, improving your eventual pension.</p><p class="fr">Depuis aout 2025, le <strong>facteur militaire</strong> est un pourcentage pensionnable ajoute au salaire de base. Il compense les libertes reduites, les separations familiales et l'incertitude liee aux mutations. Applique retroactivement au 1er avril 2025 — la plupart des membres ont recu un paiement forfaitaire. Ce revenu est pensionnable.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What allowances am I entitled to?</span><span class="faq-q-text fr">A quelles indemnites ai-je droit?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><ul class="en"><li><strong>Separation Expense (Sep Ex):</strong> If away from home for duty</li><li><strong>CFHD:</strong> Helps offset high housing costs at your posting location</li><li><strong>Critical Occupation Recruitment Allowance:</strong> If you joined a critical trade after Nov 1, 2025</li><li><strong>Instructor Allowance:</strong> If assigned to instruct at training establishments</li></ul><ul class="fr"><li><strong>Indemnite de separation :</strong> Si absent du foyer pour le service</li><li><strong>DLFC :</strong> Aide a compenser les couts de logement eleves</li><li><strong>Indemnite de recrutement pour groupe critique :</strong> Si metier critique apres le 1er nov. 2025</li><li><strong>Indemnite d'instructeur :</strong> Si affecte a l'instruction</li></ul></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">My pay is wrong. What do I do?</span><span class="faq-q-text fr">Ma paie est incorrecte. Que faire?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>Go to your Orderly Room immediately. Do not wait.</strong> Pay errors compound over time. Bring your pay statement and a written explanation. For unresolved issues, there is a formal grievance process (90-day deadline).</p><p class="fr"><strong>Rendez-vous immediatement au Bureau de l'adjudant. N'attendez pas.</strong> Les erreurs s'accumulent. Apportez votre releve de paie et une explication ecrite. Pour les problemes non resolus : processus de grief (delai de 90 jours).</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">Hidden benefits most members never use</span><span class="faq-q-text fr">Avantages meconnus que la plupart des membres n'utilisent jamais</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><ul class="en"><li><strong>Free legal advice from JAG</strong> — wills, contracts, civilian legal questions</li><li><strong>Free will preparation</strong> through base legal services</li><li><strong>SCAN seminars</strong> — pre-release career transition planning</li><li><strong>Tax-free income</strong> in designated operational areas</li><li><strong>CANEX online ordering</strong> — military pricing on everyday items</li><li><strong>CF1 discounts</strong> — hundreds in savings annually on insurance, banking, retail</li><li><strong>SISIP Financial</strong> free planning sessions</li></ul><p class="en">Most members miss at least half of these simply because nobody told them.</p><ul class="fr"><li><strong>Conseils juridiques gratuits du JAG</strong> — testaments, contrats, questions civiles</li><li><strong>Redaction gratuite de testament</strong> par les services juridiques de la base</li><li><strong>Seminaires SCAN</strong> — planification de transition de carriere</li><li><strong>Revenus non imposables</strong> dans les zones operationnelles designees</li><li><strong>Commandes en ligne CANEX</strong> — prix militaires</li><li><strong>Rabais FC1</strong> — centaines d'economies annuelles</li><li><strong>Services financiers du RARM</strong> — seances de planification gratuites</li></ul></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">Can I work a civilian job while serving?</span><span class="faq-q-text fr">Puis-je occuper un emploi civil en servant?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>Regular Force:</strong> Yes, but you need your CO's written approval. It must not conflict with duties, discredit the CAF, or interfere with deployment readiness.</p><p class="en"><strong>Reserve Force:</strong> Your civilian employment is legally protected. Employers cannot discriminate against Reservists for military service. Several provinces have specific Reservist Protection legislation.</p><p class="fr"><strong>Force reguliere :</strong> Oui, mais vous avez besoin de l'approbation ecrite de votre CO. L'emploi ne doit pas entrer en conflit avec vos fonctions militaires.</p><p class="fr"><strong>Force de reserve :</strong> Votre emploi civil est legalement protege. Les employeurs ne peuvent pas faire de discrimination pour les absences liees au service. Plusieurs provinces ont une legislation specifique de protection des reservistes.</p></div></div></div>
+
+  </div>
+</div>
+
+<!-- S5: SISIP (4 FAQs) -->
+<div class="stage s5" id="s5">
+  <div class="stage-header">
+    <div class="stage-num">5</div>
+    <div class="stage-title-block">
+      <span class="stage-emoji">🛡️</span>
+      <div class="stage-title en">SISIP — Your Financial Protection</div>
+      <div class="stage-title fr">RARM — Votre protection financiere</div>
+      <div class="stage-subtitle en">The benefit nobody explains — in plain English</div>
+      <div class="stage-subtitle fr">L'avantage que personne n'explique — en francais clair</div>
+    </div>
+  </div>
+  <div class="faq-list">
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What is SISIP in plain English?</span><span class="faq-q-text fr">Qu'est-ce que le RARM en termes simples?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">SISIP is your <strong>military financial safety net</strong>. Two parts: <strong>Long Term Disability (LTD)</strong> — income replacement if you can't work — and <strong>SISIP Financial</strong> — planning and insurance services designed for CAF members.</p><p class="fr">Le RARM est votre <strong>filet de securite financiere militaire</strong>. Deux parties : l'<strong>Assurance-invalidite de longue duree (AILD)</strong> — remplacement de revenu — et les <strong>Services financiers du RARM</strong> — planification et assurances pour les membres des FAC.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">Am I automatically covered?</span><span class="faq-q-text fr">Suis-je automatiquement couvert?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>Regular Force:</strong> Yes — automatic from enrolment. Check your pay statement for the CFLTD premium.<br><br><strong>Reserve Force:</strong> Class C and Class B over 180 days: automatic. Class A and shorter Class B: can purchase optional coverage.</p><p class="fr"><strong>Force reguliere :</strong> Oui — automatique des l'enrolement. Verifiez la prime AILD sur votre releve de paie.<br><br><strong>Force de reserve :</strong> Classe C et classe B de plus de 180 jours : automatique. Classe A et classe B courte : couverture facultative disponible.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What does it actually pay if I get injured?</span><span class="faq-q-text fr">Combien recois-je si je suis blesse?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">If totally disabled, SISIP LTD pays <strong>75% of your pre-release salary until age 65</strong>. Applies whether injured on duty or off duty. Administered by Manulife: 1-800-267-6681.</p><p class="fr">En cas d'invalidite totale, l'AILD du RARM paie <strong>75 % de votre salaire avant liberation jusqu'a 65 ans</strong>. S'applique en service ou hors service. Administre par Manuvie : 1-800-267-6681.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What should I do with SISIP in my first 30 days?</span><span class="faq-q-text fr">Que faire avec le RARM dans mes 30 premiers jours?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><ul class="en"><li>Confirm your CFLTD premium appears on your pay statement</li><li>Book a <strong>free financial planning session</strong> with SISIP Financial</li><li>Keep records of any injuries or medical issues from the start</li></ul><ul class="fr"><li>Confirmez que la prime AILD apparait sur votre releve de paie</li><li>Reservez une <strong>seance gratuite de planification financiere</strong> avec les Services financiers du RARM</li><li>Conservez des dossiers de toute blessure ou probleme medical des le debut</li></ul></div></div></div>
+
+  </div>
+</div>
+
+<!-- S6: CAREER PROGRESSION (5 FAQs) — NEW -->
+<div class="stage s6" id="s6">
+  <div class="stage-header">
+    <div class="stage-num">6</div>
+    <div class="stage-title-block">
+      <span class="stage-emoji">📈</span>
+      <div class="stage-title en">Career Progression &amp; Courses</div>
+      <div class="stage-title fr">Progression de carriere et cours</div>
+      <div class="stage-subtitle en">PLQ, PERs, Career Managers, and the path to promotion</div>
+      <div class="stage-subtitle fr">PLQ, RER, gestionnaires de carriere et le chemin vers la promotion</div>
+    </div>
+  </div>
+  <div class="faq-list">
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What career courses do I need for promotion?</span><span class="faq-q-text fr">Quels cours de carriere dois-je completer pour etre promu?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">Promotion requires <strong>both trade qualifications and leadership qualifications</strong>:</p><ul class="en"><li><strong>PLQ (Primary Leadership Qualification):</strong> Required for promotion to Sergeant. Competitive, leadership-focused.</li><li><strong>ILQ (Intermediate Leadership Qualification):</strong> Required for Warrant Officer.</li><li><strong>DP courses:</strong> DP1 after BMQ (trade qualification), DP2/DP3 for advanced trade progression.</li></ul><p class="en">Without the required courses, you cannot be promoted regardless of time served. Course seats are competitive — apply early and express your intent to your Career Manager.</p><p class="fr">La promotion exige <strong>des qualifications de metier et de leadership</strong> :</p><ul class="fr"><li><strong>PLQ (Qualification elementaire en leadership) :</strong> Requis pour la promotion au grade de sergent.</li><li><strong>ILQ (Qualification intermediaire en leadership) :</strong> Requis pour l'adjudant.</li><li><strong>Cours PD :</strong> PD1 apres la QMB, PD2/PD3 pour le perfectionnement.</li></ul><p class="fr">Sans les cours requis, vous ne pouvez pas etre promu. Les places sont concurrentielles — postulez tot.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What are PERs and why do they matter?</span><span class="faq-q-text fr">Que sont les RER et pourquoi sont-ils importants?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>PERs (Performance Evaluation Reports)</strong> are your annual performance record. Above Corporal, they are the primary factor in competitive promotion boards. A strong PER can get you promoted ahead of schedule. A weak PER can hold you back for years.</p><div class="tip"><span class="tip-icon">💡</span><span class="en">Read your PER before signing. You have the right to add comments. Ask your supervisor what they're looking for before the assessment period ends.</span><span class="fr">Lisez votre RER avant de le signer. Vous avez le droit d'ajouter des commentaires. Demandez a votre superviseur ce qu'il recherche.</span></div><p class="fr">Les <strong>RER (Rapports d'evaluation du rendement)</strong> sont votre dossier annuel de rendement. Au-dessus du caporal, ils sont le principal facteur pour les comites de selection. Un excellent RER peut accelerer votre promotion. Un RER mediocre peut vous retenir pendant des annees.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">Who is my Career Manager and how do I work with them?</span><span class="faq-q-text fr">Qui est mon gestionnaire de carriere et comment travailler avec lui?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>Career Managers (CMs)</strong> at NDHQ Ottawa match members to positions and manage the posting process. Many members never reach out — this is a mistake. Your CM can explain available positions, flag your preferences, tell you what courses you need, and give honest career advice.</p><p class="en"><strong>How to contact:</strong> Through your unit admin or the My Career portal (EMAA/SGPM system). <strong>Discuss:</strong> career goals, geographic preferences, upcoming postings, desired courses.</p><p class="fr">Les <strong>gestionnaires de carriere (GC)</strong> au QGDN d'Ottawa font correspondre les membres aux postes. Beaucoup de membres ne les contactent jamais — c'est une erreur. Votre GC peut expliquer les postes disponibles, noter vos preferences et donner des conseils de carriere.</p><p class="fr"><strong>Comment contacter :</strong> Par la section d'administration de votre unite ou le portail Ma carriere (systeme SGPM). <strong>A discuter :</strong> objectifs de carriere, preferences geographiques, mutations a venir, cours souhaites.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">How do I write a CF memo?</span><span class="faq-q-text fr">Comment rediger un memo des FC?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">The CF memo is the standard internal communication tool. Used for: leave requests, grievances, complaints, administrative matters. Format: Date, To:, From:, Subject:, numbered paragraphs, signature block. <strong>One subject per memo. Cite the relevant policy.</strong> Be clear and professional. Your admin section has the template.</p><p class="fr">Le memo des FC est l'outil de communication interne standard. Utilise pour : demandes de conge, griefs, plaintes, questions administratives. Format : Date, A :, De :, Objet :, paragraphes numerotes, bloc de signature. <strong>Un seul sujet par memo. Citez la politique pertinente.</strong> Votre section d'administration a le modele.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">How does bilingualism affect promotion?</span><span class="faq-q-text fr">Comment le bilinguisme affecte-t-il la promotion?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>Second Language Profile (SLP):</strong> Rated A (basic), B (intermediate), C (advanced) in reading, writing, and oral. <strong>Bilingual Bonus:</strong> Monthly allowance for meeting bilingual position requirements. Above Sergeant/Captain, many HQ and senior positions require a bilingual profile. The CAF offers free <strong>Second Language Education (SLE)</strong> during work hours.</p><div class="tip"><span class="tip-icon">💡</span><span class="en">Start your second language training early. Getting your profile established before you need it for promotion is far better than scrambling when the opportunity arrives.</span><span class="fr">Commencez votre formation en langue seconde tot. Obtenir votre profil avant d'en avoir besoin est bien mieux que de vous demener au dernier moment.</span></div><p class="fr"><strong>Profil de la seconde langue (PSL) :</strong> Note A (base), B (intermediaire), C (avance) en lecture, ecriture et oral. <strong>Prime bilingue :</strong> Allocation mensuelle. Au-dessus du sergent/capitaine, de nombreux postes exigent un profil bilingue. Les FAC offrent la <strong>Formation linguistique en langue seconde (FLLS)</strong> gratuite pendant les heures de travail.</p></div></div></div>
+
+  </div>
+</div>
+
+<!-- S7: POSTINGS (6 FAQs) -->
+<div class="stage s7" id="s7">
+  <div class="stage-header">
+    <div class="stage-num">7</div>
+    <div class="stage-title-block">
+      <span class="stage-emoji">🏠</span>
+      <div class="stage-title en">Postings &amp; the Posting Process</div>
+      <div class="stage-title fr">Mutations et processus de mutation</div>
+      <div class="stage-subtitle en">How postings work, mobility allowance, and service couple co-location</div>
+      <div class="stage-subtitle fr">Comment les mutations fonctionnent, indemnite de mobilite et co-localisation</div>
+    </div>
+  </div>
+  <div class="faq-list">
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What is the new Mobility Allowance? (April 2026)</span><span class="faq-q-text fr">Qu'est-ce que la nouvelle indemnite de mobilite? (Avril 2026)</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">The <strong>Mobility Allowance replaces the old Posting Allowance effective April 1, 2026</strong>:</p><ul class="en"><li>Moves 1–3: <strong>$13,500</strong> per move</li><li>Moves 4–6: <strong>$20,250</strong> per move</li><li>Beyond 6: <strong>$27,000</strong> per move</li></ul><p class="fr">L'<strong>indemnite de mobilite remplace l'ancienne indemnite de mutation depuis le 1er avril 2026</strong> :</p><ul class="fr"><li>Mutations 1–3 : <strong>13 500 $</strong></li><li>Mutations 4–6 : <strong>20 250 $</strong></li><li>Au-dela de 6 : <strong>27 000 $</strong></li></ul></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What is CFHD and how is it calculated?</span><span class="faq-q-text fr">Qu'est-ce que le DLFC et comment est-il calcule?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">The <strong>Canadian Forces Housing Differential (CFHD)</strong> helps members posted to expensive cities. Calculated based on the difference between local rental costs and a percentage of your pay. Updated every July. Lower-ranked members in expensive cities get proportionally more help.</p><p class="fr">Le <strong>Differentiel de logement des Forces canadiennes (DLFC)</strong> aide les membres mutes dans des villes couteuses. Calcule selon la difference entre les couts locaux de location et un pourcentage de votre solde. Mis a jour chaque juillet.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What should I do when I receive a posting message?</span><span class="faq-q-text fr">Que faire des que je recois un message de mutation?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><ul class="en"><li>Contact your <strong>receiving unit</strong> immediately</li><li>Contact the <strong>MFRC</strong> at your new base</li><li>Contact <strong>Housing Services Centre</strong> for housing options</li><li><strong>Keep ALL receipts</strong> — everything is potentially claimable</li><li>Contact <strong>SISIP Financial</strong> to update your plan</li></ul><ul class="fr"><li>Contactez votre <strong>unite de destination</strong> immediatement</li><li>Contactez le <strong>CRFM</strong> a la nouvelle base</li><li>Contactez le <strong>Centre des services de logement</strong></li><li><strong>Conservez TOUS les recus</strong></li><li>Contactez les <strong>Services financiers du RARM</strong></li></ul></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">How does the posting process work? (APS, EMAA)</span><span class="faq-q-text fr">Comment fonctionne le processus de mutation? (SMA, SGPM)</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">Most postings happen during the <strong>Annual Posting Season (APS)</strong> — spring messages for summer moves. Career Managers match members to vacant positions. Submit your <strong>posting preferences through the My Career portal (EMAA/SGPM)</strong> — considered but not guaranteed. Posting messages typically give 4–6 months notice. Short-notice postings outside APS do happen.</p><p class="fr">La plupart des mutations se produisent pendant la <strong>Saison des mutations annuelles (SMA)</strong> — messages au printemps pour demenagements l'ete. Soumettez vos <strong>preferences de mutation via le portail Ma carriere (SGPM)</strong> — prises en compte mais non garanties. Les messages donnent generalement 4–6 mois de preavis.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What is Imposed Restriction (IR)?</span><span class="faq-q-text fr">Qu'est-ce que la Restriction imposee (RI)?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>IR</strong> is granted when you're posted but your family cannot move with you (school year, spouse employment, medical treatment). IR pay covers accommodation at your new location. Typically approved for up to 1 year, renewable. Apply early and document the reason clearly. It is approved case-by-case — not a right.</p><p class="fr">La <strong>RI</strong> est accordee lorsque vous etes mute mais que votre famille ne peut pas demenager (annee scolaire, emploi du conjoint, traitement medical). La remuneration de RI couvre l'hebergement au nouvel emplacement. Generalement approuvee pour 1 an, renouvelable. Soumettez votre demande tot et documentez clairement la raison.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">Service couples — how do postings work when both partners serve?</span><span class="faq-q-text fr">Couples de militaires — comment les mutations fonctionnent-elles?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">The CAF has a <strong>co-location policy</strong>. Both members must submit formal requests through their respective Career Managers simultaneously. Co-location is considered, not guaranteed. At larger bases with multiple units, it usually works. When it isn't possible, one member may request IR. Build the relationship with both Career Managers early.</p><p class="fr">Les FAC ont une <strong>politique de co-localisation</strong>. Les deux membres doivent soumettre des demandes formelles simultanement par leurs gestionnaires de carriere respectifs. La co-localisation est consideree, pas garantie. Dans les grandes bases, ca fonctionne generalement. Quand c'est impossible, un membre peut demander la RI.</p></div></div></div>
+
+  </div>
+</div>
+
+<!-- S8: DEPLOYMENTS (3 FAQs) — NEW -->
+<div class="stage s8" id="s8">
+  <div class="stage-header">
+    <div class="stage-num">8</div>
+    <div class="stage-title-block">
+      <span class="stage-emoji">🌍</span>
+      <div class="stage-title en">Deployments</div>
+      <div class="stage-title fr">Deploiements</div>
+      <div class="stage-subtitle en">What to expect, family support, and tax-free deployment income</div>
+      <div class="stage-subtitle fr">A quoi s'attendre, soutien familial et revenus non imposables</div>
+    </div>
+  </div>
+  <div class="faq-list">
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What should I expect if I deploy?</span><span class="faq-q-text fr">A quoi m'attendre si je suis deploye?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><ul class="en"><li><strong>Types:</strong> Domestic (Op LENTUS, Op LASER), continental (NORAD), international (NATO, UN, coalition)</li><li><strong>Duration:</strong> Typical international tour is ~6 months</li><li><strong>Pre-deployment:</strong> Weeks of mission-specific training — rules of engagement, cultural training, first aid</li><li><strong>Communication:</strong> Possible but can be restricted during operations</li><li><strong>After returning:</strong> Operational stress reactions are normal. Debrief with your chain of command. Use health resources. Give yourself time.</li></ul><ul class="fr"><li><strong>Types :</strong> Interieures (Op LENTUS, Op LASER), continentales (NORAD), internationales (OTAN, ONU, coalitions)</li><li><strong>Duree :</strong> Rotation internationale typique ~6 mois</li><li><strong>Pre-deploiement :</strong> Semaines de formation specifique a la mission</li><li><strong>Communication :</strong> Possible mais peut etre restreinte pendant les operations</li><li><strong>Apres le retour :</strong> Les reactions de stress operationnel sont normales. Utilisez les ressources de sante.</li></ul></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What does my family receive during deployment?</span><span class="faq-q-text fr">Quel soutien recoit ma famille pendant un deploiement?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><ul class="en"><li><strong>MFRC:</strong> Deployment support programs — workshops, family events, reintegration support</li><li><strong>Financial:</strong> Risk and hardship allowances in addition to base salary</li><li><strong>SISIP Financial:</strong> Helps families manage financial changes during deployment</li><li><strong>24/7 Family Line:</strong> 1-800-866-4546 — practical questions to emotional support</li><li>Connect with other deployment families through your MFRC — peer support is powerful</li></ul><ul class="fr"><li><strong>CRFM :</strong> Programmes de soutien au deploiement — ateliers, evenements familiaux, soutien de reintegration</li><li><strong>Financier :</strong> Indemnites de risque et de penibilite en plus de la solde</li><li><strong>Services financiers du RARM :</strong> Aide aux familles a gerer les changements financiers</li><li><strong>Ligne familiale 24 h/24 :</strong> 1-800-866-4546</li><li>Entrez en contact avec d'autres familles de deployes par votre CRFM</li></ul></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">Tax advantages during deployment</span><span class="faq-q-text fr">Avantages fiscaux en deploiement</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">Members deployed to <strong>designated operational areas</strong> may qualify for full income tax exemption on pay earned during deployment. The CRA publishes designated zones annually — most major international ops are included. Risk and hardship allowances are also typically tax-free. This can represent <strong>thousands of dollars in savings</strong> on a single tour. Confirm with your unit admin and a SISIP Financial advisor.</p><p class="fr">Les membres deployes dans des <strong>zones operationnelles designees</strong> peuvent se qualifier pour une exoneration complete d'impot sur le revenu gagne en deploiement. L'ARC publie les zones designees annuellement. Les indemnites de risque et de penibilite sont aussi generalement non imposables. Cela peut representer <strong>des milliers de dollars d'economies</strong>. Confirmez avec l'administration de votre unite et un conseiller du RARM.</p></div></div></div>
+
+  </div>
+</div>
+
+<!-- =============================== -->
+<!-- PHASE 3: YOUR LIFE & FAMILY     -->
+<!-- =============================== -->
+<div class="phase-divider" id="phase-3">
+  <span class="phase-tag p3tag"><span class="en">Phase 3 &middot; Your Life &amp; Family</span><span class="fr">Phase 3 &middot; Vie et famille</span></span>
+  <span class="phase-line"></span>
+</div>
+
+<!-- S9: HOUSING, BENEFITS & LEAVE (5 FAQs) -->
+<div class="stage s9" id="s9">
+  <div class="stage-header">
+    <div class="stage-num">9</div>
+    <div class="stage-title-block">
+      <span class="stage-emoji">🏡</span>
+      <div class="stage-title en">Housing, Benefits &amp; Leave</div>
+      <div class="stage-title fr">Logement, avantages et conges</div>
+      <div class="stage-subtitle en">Dental, vision, parental leave, annual leave, and the buy vs. rent question</div>
+      <div class="stage-subtitle fr">Soins dentaires, vision, conge parental, conge annuel et acheter vs louer</div>
+    </div>
+  </div>
+  <div class="faq-list">
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What dental and vision benefits do I get?</span><span class="faq-q-text fr">Quels avantages dentaires et de vision ai-je?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>Reg Force:</strong> Full dental at base dental clinic, no cost. Vision care + prescription glasses covered. <strong>Dependents:</strong> Covered under the PSHCP (dental/vision with limits). <strong>Reserve Class A:</strong> Limited — check with your unit admin.</p><p class="fr"><strong>Force reguliere :</strong> Soins dentaires complets a la clinique de la base, sans frais. Soins de la vue + lunettes couverts. <strong>Personnes a charge :</strong> Couvertes par le RSSFP. <strong>Reserve classe A :</strong> Couverture limitee — verifiez aupres de l'administration.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What parental and maternity leave does the CAF offer?</span><span class="faq-q-text fr">Quels conges parentaux et de maternite les FAC offrent-elles?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><ul class="en"><li><strong>Maternity:</strong> Up to 18 weeks for the birth parent</li><li><strong>Parental:</strong> Up to 63 weeks (standard) or 69 weeks (extended), shareable</li><li><strong>Top-up:</strong> CAF tops up EI to <strong>93% of regular pay</strong></li><li><strong>Adoption leave:</strong> Also available</li><li>You continue earning <strong>pension credits</strong> during leave</li></ul><p class="en">This is one of the best parental leave packages in Canada. Plan early — talk to your OR well before the baby arrives.</p><ul class="fr"><li><strong>Maternite :</strong> Jusqu'a 18 semaines</li><li><strong>Parental :</strong> Jusqu'a 63 semaines (standard) ou 69 semaines (prolonge), partageable</li><li><strong>Complement :</strong> Les FAC completent a <strong>93 % de la solde reguliere</strong></li><li><strong>Adoption :</strong> Egalement disponible</li><li>Vous continuez d'accumuler des <strong>credits de pension</strong></li></ul><p class="fr">C'est l'un des meilleurs regimes de conge parental au Canada. Planifiez tot.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">How much annual leave do I get?</span><span class="faq-q-text fr">Combien de jours de conge annuel ai-je?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>20 days per year</strong> to start, increasing with years of service. Earned at ~1.67 days per month. Plus statutory holidays.</p><p class="fr"><strong>20 jours par an</strong> pour commencer, augmentant avec les annees de service. Acquis a environ 1,67 jour par mois. En plus des jours feries.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">Do I need to be bilingual to join?</span><span class="faq-q-text fr">Dois-je etre bilingue pour m'enroler?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>No.</strong> Bilingualism is not required to enrol, except for certain officer positions. The CAF offers <strong>Second Language Education and Training (SLET)</strong>. Being bilingual helps with career progression, especially at senior NCO and officer ranks (see Career Progression section).</p><p class="fr"><strong>Non.</strong> Le bilinguisme n'est pas requis pour l'enrolement, sauf pour certains postes d'officier. Les FAC offrent la <strong>formation linguistique en langue seconde</strong>. Le bilinguisme aide a la progression de carriere (voir section Progression de carriere).</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">Should I buy or rent on the posting cycle?</span><span class="faq-q-text fr">Devrais-je acheter ou louer avec le cycle de mutations?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">If posting every 2–4 years: buying and selling incurs real estate commissions (3–5%), legal fees, and land transfer taxes. On a $450K home, that's roughly <strong>$15,000–22,000 per transaction</strong>. Two postings can consume all appreciation gains. BGRS/IRP covers relocation but not commission losses. Some members buy, keep as rental when posted, and rent at the new location.</p><div class="tip"><span class="tip-icon">💡</span><span class="en">Talk to SISIP Financial before deciding — they understand the posting cycle in a way civilian advisors typically don't.</span><span class="fr">Parlez aux Services financiers du RARM avant de decider — ils comprennent le cycle de mutations d'une facon que les conseillers civils ne comprennent pas.</span></div><p class="fr">Si vous etes mute tous les 2–4 ans : acheter et vendre engendre des commissions (3–5 %), des frais juridiques et des droits de mutation. Sur une maison de 450 000 $, c'est environ <strong>15 000–22 000 $ par transaction</strong>. Le SDRD/PRI couvre la reinstallation mais pas les pertes de commission. Certains membres achetent, louent en partant et louent au nouvel endroit.</p></div></div></div>
+
+  </div>
+</div>
+
+<!-- S10: PSP & BASE LIFE (4 FAQs) -->
+<div class="stage s10" id="s10">
+  <div class="stage-header">
+    <div class="stage-num">10</div>
+    <div class="stage-title-block">
+      <span class="stage-emoji">⚽</span>
+      <div class="stage-title en">PSP &amp; Base Life</div>
+      <div class="stage-title fr">PSP et vie sur la base</div>
+      <div class="stage-subtitle en">Programs, sports, education funding, and discounts most members miss</div>
+      <div class="stage-subtitle fr">Programmes, sports, aide aux etudes et rabais que la plupart manquent</div>
+    </div>
+  </div>
+  <div class="faq-list">
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What is PSP and what does it include?</span><span class="faq-q-text fr">Qu'est-ce que le PSP et qu'est-ce que ca comprend?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><ul class="en"><li><strong>Fitness facilities</strong> — often better than civilian gyms, free or subsidized</li><li><strong>Sports programs</strong> — leagues, teams, competitions</li><li><strong>Recreation and leisure</strong> — courses, workshops, clubs</li><li><strong>Health promotion</strong> — wellness, nutrition, mental fitness</li></ul><ul class="fr"><li><strong>Installations de conditionnement physique</strong> — souvent mieux equipees que les gymnases civils</li><li><strong>Programmes sportifs</strong> — ligues, equipes, competitions</li><li><strong>Loisirs</strong> — cours, ateliers, clubs</li><li><strong>Promotion de la sante</strong> — bien-etre, nutrition, sante mentale</li></ul></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">How do I join a sports team on base?</span><span class="faq-q-text fr">Comment rejoindre une equipe sportive sur la base?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">Visit <strong>cfmws.ca</strong> and select your base, or go to the PSP desk near the fitness centre. Ask your section 2IC or Platoon Warrant. There are base-level leagues plus CAF-wide competitions and national championships.</p><p class="fr">Visitez <strong>cfmws.ca</strong> et selectionnez votre base, ou allez au bureau du PSP. Demandez a votre 2IC ou adjudant de peloton. Il y a des ligues locales et des competitions nationales.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What is CF1 membership and should I get it?</span><span class="faq-q-text fr">Qu'est-ce que l'adhesion FC1?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>Yes — sign up immediately.</strong> CF1 is a free CFMWS membership with exclusive discounts: BMO, The Personal insurance, CANEX, and more. Most members save hundreds per year. Sign up at cfmws.ca or the CF1 app. 5 minutes.</p><p class="fr"><strong>Oui — inscrivez-vous immediatement.</strong> FC1 est une adhesion gratuite aux SBMFC avec des rabais exclusifs : BMO, La Personnelle, CANEX. La plupart des membres economisent des centaines de dollars par an. Inscription sur cfmws.ca ou l'application FC1.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">Can the CAF pay for my education?</span><span class="faq-q-text fr">Les FAC peuvent-elles payer mes etudes?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><ul class="en"><li><strong>ILP:</strong> Up to $2,000/year for part-time studies while serving</li><li><strong>ROTP:</strong> Full-time university paid by the CAF for officer candidates (with return-of-service obligation)</li><li><strong>UTPNCM:</strong> Full-time university for serving NCMs who want to become officers</li><li><strong>ETB:</strong> Up to $85,764 for post-service education (6+ years of service)</li></ul><ul class="fr"><li><strong>PAI :</strong> Jusqu'a 2 000 $/an pour etudes a temps partiel</li><li><strong>PFOR :</strong> Universite payee par les FAC pour candidats officiers (obligation de service en retour)</li><li><strong>PFUMR :</strong> Universite pour MR en service voulant devenir officiers</li><li><strong>AEF :</strong> Jusqu'a 85 764 $ pour etudes apres le service (6 ans ou plus)</li></ul></div></div></div>
+
+  </div>
+</div>
+
+<!-- S11: FAMILY SUPPORT / MFRC (4 FAQs) -->
+<div class="stage s11" id="s11">
+  <div class="stage-header">
+    <div class="stage-num">11</div>
+    <div class="stage-title-block">
+      <span class="stage-emoji">👨‍👩‍👧</span>
+      <div class="stage-title en">Family Support (MFRC)</div>
+      <div class="stage-title fr">Soutien familial (CRFM)</div>
+      <div class="stage-subtitle en">Free support for CAF families — most people don't know it exists</div>
+      <div class="stage-subtitle fr">Soutien gratuit pour les familles des FAC</div>
+    </div>
+  </div>
+  <div class="faq-list">
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What does the MFRC actually do?</span><span class="faq-q-text fr">Que fait reellement le CRFM?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><ul class="en"><li>Deployment preparation and support</li><li>Counselling and referral services</li><li>Child and youth programs</li><li>Childcare connections</li><li>Spouse employment support</li><li>Posting transition support for the whole family</li></ul><ul class="fr"><li>Preparation et soutien au deploiement</li><li>Services de consultation et de reference</li><li>Programmes pour les enfants et les jeunes</li><li>Aide a la garde d'enfants</li><li>Soutien a l'emploi des conjoints</li><li>Soutien a la transition lors des mutations</li></ul></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">Do I have to be in crisis to use the MFRC?</span><span class="faq-q-text fr">Dois-je etre en crise pour utiliser le CRFM?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>No. Use them early.</strong> The MFRC is designed for everyday challenges: new postings, upcoming deployments, kids struggling in a new school, a spouse looking for work.</p><div class="tip"><span class="tip-icon">📞</span><span class="en">24/7 Family Information Line: <strong>1-800-866-4546</strong></span><span class="fr">Ligne d'information 24 h/24 : <strong>1-800-866-4546</strong></span></div><p class="fr"><strong>Non. Utilisez-les tot.</strong> Le CRFM est concu pour les defis quotidiens : nouvelle mutation, deploiement a venir, enfants dans une nouvelle ecole.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What childcare support is available?</span><span class="faq-q-text fr">Quel soutien a la garde d'enfants est offert?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">MFRCs have <strong>subsidized childcare spots</strong> — contact early as they fill quickly. Budget 2024 committed $100M over 5 years to improve military family childcare. Provincial funding is also flowing through base communities.</p><p class="fr">Les CRFM disposent de <strong>places en garderie subventionnees</strong> — contactez tot. Le Budget 2024 a engage 100 M$ sur 5 ans pour ameliorer la garde d'enfants des familles militaires.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">Moving with pets during a posting</span><span class="faq-q-text fr">Demenager avec des animaux lors d'une mutation</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><ul class="en"><li><strong>BGRS/IRP:</strong> Limited reimbursement for pet transport — typically domestic cats/dogs, ground transport</li><li><strong>NOT typically covered:</strong> Exotic animals, air transport beyond basic costs, specialized boarding</li><li><strong>Crown housing (PMQs):</strong> Many allow pets but may have breed/number restrictions — confirm before signing</li><li><strong>International postings:</strong> Research destination country's animal import rules 6+ months early — quarantine can be months long</li></ul><ul class="fr"><li><strong>SDRD/PRI :</strong> Remboursement limite pour le transport d'animaux — generalement chats/chiens, transport terrestre</li><li><strong>Generalement NON couvert :</strong> Animaux exotiques, transport aerien, pension specialisee</li><li><strong>QMF :</strong> Beaucoup acceptent les animaux mais avec des restrictions — confirmez avant de signer</li><li><strong>Mutations internationales :</strong> Informez-vous sur les regles d'importation 6+ mois a l'avance</li></ul></div></div></div>
+
+  </div>
+</div>
+
+<!-- =============================== -->
+<!-- PHASE 4: TRANSITIONS            -->
+<!-- =============================== -->
+<div class="phase-divider" id="phase-4">
+  <span class="phase-tag p4tag"><span class="en">Phase 4 &middot; Transitions</span><span class="fr">Phase 4 &middot; Transitions</span></span>
+  <span class="phase-line"></span>
+</div>
+
+<!-- S12: WHEN THINGS GO WRONG (4 FAQs) -->
+<div class="stage s12" id="s12">
+  <div class="stage-header">
+    <div class="stage-num">12</div>
+    <div class="stage-title-block">
+      <span class="stage-emoji">🆘</span>
+      <div class="stage-title en">When Things Go Wrong</div>
+      <div class="stage-title fr">Quand les choses tournent mal</div>
+      <div class="stage-subtitle en">Who to go to, in what order, for every type of problem</div>
+      <div class="stage-subtitle fr">A qui s'adresser, dans quel ordre, pour chaque probleme</div>
+    </div>
+  </div>
+  <div class="faq-list">
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">My pay or benefits are wrong — what's the chain?</span><span class="faq-q-text fr">Ma paie ou mes avantages sont incorrects — quelle est la chaine?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><ol class="en"><li>Your <strong>Orderly Room (OR)</strong> — first stop always</li><li>Your <strong>chain of command</strong></li><li><strong>DCBA</strong> — formal adjudication</li><li><strong>Grievance process</strong> — submit within 90 days</li></ol><ol class="fr"><li>Le <strong>Bureau de l'adjudant (BAdj)</strong> — premier arret</li><li>Votre <strong>chaine de commandement</strong></li><li><strong>DARRS</strong> — adjudication formelle</li><li><strong>Processus de grief</strong> — soumettre dans les 90 jours</li></ol></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">I'm experiencing harassment or misconduct. Where do I go?</span><span class="faq-q-text fr">Je vis du harcelement ou de l'inconduite. Ou m'adresser?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><ul class="en"><li>Your <strong>unit chain of command</strong></li><li><strong>CAF Sexual Misconduct Response Centre (SMRC):</strong> 1-844-750-1648 (confidential)</li><li><strong>Office of the National Defence and CF Ombudsman</strong> — independent, for when internal channels fail</li></ul><ul class="fr"><li>Votre <strong>chaine de commandement d'unite</strong></li><li><strong>Centre d'intervention sur l'inconduite sexuelle (CIIS) :</strong> 1-844-750-1648 (confidentiel)</li><li><strong>Bureau de l'Ombudsman</strong> — independant, quand les voies internes echouent</li></ul></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">Mental health support — how do I get help without affecting my career?</span><span class="faq-q-text fr">Soutien en sante mentale — comment obtenir de l'aide sans affecter ma carriere?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">You can access <strong>mental health support through your base medical clinic without it affecting your career</strong> in most circumstances. Seeking help is a sign of strength. Your base IPSC provides confidential support.</p><div class="tip"><span class="tip-icon">🆘</span><span class="en"><strong>In crisis now?</strong> Call or text <strong>988</strong> (24/7) &middot; VAC: <strong>1-800-268-7708</strong></span><span class="fr"><strong>En crise?</strong> Appelez ou textez le <strong>988</strong> (24 h/24) &middot; ACC : <strong>1-800-268-7708</strong></span></div><p class="fr">Vous pouvez acceder a un <strong>soutien en sante mentale par la clinique medicale de votre base sans que cela n'affecte votre carriere</strong>. Demander de l'aide est un signe de force. Le CISP de votre base offre un soutien confidentiel.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What is the Code of Service Discipline? Can I be charged for things civilians can't?</span><span class="faq-q-text fr">Qu'est-ce que le Code de discipline militaire? Puis-je etre accuse de choses que les civils ne peuvent pas?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>Yes.</strong> From enrolment, you are subject to military law under the <strong>National Defence Act (NDA)</strong> — 24/7. You can be charged for: <strong>Absent Without Leave (AWL)</strong>, insubordination, drunkenness (even off-base in some contexts), and conduct unbecoming. Minor offences: Summary Trials before your CO. Serious matters: Court Martial. "I didn't know that was against the rules" is not a defence. Ask your chain of command when in doubt.</p><p class="fr"><strong>Oui.</strong> Des l'enrolement, vous etes soumis au droit militaire en vertu de la <strong>Loi sur la defense nationale (LDN)</strong> — 24 h/24. Vous pouvez etre accuse de : <strong>Absence sans permission (ASP)</strong>, insubordination, ivresse (meme hors base dans certains contextes), conduite indigne. Infractions mineures : proces sommaires devant votre CO. Cas graves : cour martiale. « Je ne savais pas que c'etait contre les regles » n'est pas une defense.</p></div></div></div>
+
+  </div>
+</div>
+
+<!-- S13: CAREER CHANGES (3 FAQs) — NEW -->
+<div class="stage s13" id="s13">
+  <div class="stage-header">
+    <div class="stage-num">13</div>
+    <div class="stage-title-block">
+      <span class="stage-emoji">🔄</span>
+      <div class="stage-title en">Career Changes</div>
+      <div class="stage-title fr">Changements de carriere</div>
+      <div class="stage-subtitle en">Changing your trade, transferring components, or becoming an officer</div>
+      <div class="stage-subtitle fr">Changer de metier, transfert entre composantes ou devenir officier</div>
+    </div>
+  </div>
+  <div class="faq-list">
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">How do I change my trade? (OT/VOT)</span><span class="faq-q-text fr">Comment changer de metier? (RC)</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>Occupational Transfer (OT)</strong> lets you switch trades. Requirements: meet CFAT score for the new trade, medical/physical standards, and generally have completed DP1. Process: express interest to your Career Manager; CO must support. It's competitive and not guaranteed. Switching resets your trade qualification — you'll do trade training again.</p><p class="fr">La <strong>Reaffectation dans un corps de specialite (RC)</strong> vous permet de changer de metier. Exigences : score requis a l'EATFC pour le nouveau metier, normes medicales/physiques, et generalement avoir complete votre PD1. Processus : exprimez votre interet au gestionnaire de carriere; le CO doit appuyer. C'est concurrentiel et non garanti. Le changement reinitialise votre qualification de metier.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">How do I transfer between Reg Force and Reserve?</span><span class="faq-q-text fr">Comment transferer entre la Force reguliere et la Reserve?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>Reg Force → Reserve:</strong> Possible but pension accrual stops at transfer — a significant financial consideration. Consult SISIP Financial first.</p><p class="en"><strong>Reserve → Reg Force:</strong> Competitive process similar to new enrolment. Having served as a Reservist is an advantage but not a guarantee. Both directions require chain of command support and formal paperwork.</p><p class="fr"><strong>Force reguliere → Reserve :</strong> Possible mais l'accumulation de la pension s'arrete au transfert — consideration financiere importante. Consultez les Services financiers du RARM.</p><p class="fr"><strong>Reserve → Force reguliere :</strong> Processus concurrentiel similaire a un nouvel enrolement. Avoir servi comme reserviste est un avantage mais pas une garantie. Les deux directions necessitent l'appui de la chaine de commandement.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">How do I go from NCM to Officer? (CFR)</span><span class="faq-q-text fr">Comment passer de MR a officier? (CFR)</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>Commissioning from the Ranks (CFR)</strong> is the competitive program for experienced NCMs. Programs include: <strong>CFR Direct</strong> (for NCMs with a degree), <strong>UTPNCM</strong> (CAF pays your university degree while you serve), and <strong>CEOTP</strong> (various pathways). Important: your rank often resets to Second Lieutenant. This is a significant career change — not a promotion within your current path.</p><p class="fr">La <strong>Commission a partir des rangs (CFR)</strong> est le programme concurrentiel pour les MR experimentes. Programmes : <strong>CFR Direct</strong> (MR avec diplome), <strong>PFUMR</strong> (les FAC paient votre diplome universitaire), <strong>CEOTP</strong> (diverses filieres). Important : votre grade est souvent reinitialise a sous-lieutenant. C'est un changement de carriere significatif.</p></div></div></div>
+
+  </div>
+</div>
+
+<!-- S14: LEAVING THE CAF (3 FAQs) -->
+<div class="stage s14" id="s14">
+  <div class="stage-header">
+    <div class="stage-num">14</div>
+    <div class="stage-title-block">
+      <span class="stage-emoji">🎖️</span>
+      <div class="stage-title en">Leaving the CAF &amp; Veteran Benefits</div>
+      <div class="stage-title fr">Quitter les FAC et avantages des veterans</div>
+      <div class="stage-subtitle en">Release types, the transition process, and VAC benefits</div>
+      <div class="stage-subtitle fr">Types de liberation, processus de transition et avantages ACC</div>
+    </div>
+  </div>
+  <div class="faq-list">
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What are the different release types?</span><span class="faq-q-text fr">Quels sont les differents types de liberation?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><ul class="en"><li><strong>Item 3b — Voluntary Release:</strong> You initiated the release. Most common for those choosing to leave. Requires notice (typically up to 6 months).</li><li><strong>Item 4c — Medical Release:</strong> Released due to medical conditions incompatible with service. Typically provides access to enhanced VAC benefits.</li><li><strong>Item 5 (5a–5f) — Compulsory Release:</strong> Various reasons including misconduct, imprisonment, service no longer required. These can affect pension and benefits.</li></ul><p class="en"><strong>Your release type matters</strong> — a 3b and 4c have very different benefit outcomes. If being released for medical reasons, ensure the correct item is applied. Consult JAG if you have questions.</p><ul class="fr"><li><strong>Article 3b — Liberation volontaire :</strong> Vous avez initie la liberation. Necessite un preavis (jusqu'a 6 mois).</li><li><strong>Article 4c — Liberation medicale :</strong> Conditions medicales incompatibles avec le service. Donne generalement acces a des avantages ACC ameliores.</li><li><strong>Article 5 (5a–5f) — Liberation obligatoire :</strong> Diverses raisons dont l'inconduite. Peut affecter la pension et les avantages.</li></ul><p class="fr"><strong>Votre type de liberation compte</strong> — un article 3b et 4c ont des resultats d'avantages tres differents. Consultez le JAG si vous avez des questions.</p></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What happens when I leave the CAF? What veteran benefits exist?</span><span class="faq-q-text fr">Que se passe-t-il quand je quitte les FAC? Quels avantages veterans existent?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><ul class="en"><li>Register for <strong>My VAC Account</strong> before you release — do not wait</li><li>The <strong>CAF Transition Group</strong> supports members through the release process</li><li><strong>Veterans Affairs disability benefits</strong> for service-related injuries</li><li><strong>ETB:</strong> Up to $85,764 for post-service education (6+ years)</li><li><strong>Career Transition Services:</strong> Job search, resume writing, interview prep</li><li>Contact VAC: <strong>1-866-522-2122</strong> or veterans.gc.ca</li></ul><ul class="fr"><li>Inscrivez-vous a <strong>Mon dossier ACC</strong> avant votre liberation</li><li>Le <strong>Groupe de transition des FAC</strong> soutient les membres</li><li><strong>Prestations d'invalidite d'Anciens Combattants</strong></li><li><strong>AEF :</strong> Jusqu'a 85 764 $ pour etudes (6 ans ou plus)</li><li><strong>Services de transition de carriere :</strong> Recherche d'emploi, CV, entrevues</li><li>Contactez ACC : <strong>1-866-522-2122</strong> ou veterans.gc.ca</li></ul></div></div></div>
+
+    <div class="faq-item"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">I want to leave the CAF. What is the process?</span><span class="faq-q-text fr">Je veux quitter les FAC. Quel est le processus?</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">This is a <strong>Voluntary Release (Item 3b)</strong>. A notice period is typically required (up to 6 months, sometimes shortened). If you joined through ROTP or another subsidized education plan, you may have a return-of-service obligation. Talk to your chain of command first, then your OR for paperwork. <strong>Do not simply stop showing up — follow the formal process.</strong> The CAF Transition Group will help you plan next steps.</p><p class="fr">C'est une <strong>liberation volontaire (article 3b)</strong>. Un preavis est generalement requis (jusqu'a 6 mois). Si vous avez rejoint via le PFOR, vous pourriez avoir une obligation de service. Parlez d'abord a votre chaine de commandement, puis au BAdj. <strong>Ne cessez pas simplement de vous presenter — suivez le processus formel.</strong> Le Groupe de transition des FAC vous aidera.</p></div></div></div>
+
+  </div>
+</div>
+
+</div><!-- end .main -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-phase-links">
+    <a class="footer-phase-link" href="#phase-1"><span class="en">Phase 1 &middot; Getting In</span><span class="fr">Phase 1 &middot; S'enroler</span></a>
+    <a class="footer-phase-link" href="#phase-2"><span class="en">Phase 2 &middot; Career</span><span class="fr">Phase 2 &middot; Carriere</span></a>
+    <a class="footer-phase-link" href="#phase-3"><span class="en">Phase 3 &middot; Life &amp; Family</span><span class="fr">Phase 3 &middot; Vie et famille</span></a>
+    <a class="footer-phase-link" href="#phase-4"><span class="en">Phase 4 &middot; Transitions</span><span class="fr">Phase 4 &middot; Transitions</span></a>
+  </div>
+  <strong>🍁 CAF Career Navigator</strong><br>
+  <span class="en">Built free by a CAF community member &middot; Powered by Claude AI by Anthropic</span>
+  <span class="fr">Cree gratuitement par un membre de la communaute des FAC &middot; Propulse par Claude AI</span><br>
+  <strong>NOT an official Canadian Armed Forces product</strong><br>
+  <span class="en">Information reflects publicly available CAF policies as of March 2026. Always confirm with your recruiter, Orderly Room, or canada.ca</span>
+  <span class="fr">L'information reflete les politiques des FAC accessibles au public en mars 2026. Confirmez toujours aupres de votre recruteur, BAdj ou canada.ca</span><br>
+  <span style="opacity:0.5">Last updated: March 2026</span>
+  <div class="footer-crisis">
+    <span class="en">Crisis: <strong>988</strong> &middot; VAC: <strong>1-800-268-7708</strong> &middot; Family: <strong>1-800-866-4546</strong></span>
+    <span class="fr">Crise : <strong>988</strong> &middot; ACC : <strong>1-800-268-7708</strong> &middot; Famille : <strong>1-800-866-4546</strong></span>
+  </div>
+  <div class="footer-back-top"><a href="#main-content"><span class="en">Back to top</span><span class="fr">Retour en haut</span></a></div>
+</div>
+
+<!-- BACK TO TOP BUTTON -->
+<button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0})" aria-label="Back to top">&#8593;</button>
+
+<script>
+function toggle(btn) {
+  var item = btn.closest('.faq-item');
+  var wasOpen = item.classList.contains('open');
+  var stage = item.closest('.stage');
+  stage.querySelectorAll('.faq-item.open').forEach(function(i) {
+    i.classList.remove('open');
+    i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+  });
+  if (!wasOpen) {
+    item.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+  }
+}
+
+function setLang(lang, btn) {
+  document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  if (lang === 'fr') {
+    document.body.classList.add('fr-mode');
+    document.documentElement.setAttribute('lang', 'fr');
+  } else {
+    document.body.classList.remove('fr-mode');
+    document.documentElement.setAttribute('lang', 'en');
+  }
+  updateExpandBtnText();
+}
+
+function toggleAll() {
+  var btn = document.getElementById('expand-btn');
+  var items = document.querySelectorAll('.faq-item');
+  var expanding = btn.getAttribute('data-state') === 'collapsed';
+  items.forEach(function(item) {
+    if (expanding) {
+      item.classList.add('open');
+      item.querySelector('.faq-q').setAttribute('aria-expanded', 'true');
+    } else {
+      item.classList.remove('open');
+      item.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+    }
+  });
+  btn.setAttribute('data-state', expanding ? 'expanded' : 'collapsed');
+  updateExpandBtnText();
+}
+
+function updateExpandBtnText() {
+  var btn = document.getElementById('expand-btn');
+  var expanded = btn.getAttribute('data-state') === 'expanded';
+  var fr = document.body.classList.contains('fr-mode');
+  btn.innerHTML = expanded
+    ? (fr ? 'Tout fermer' : 'Collapse all')
+    : (fr ? 'Tout ouvrir' : 'Expand all');
+}
+
+// Back to top visibility
+window.addEventListener('scroll', function() {
+  document.getElementById('back-to-top').classList.toggle('visible', window.scrollY > 600);
+});
+
+// Sticky mini crisis bar
+(function() {
+  var banner = document.getElementById('crisis-banner');
+  var mini = document.getElementById('mini-crisis');
+  if (banner && mini && window.IntersectionObserver) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        mini.classList.toggle('visible', !entry.isIntersecting);
+      });
+    }, { threshold: 0 });
+    observer.observe(banner);
+  }
+})();
+</script>
+
+</body>
+</html>
