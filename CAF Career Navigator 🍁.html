@@ -34,6 +34,11 @@
     .stage-opt:hover{background:#21262D}
     .tip-card{background:#1C2128;border-color:var(--border)}
     .whats-new{background:#1C2128;border-color:var(--border)}
+    .faq-item{background:#1C2128}
+    .tip{background:rgba(255,255,255,0.05)}
+    .contacts-card{background:#161B22;border-color:var(--border)}
+    .contact-item{border-color:var(--border)}
+    .contacts-legend{background:#1C2128}
     .checklist-card{background:#1C2128;border-color:var(--border)}
   }
   html{scroll-behavior:smooth}
@@ -167,6 +172,14 @@
   .s12{--stage-color:#475569;--stage-bg:#F1F5F9;--stage-mid:#CBD5E1}
   .s13{--stage-color:#3D4B5C;--stage-bg:#F0F4F8;--stage-mid:#C5D0DC}
   .s14{--stage-color:#333E4E;--stage-bg:#EFF3F7;--stage-mid:#BEC8D4}
+
+  /* Dark mode stage overrides — extra specificity to beat normal definitions */
+  @media(prefers-color-scheme:dark){
+    .stage.s1,.stage.s2,.stage.s3{--stage-bg:#2A1518;--stage-mid:#4A2028;--stage-color:#E8354F}
+    .stage.s4,.stage.s5,.stage.s6,.stage.s7,.stage.s8{--stage-bg:#151C2E;--stage-mid:#253050;--stage-color:#4B7AFF}
+    .stage.s9,.stage.s10,.stage.s11{--stage-bg:#152218;--stage-mid:#1E3A24;--stage-color:#2EA060}
+    .stage.s12,.stage.s13,.stage.s14{--stage-bg:#1A1E24;--stage-mid:#2A3040;--stage-color:#8899AA}
+  }
 
   /* === FAQ ITEMS === */
   .faq-list{padding:0 12px 12px}
