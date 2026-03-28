@@ -2,6 +2,8 @@
 
 **Free bilingual career companion for Canadian Armed Forces members — from first application through mid-career to transition out.**
 
+**Live tool:** [cousinive23.github.io/CAF-Career-Navigator](https://cousinive23.github.io/CAF-Career-Navigator/)
+
 Built by a CAF community member. Powered by Claude AI. Not an official CAF product.
 
 ---
