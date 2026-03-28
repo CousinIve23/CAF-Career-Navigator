@@ -189,6 +189,26 @@
   .bm-icon:hover{opacity:.7;transform:scale(1.2)}
   .share-icon{font-size:12px;flex-shrink:0;opacity:.25;cursor:pointer;padding:2px;transition:all .2s}
   .share-icon:hover{opacity:.7}
+  /* QUICK CONTACTS CARD */
+  .contacts-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden}
+  .contacts-header{padding:14px 16px;background:var(--navy);color:white;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+  .contacts-header *{color:white!important}
+  .contacts-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700}
+  .contacts-toggle{font-size:14px;opacity:.6;transition:transform .3s}
+  .contacts-card.open .contacts-toggle{transform:rotate(180deg)}
+  .contacts-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+  .contacts-card.open .contacts-body{max-height:3000px}
+  .contacts-list{padding:0}
+  .contact-item{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:flex-start}
+  .contact-item:last-child{border-bottom:none}
+  .contact-icon{font-size:20px;flex-shrink:0;margin-top:2px}
+  .contact-info{flex:1}
+  .contact-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px}
+  .contact-what{font-size:12px;color:var(--text-mid);line-height:1.5;margin-bottom:4px}
+  .contact-number{font-size:12px;font-weight:600;color:var(--accent)}
+  .contact-number a{color:var(--accent);text-decoration:none}
+  .contacts-legend{padding:12px 16px;background:var(--bg);font-size:11px;color:var(--text-light);line-height:1.6;border-top:1px solid var(--border)}
+
   .share-toast{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--white);padding:8px 16px;border-radius:20px;font-size:12px;font-weight:600;z-index:200;opacity:0;transition:opacity .3s;pointer-events:none}
   .share-toast.show{opacity:1}
   .faq-chevron{font-size:14px;flex-shrink:0;transition:transform .3s;opacity:.5}
@@ -417,6 +437,43 @@
   <div class="crisis-title fr">En crise? De l'aide est disponible 24 h/24</div>
   <div class="crisis-body en">988 Suicide Crisis Helpline: <strong>Call or text 988</strong> &middot; VAC Assistance: <strong>1-800-268-7708</strong> &middot; MFRC Family Line: <strong>1-800-866-4546</strong></div>
   <div class="crisis-body fr">Ligne de crise suicide 988 : <strong>Appelez ou textez le 988</strong> &middot; Assistance ACC : <strong>1-800-268-7708</strong> &middot; Ligne familiale CRFM : <strong>1-800-866-4546</strong></div>
+</div>
+
+<!-- QUICK CONTACTS — EVERY SERVICE EXPLAINED -->
+<div class="contacts-card" id="contacts-card">
+  <div class="contacts-header" onclick="document.getElementById('contacts-card').classList.toggle('open')">
+    <div class="contacts-title"><span class="en">&#128222; Your Key Contacts — Every Service Explained</span><span class="fr">&#128222; Vos contacts cles — chaque service explique</span></div>
+    <span class="contacts-toggle" aria-hidden="true">&#9660;</span>
+  </div>
+  <div class="contacts-body">
+    <div class="contacts-list">
+
+      <div class="contact-item"><div class="contact-icon">🏢</div><div class="contact-info"><div class="contact-name">OR — Orderly Room / <span class="fr-inline">Bureau de l'adjudant (BAdj)</span></div><div class="contact-what en"><strong>What it is:</strong> Your unit's admin office. The first stop for almost every question — pay, leave, postings, benefits, paperwork. Think of it as your military HR department.</div><div class="contact-what fr"><strong>Ce que c'est :</strong> Le bureau administratif de votre unite. Premier arret pour presque toute question — solde, conge, mutations, avantages, paperasse. C'est votre departement RH militaire.</div><div class="contact-number en">Location: in your unit building. Ask anyone where the OR is on day one.</div><div class="contact-number fr">Emplacement : dans le batiment de votre unite. Demandez ou est le BAdj des le jour 1.</div></div></div>
+
+      <div class="contact-item"><div class="contact-icon">👨‍👩‍👧</div><div class="contact-info"><div class="contact-name">MFRC — Military Family Resource Centre / <span class="fr-inline">CRFM</span></div><div class="contact-what en"><strong>What it is:</strong> Free professional support for CAF families. Helps with posting transitions, childcare, spouse employment, deployment support, counselling. Not just for crises — use them for everyday military life challenges.</div><div class="contact-what fr"><strong>Ce que c'est :</strong> Soutien professionnel gratuit pour les familles des FAC. Aide avec les transitions de mutation, la garde d'enfants, l'emploi des conjoints, le soutien au deploiement. Pas seulement pour les crises.</div><div class="contact-number">24/7: <a href="tel:18008664546">1-800-866-4546</a></div></div></div>
+
+      <div class="contact-item"><div class="contact-icon">🛡️</div><div class="contact-info"><div class="contact-name">SISIP / <span class="fr-inline">RARM (Regime d'assurance-revenu militaire)</span></div><div class="contact-what en"><strong>What it is:</strong> Your military financial safety net. Two parts: (1) Long-Term Disability insurance — if you're injured and can't serve, SISIP pays 75% of your salary until age 65. (2) Free financial planning — advisors who understand military pay, postings, and pensions. Not a bank — they're funded to help you.</div><div class="contact-what fr"><strong>Ce que c'est :</strong> Votre filet de securite financier militaire. Deux parties : (1) Assurance-invalidite — si vous etes blesse, le RARM paie 75 % de votre salaire jusqu'a 65 ans. (2) Planification financiere gratuite — des conseillers qui comprennent la solde militaire.</div><div class="contact-number">Manulife/Manuvie: <a href="tel:18002676681">1-800-267-6681</a></div></div></div>
+
+      <div class="contact-item"><div class="contact-icon">🎖️</div><div class="contact-info"><div class="contact-name">VAC — Veterans Affairs Canada / <span class="fr-inline">ACC (Anciens Combattants Canada)</span></div><div class="contact-what en"><strong>What it is:</strong> The government department that supports veterans after you leave the CAF. Provides disability benefits for service-related injuries, education funding (up to $85,764), career transition services, and mental health support. Register for My VAC Account BEFORE you release.</div><div class="contact-what fr"><strong>Ce que c'est :</strong> Le ministere qui soutient les veterans apres votre depart des FAC. Offre des prestations d'invalidite, du financement d'etudes (jusqu'a 85 764 $), des services de transition et du soutien en sante mentale. Inscrivez-vous a Mon dossier ACC AVANT votre liberation.</div><div class="contact-number"><a href="tel:18665222122">1-866-522-2122</a> &middot; veterans.gc.ca</div></div></div>
+
+      <div class="contact-item"><div class="contact-icon">⚖️</div><div class="contact-info"><div class="contact-name">JAG — Judge Advocate General / <span class="fr-inline">Juge-avocat general</span></div><div class="contact-what en"><strong>What it is:</strong> The CAF's legal branch. Provides FREE legal advice to serving members — not just for trouble. Covers wills (free preparation), power of attorney, landlord disputes, consumer complaints, and family law questions. Call your base legal office to book a 30-minute appointment.</div><div class="contact-what fr"><strong>Ce que c'est :</strong> La branche juridique des FAC. Offre des conseils juridiques GRATUITS — testaments (redaction gratuite), procurations, litiges avec proprios, questions de droit familial. Appelez le bureau juridique de la base.</div><div class="contact-number en">Location: base legal office. No referral needed.</div><div class="contact-number fr">Emplacement : bureau juridique de la base. Aucune reference necessaire.</div></div></div>
+
+      <div class="contact-item"><div class="contact-icon">⚽</div><div class="contact-info"><div class="contact-name">PSP — Personnel Support Programs / <span class="fr-inline">Programmes de soutien du personnel</span></div><div class="contact-what en"><strong>What it is:</strong> Fitness, sports, recreation, and wellness programs on every major base. Run by CFMWS (Canadian Forces Morale and Welfare Services). Gyms are free or heavily subsidized. Sports leagues, courses, health promotion — all included in your service.</div><div class="contact-what fr"><strong>Ce que c'est :</strong> Programmes de conditionnement physique, sports, loisirs et bien-etre sur chaque grande base. Gymnases gratuits ou fortement subventionnes. Ligues sportives, cours, promotion de la sante.</div><div class="contact-number"><a href="https://cfmws.ca" target="_blank" rel="noopener">cfmws.ca</a></div></div></div>
+
+      <div class="contact-item"><div class="contact-icon">📈</div><div class="contact-info"><div class="contact-name en">Career Manager / <span class="fr-inline">Gestionnaire de carriere (GC)</span></div><div class="contact-name fr">Gestionnaire de carriere (GC) / Career Manager</div><div class="contact-what en"><strong>What it is:</strong> An officer or senior NCO at NDHQ Ottawa assigned to your trade. They manage your postings, match you to positions, and advise on career progression. Many members never contact theirs — this is a mistake. They're your career partner.</div><div class="contact-what fr"><strong>Ce que c'est :</strong> Un officier ou sous-officier superieur au QGDN Ottawa assigne a votre metier. Ils gerent vos mutations et conseillent sur la progression de carriere. Beaucoup de membres ne les contactent jamais — c'est une erreur.</div><div class="contact-number en">Access via My Career portal (EMAA/SGPM) or your unit admin</div><div class="contact-number fr">Acces via le portail Ma carriere (SGPM) ou l'administration de l'unite</div></div></div>
+
+      <div class="contact-item"><div class="contact-icon">🆘</div><div class="contact-info"><div class="contact-name">SMRC — Sexual Misconduct Response Centre / <span class="fr-inline">CIIS</span></div><div class="contact-what en"><strong>What it is:</strong> An independent, confidential support centre for anyone in the CAF affected by sexual misconduct. You do NOT need to go through your chain of command. Available 24/7. Provides information, support, and referrals — whether or not you choose to report.</div><div class="contact-what fr"><strong>Ce que c'est :</strong> Un centre de soutien independant et confidentiel pour toute personne des FAC touchee par l'inconduite sexuelle. Vous n'avez PAS besoin de passer par votre chaine de commandement. Disponible 24 h/24.</div><div class="contact-number"><a href="tel:18447501648">1-844-750-1648</a> (confidential / confidentiel)</div></div></div>
+
+      <div class="contact-item"><div class="contact-icon">🏛️</div><div class="contact-info"><div class="contact-name en">CF Ombudsman</div><div class="contact-name fr">Ombudsman des FC</div><div class="contact-what en"><strong>What it is:</strong> An independent office that investigates complaints from CAF members who feel they've been treated unfairly. Use this AFTER you've tried internal channels (OR, chain of command, grievance) and they haven't worked. The Ombudsman is not part of the CAF — they report to Parliament.</div><div class="contact-what fr"><strong>Ce que c'est :</strong> Un bureau independant qui enquete sur les plaintes des membres des FAC. Utilisez APRES avoir essaye les voies internes (BAdj, chaine de commandement, grief). L'Ombudsman n'est pas partie des FAC — il releve du Parlement.</div><div class="contact-number">canada.ca/ombudsman-national-defence</div></div></div>
+
+      <div class="contact-item"><div class="contact-icon">🧠</div><div class="contact-info"><div class="contact-name en">988 Suicide Crisis Helpline</div><div class="contact-name fr">Ligne de crise suicide 988</div><div class="contact-what en"><strong>What it is:</strong> Canada's national crisis line. Call or text 988 anytime, 24/7. Trained counsellors available for anyone in crisis or emotional distress. Free. Confidential. Available in English and French.</div><div class="contact-what fr"><strong>Ce que c'est :</strong> La ligne nationale de crise du Canada. Appelez ou textez le 988 en tout temps, 24 h/24. Conseillers formes pour toute personne en crise. Gratuit. Confidentiel. Disponible en anglais et en francais.</div><div class="contact-number"><strong>Call or text / Appelez ou textez: 988</strong></div></div></div>
+
+    </div>
+    <div class="contacts-legend">
+      <span class="en"><strong>New to the CAF?</strong> Start with your <strong>OR</strong> (Orderly Room) for admin questions, your <strong>MFRC</strong> for family support, and <strong>SISIP</strong> for financial planning. These three will point you to everything else.</span>
+      <span class="fr"><strong>Nouveau dans les FAC?</strong> Commencez par votre <strong>BAdj</strong> (Bureau de l'adjudant) pour les questions administratives, votre <strong>CRFM</strong> pour le soutien familial et le <strong>RARM</strong> pour la planification financiere. Ces trois-la vous dirigeront vers tout le reste.</span>
+    </div>
+  </div>
 </div>
 
 <!-- ============= PHASE 1 ============= -->
