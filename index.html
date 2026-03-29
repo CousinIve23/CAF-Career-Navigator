@@ -896,8 +896,13 @@
 <!-- ============================================ -->
 <div class="tab-content" id="tab-lists">
 <div class="main">
-  <h2 style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--text);margin-bottom:4px;letter-spacing:-.02em"><span class="en">Your Missions</span><span class="fr">Vos missions</span></h2>
-  <p style="font-size:13px;color:var(--text-3);margin-bottom:16px;line-height:1.5"><span class="en">Track progress through key career milestones.</span><span class="fr">Suivez votre progression a travers les étapes cles de votre carrière.</span></p>
+  <h2 style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--text);margin-bottom:4px;letter-spacing:-.02em"><span class="en">Your Roadmap</span><span class="fr">Votre parcours</span></h2>
+  <p style="font-size:13px;color:var(--text-2);margin-bottom:16px;line-height:1.6"><span class="en">Step-by-step guides for every key moment in your CAF journey. Check items off as you go — your progress is saved.</span><span class="fr">Guides étape par étape pour chaque moment clé de votre parcours. Cochez les éléments au fur et à mesure — votre progression est sauvegardée.</span></p>
+
+  <!-- ROADMAP INDEX — jump to any checklist -->
+  <div id="roadmap-index" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px"></div>
+
+  <!-- CHECKLISTS RENDERED BY JS -->
   <div class="checklists-view active" id="checklists-view"></div>
 </div>
 </div>
@@ -1318,7 +1323,7 @@
   <button class="tab-bar-item" onclick="switchNavTab('saved')"><span class="tab-bar-icon">&#9825;</span><span class="tab-bar-label en">Family</span><span class="tab-bar-label fr">Famille</span></button>
   <button class="tab-bar-item" onclick="switchNavTab('contacts')"><span class="tab-bar-icon">&#9742;</span><span class="tab-bar-label">Contacts</span></button>
   <button class="tab-bar-item" onclick="switchNavTab('reserve')"><span class="tab-bar-icon">&#9733;</span><span class="tab-bar-label">Reserve</span></button>
-  <button class="tab-bar-item" onclick="switchNavTab('lists')"><span class="tab-bar-icon">&#10003;</span><span class="tab-bar-label en">To-Do</span><span class="tab-bar-label fr">À faire</span></button>
+  <button class="tab-bar-item" onclick="switchNavTab('lists')"><span class="tab-bar-icon">&#10003;</span><span class="tab-bar-label en">Roadmap</span><span class="tab-bar-label fr">Parcours</span></button>
   <button class="tab-bar-item" onclick="switchNavTab('faqs')"><span class="tab-bar-icon">&#9776;</span><span class="tab-bar-label en">Answers</span><span class="tab-bar-label fr">Réponses</span></button>
 </nav>
 
@@ -1601,10 +1606,12 @@ function updateExpandBtnText(){
 /* ===== CHECKLISTS ===== */
 function renderChecklists(){
   var view=document.getElementById('checklists-view');
+  var indexEl=document.getElementById('roadmap-index');
   var fr=document.body.classList.contains('fr-mode');
   var stage=localStorage.getItem('caf_career_stage');
   var saved=JSON.parse(localStorage.getItem('caf_checklists')||'{}');
   var html='';
+  var indexHtml='';
   var sorted=CHECKLISTS.slice().sort(function(a,b){
     var aR=stage&&a.stages.indexOf(stage)>=0?0:1;
     var bR=stage&&b.stages.indexOf(stage)>=0?0:1;
@@ -1615,7 +1622,14 @@ function renderChecklists(){
     cl.items.forEach(function(it){if(saved[cl.id+'_'+it.id])checked++});
     var pct=Math.round((checked/cl.items.length)*100);
     var isRelevant=stage&&cl.stages.indexOf(stage)>=0;
-    html+='<div class="checklist-card'+(isRelevant?' cl-relevant':'')+'"><div class="cl-header" onclick="toggleChecklist(\''+cl.id+'\')">'+(isRelevant?'<span class="cl-rec">'+(fr?'Pour vous':'For you')+'</span>':'')+'<div class="cl-title">'+(fr?cl.titleFR:cl.titleEN)+'</div><div class="cl-progress">'+checked+'/'+cl.items.length+'</div></div>';
+    // Build index card
+    indexHtml+='<div onclick="document.getElementById(\'cl-card-'+cl.id+'\').scrollIntoView({behavior:\'smooth\',block:\'start\'})" style="background:var(--surface);border:1px solid '+(isRelevant?'var(--accent)':'var(--glass-border)')+';border-radius:var(--radius);padding:12px;cursor:pointer;transition:all .2s">';
+    indexHtml+='<div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px">'+(fr?cl.titleFR:cl.titleEN)+'</div>';
+    indexHtml+='<div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:4px;background:var(--glass-border);border-radius:2px;overflow:hidden"><div style="height:100%;width:'+pct+'%;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:2px"></div></div><span style="font-size:11px;font-weight:600;color:var(--text-3)">'+checked+'/'+cl.items.length+'</span></div>';
+    if(isRelevant)indexHtml+='<div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);margin-top:6px">'+(fr?'Pour vous':'For you')+'</div>';
+    indexHtml+='</div>';
+    var isRelevant=stage&&cl.stages.indexOf(stage)>=0;
+    html+='<div class="checklist-card'+(isRelevant?' cl-relevant':'')+'" id="cl-card-'+cl.id+'"><div class="cl-header" onclick="toggleChecklist(\''+cl.id+'\')">'+(isRelevant?'<span class="cl-rec">'+(fr?'Pour vous':'For you')+'</span>':'')+'<div class="cl-title">'+(fr?cl.titleFR:cl.titleEN)+'</div><div class="cl-progress">'+checked+'/'+cl.items.length+'</div></div>';
     html+='<div class="cl-bar"><div class="cl-bar-fill" style="width:'+pct+'%"></div></div>';
     html+='<div class="cl-items" id="cl-items-'+cl.id+'">';
     cl.items.forEach(function(it){
@@ -1631,6 +1645,7 @@ function renderChecklists(){
     html+='</div></div>';
   });
   view.innerHTML=html;
+  if(indexEl)indexEl.innerHTML=indexHtml;
 }
 function toggleCheck(clId,itId){
   var saved=JSON.parse(localStorage.getItem('caf_checklists')||'{}');
