@@ -1,4 +1,4 @@
-var CACHE = 'caf-nav-v3';
+var CACHE = 'caf-nav-v5';
 
 self.addEventListener('install', function(e) {
   e.waitUntil(
