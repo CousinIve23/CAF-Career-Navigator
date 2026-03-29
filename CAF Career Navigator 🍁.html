@@ -208,7 +208,7 @@
   .stage-header{padding:20px 20px 16px 24px;display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,0.015);border-bottom:1px solid var(--glass-border)}
   .stage-num{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:17px;flex-shrink:0;background:var(--badge-bg);color:var(--stage-color);border:1px solid rgba(255,255,255,0.1)}
   .stage-title-block{flex:1}
-  .stage-emoji{font-size:16px;margin-bottom:3px;display:block}
+  .stage-emoji{display:none}
   .stage-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;line-height:1.2;margin-bottom:4px;color:var(--text);letter-spacing:-.02em}
   .stage-subtitle{font-size:12px;color:var(--text-3);line-height:1.5}
 
@@ -351,6 +351,33 @@
   .tab-content{display:none;padding-bottom:76px}
   .tab-content.active{display:block;animation:tabFadeIn .25s ease}
   @keyframes tabFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+  /* === 3D CARD EFFECTS === */
+  .stage{transition:transform .3s ease,box-shadow .3s ease;transform:perspective(1000px) rotateX(0) rotateY(0)}
+  .stage:hover{transform:perspective(1000px) rotateX(0.5deg) translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
+  .quick-action{transition:transform .3s ease,box-shadow .3s ease;transform:perspective(800px) rotateX(0)}
+  .quick-action:hover{transform:perspective(800px) rotateX(2deg) translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.25)}
+  .checklist-card{transition:transform .3s ease,box-shadow .3s ease}
+  .checklist-card:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.2)}
+  .tip-card{transition:transform .3s ease}
+  .tip-card:hover{transform:translateY(-1px)}
+  .contacts-card{transition:transform .3s ease}
+
+  /* Staggered entrance for stages */
+  .stage{opacity:0;animation:staggerIn .4s ease forwards}
+  .stage:nth-child(1){animation-delay:.05s}
+  .stage:nth-child(2){animation-delay:.1s}
+  .stage:nth-child(3){animation-delay:.15s}
+  .stage:nth-child(4){animation-delay:.2s}
+  .stage:nth-child(5){animation-delay:.25s}
+  @keyframes staggerIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+  /* Glow effect on open FAQ */
+  .faq-item.open{box-shadow:inset 3px 0 0 var(--stage-color),0 0 16px rgba(0,0,0,0.1)}
+
+  /* Smooth icon scale on tab bar */
+  .tab-bar-item .tab-bar-icon{transition:transform .2s}
+  .tab-bar-item.active .tab-bar-icon{transform:scale(1.15)}
 
   /* === HOME DASHBOARD === */
   .dashboard{max-width:720px;margin:0 auto;padding:20px 20px 20px}
@@ -544,9 +571,9 @@
 
 <div id="faq-view">
 
-<!-- QUICK CONTACTS — EVERY SERVICE EXPLAINED -->
-<div class="contacts-card" id="contacts-card">
-  <div class="contacts-header" onclick="document.getElementById('contacts-card').classList.toggle('open')">
+<!-- CONTACTS CARD (hidden — data source for Contacts tab) -->
+<div class="contacts-card" id="contacts-card" style="display:none">
+  <div class="contacts-header">
     <div class="contacts-title"><span class="en">&#128222; Your Key Contacts — Every Service Explained</span><span class="fr">&#128222; Vos contacts cles — chaque service explique</span></div>
     <span class="contacts-toggle" aria-hidden="true">&#9660;</span>
   </div>
