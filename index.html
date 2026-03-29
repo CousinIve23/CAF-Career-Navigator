@@ -500,7 +500,7 @@
 <!-- TAB 1: HOME DASHBOARD                        -->
 <!-- ============================================ -->
 <div class="tab-content active" id="tab-home">
-<div class="dashboard" style="max-width:720px;margin:0 auto;padding:12px 16px 80px">
+<div class="dashboard" style="max-width:720px;margin:0 auto;padding:8px 16px 64px">
 
   <!-- COMPACT HERO + APPLY -->
   <div style="display:flex;align-items:center;gap:16px;padding:12px 0 16px;border-bottom:1px solid var(--glass-border);margin-bottom:14px">
@@ -511,69 +511,34 @@
     <a href="https://forces.ca/en/how-to-join/" target="_blank" rel="noopener" style="background:var(--accent);color:white;padding:10px 16px;border-radius:var(--radius);font-size:13px;font-weight:700;text-decoration:none;font-family:'Syne',sans-serif;white-space:nowrap;text-align:center;line-height:1.3"><span class="en">Apply Now</span><span class="fr">Postuler</span><br><span style="font-size:10px;font-weight:400;opacity:.8">forces.ca</span></a>
   </div>
 
-  <!-- CONTENT PREVIEWS — the hook that makes people explore -->
-  <div style="display:grid;gap:10px;margin-bottom:14px">
-
-    <!-- Preview: New Recruits -->
-    <div onclick="switchNavTab('faqs')" style="background:var(--surface);border:1px solid var(--glass-border);border-left:3px solid var(--phase1);border-radius:var(--radius);padding:14px 16px;cursor:pointer;transition:all .2s">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--phase1);margin-bottom:6px"><span class="en">For New Recruits</span><span class="fr">Pour les nouvelles recrues</span></div>
-      <p style="font-size:14px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:4px"><span class="en">"I applied 3 months ago and heard nothing..."</span><span class="fr">« J'ai postulé il y a 3 mois sans nouvelles... »</span></p>
-      <p style="font-size:12px;color:var(--text-2);line-height:1.5"><span class="en">The average wait is 250 days. You're not rejected. We explain every step, what to do while you wait, and how to prepare for BMQ (now 9 weeks, $10K bonus).</span><span class="fr">L'attente moyenne est de 250 jours. Vous n'êtes pas refusé. On vous explique chaque étape.</span></p>
-      <span style="font-size:11px;font-weight:600;color:var(--accent);margin-top:6px;display:inline-block"><span class="en">Explore 80 answers →</span><span class="fr">Explorer 80 réponses →</span></span>
+  <!-- CONTENT PREVIEWS — compact, clickable -->
+  <div style="display:grid;gap:8px;margin-bottom:10px">
+    <div onclick="switchNavTab('faqs')" style="background:var(--surface);border:1px solid var(--glass-border);border-left:3px solid var(--phase1);border-radius:var(--radius);padding:10px 14px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:12px">
+      <div style="flex:1"><div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--phase1);margin-bottom:2px"><span class="en">New Recruits</span><span class="fr">Recrues</span></div><p style="font-size:13px;font-weight:600;color:var(--text);line-height:1.3;margin:0"><span class="en">"I applied months ago and heard nothing..."</span><span class="fr">« J'ai postulé il y a des mois... »</span></p><p style="font-size:11px;color:var(--text-3);margin:2px 0 0"><span class="en">80 answers about applications, BMQ, pay, career</span><span class="fr">80 réponses sur les candidatures, QMB, solde</span></p></div>
+      <span style="font-size:12px;color:var(--accent);font-weight:600">→</span>
     </div>
-
-    <!-- Preview: Families -->
-    <div onclick="switchNavTab('saved')" style="background:var(--surface);border:1px solid var(--glass-border);border-left:3px solid var(--phase3);border-radius:var(--radius);padding:14px 16px;cursor:pointer;transition:all .2s">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--phase3);margin-bottom:6px"><span class="en">For Families</span><span class="fr">Pour les familles</span></div>
-      <p style="font-size:14px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:4px"><span class="en">"My child is going to BMQ and I'm terrified..."</span><span class="fr">« Mon enfant part pour la QMB et j'ai peur... »</span></p>
-      <p style="font-size:12px;color:var(--text-2);line-height:1.5"><span class="en">No visits for 4 weeks. They'll want to quit at week 2 — that's normal. We explain what to expect, when you'll hear from them, and how the MFRC supports YOU.</span><span class="fr">Pas de visites pendant 4 semaines. Ils voudront abandonner à la semaine 2 — c'est normal.</span></p>
-      <span style="font-size:11px;font-weight:600;color:var(--accent);margin-top:6px;display:inline-block"><span class="en">Read the family guide →</span><span class="fr">Lire le guide familial →</span></span>
+    <div onclick="switchNavTab('saved')" style="background:var(--surface);border:1px solid var(--glass-border);border-left:3px solid var(--phase3);border-radius:var(--radius);padding:10px 14px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:12px">
+      <div style="flex:1"><div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--phase3);margin-bottom:2px"><span class="en">Families</span><span class="fr">Familles</span></div><p style="font-size:13px;font-weight:600;color:var(--text);line-height:1.3;margin:0"><span class="en">"My child is going to BMQ and I'm terrified"</span><span class="fr">« Mon enfant part pour la QMB... »</span></p><p style="font-size:11px;color:var(--text-3);margin:2px 0 0"><span class="en">BMQ, postings, deployment, spouse employment</span><span class="fr">QMB, mutations, déploiement, emploi du conjoint</span></p></div>
+      <span style="font-size:12px;color:var(--accent);font-weight:600">→</span>
     </div>
-
-    <!-- Preview: Reservists -->
-    <div onclick="switchNavTab('reserve')" style="background:var(--surface);border:1px solid var(--glass-border);border-left:3px solid var(--phase2);border-radius:var(--radius);padding:14px 16px;cursor:pointer;transition:all .2s">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--phase2);margin-bottom:6px"><span class="en">For Reservists</span><span class="fr">Pour les réservistes</span></div>
-      <p style="font-size:14px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:4px"><span class="en">"What's the difference between Class A, B, and C?"</span><span class="fr">« Quelle est la différence entre classe A, B et C? »</span></p>
-      <p style="font-size:12px;color:var(--text-2);line-height:1.5"><span class="en">A = part-time parade nights. B = full-time contract. C = deployment (voluntary). We break down pay, benefits, and everything that's different from Reg Force.</span><span class="fr">A = temps partiel. B = contrat temps plein. C = déploiement (volontaire).</span></p>
-      <span style="font-size:11px;font-weight:600;color:var(--accent);margin-top:6px;display:inline-block"><span class="en">Reserve guide →</span><span class="fr">Guide de la réserve →</span></span>
-    </div>
-
-  </div>
-
-  <!-- ESSENTIAL NUMBERS — compact 2-col grid -->
-  <div style="background:var(--surface);border:1px solid var(--glass-border);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px">
-    <h3 style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px"><span class="en">📞 Essential Numbers</span><span class="fr">📞 Numéros essentiels</span></h3>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-      <div style="padding:8px;background:var(--hover-bg);border-radius:8px;text-align:center"><div style="font-size:10px;color:var(--text-3)"><span class="en">Crisis</span><span class="fr">Crise</span></div><a href="tel:988" style="font-size:15px;font-weight:700;color:var(--accent);text-decoration:none">988</a></div>
-      <div style="padding:8px;background:var(--hover-bg);border-radius:8px;text-align:center"><div style="font-size:10px;color:var(--text-3)"><span class="en">Member Help</span><span class="fr">Aide membre</span></div><a href="tel:18002687708" style="font-size:13px;font-weight:700;color:var(--accent);text-decoration:none">1-800-268-7708</a></div>
-      <div style="padding:8px;background:var(--hover-bg);border-radius:8px;text-align:center"><div style="font-size:10px;color:var(--text-3)"><span class="en">Family Line</span><span class="fr">Ligne famille</span></div><a href="tel:18008664546" style="font-size:13px;font-weight:700;color:var(--accent);text-decoration:none">1-800-866-4546</a></div>
-      <div style="padding:8px;background:var(--hover-bg);border-radius:8px;text-align:center"><div style="font-size:10px;color:var(--text-3)"><span class="en">Recruiting</span><span class="fr">Recrutement</span></div><a href="tel:18008568488" style="font-size:13px;font-weight:700;color:var(--accent);text-decoration:none">1-800-856-8488</a></div>
-      <div style="padding:8px;background:var(--hover-bg);border-radius:8px;text-align:center"><div style="font-size:10px;color:var(--text-3)">SMRC</div><a href="tel:18447501648" style="font-size:13px;font-weight:700;color:var(--accent);text-decoration:none">1-844-750-1648</a></div>
-      <div style="padding:8px;background:var(--hover-bg);border-radius:8px;text-align:center"><div style="font-size:10px;color:var(--text-3)">HOPE</div><a href="tel:18008836094" style="font-size:13px;font-weight:700;color:var(--accent);text-decoration:none">1-800-883-6094</a></div>
+    <div onclick="switchNavTab('reserve')" style="background:var(--surface);border:1px solid var(--glass-border);border-left:3px solid var(--phase2);border-radius:var(--radius);padding:10px 14px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:12px">
+      <div style="flex:1"><div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--phase2);margin-bottom:2px"><span class="en">Reservists</span><span class="fr">Réservistes</span></div><p style="font-size:13px;font-weight:600;color:var(--text);line-height:1.3;margin:0"><span class="en">"Class A, B, C — what's the difference?"</span><span class="fr">« Classe A, B, C — la différence? »</span></p><p style="font-size:11px;color:var(--text-3);margin:2px 0 0"><span class="en">Reserve BMQ, pay, benefits, transfer to Reg Force</span><span class="fr">QMB réserve, solde, avantages, transfert</span></p></div>
+      <span style="font-size:12px;color:var(--accent);font-weight:600">→</span>
     </div>
   </div>
 
-  <!-- TODAY'S TIP -->
-  <div class="tip-card" id="tip-card" style="margin-bottom:12px">
-    <div class="tip-card-icon">💡</div>
-    <div class="tip-card-body">
-      <div class="tip-card-label"><span class="en">Did you know?</span><span class="fr">Le saviez-vous?</span></div>
-      <div class="tip-card-text" id="tip-text"></div>
-      <button class="tip-card-btn" onclick="showNextTip()"><span class="en">Another tip →</span><span class="fr">Autre conseil →</span></button>
-    </div>
+  <!-- ESSENTIAL NUMBERS — compact 3-col -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px">
+    <a href="tel:988" style="padding:8px 4px;background:var(--surface);border:1px solid var(--glass-border);border-radius:8px;text-align:center;text-decoration:none"><div style="font-size:9px;color:var(--text-3)"><span class="en">Crisis</span><span class="fr">Crise</span></div><div style="font-size:14px;font-weight:700;color:var(--accent)">988</div></a>
+    <a href="tel:18002687708" style="padding:8px 4px;background:var(--surface);border:1px solid var(--glass-border);border-radius:8px;text-align:center;text-decoration:none"><div style="font-size:9px;color:var(--text-3)"><span class="en">Support</span><span class="fr">Aide</span></div><div style="font-size:11px;font-weight:700;color:var(--accent)">268-7708</div></a>
+    <a href="tel:18008664546" style="padding:8px 4px;background:var(--surface);border:1px solid var(--glass-border);border-radius:8px;text-align:center;text-decoration:none"><div style="font-size:9px;color:var(--text-3)"><span class="en">Family</span><span class="fr">Famille</span></div><div style="font-size:11px;font-weight:700;color:var(--accent)">866-4546</div></a>
   </div>
 
-  <!-- WHAT'S NEW -->
-  <div class="whats-new" id="whats-new" style="margin-bottom:12px">
-    <span class="wn-tag">NEW</span>
-    <span class="wn-text"><span class="en"><strong>2025:</strong> BMQ now 9 weeks. $10K bonus for eligible trades. <a href="https://forces.ca/en/how-to-join/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;font-weight:600">Apply now →</a></span><span class="fr"><strong>2025 :</strong> QMB maintenant 9 semaines. Prime de 10 000 $. <a href="https://forces.ca/en/how-to-join/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;font-weight:600">Postulez →</a></span></span>
-    <button class="wn-close" onclick="dismissWhatsNew()">&times;</button>
-  </div>
-
-  <!-- FOOTER -->
-  <div style="text-align:center;padding:16px;font-size:10px;color:var(--text-3);line-height:1.8">
-    🍁 CAF Career Navigator &middot; <span class="en">Not an official CAF product</span><span class="fr">Pas un produit officiel des FAC</span> &middot; March 2026<br>
-    <a href="https://github.com/CousinIve23/CAF-Career-Navigator/issues" style="color:var(--text-3);text-decoration:underline"><span class="en">Report an error</span><span class="fr">Signaler une erreur</span></a>
+  <!-- TIP — single compact line -->
+  <div id="tip-card" style="background:var(--surface);border:1px solid var(--glass-border);border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:8px">
+    <span style="font-size:14px">💡</span>
+    <div style="flex:1;font-size:12px;color:var(--text-2);line-height:1.4" id="tip-text"></div>
+    <button onclick="showNextTip()" style="background:none;border:none;font-size:11px;color:var(--accent);cursor:pointer;font-weight:600;font-family:'Inter',sans-serif;white-space:nowrap;padding:0">→</button>
   </div>
 
 </div>
