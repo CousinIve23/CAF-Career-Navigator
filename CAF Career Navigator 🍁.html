@@ -14,70 +14,82 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  /* === 4-THEME DESIGN SYSTEM === */
+  /* === 3-THEME DESIGN SYSTEM === */
   :root {
-    --radius:14px; --radius-sm:8px;
+    --radius:16px; --radius-sm:10px;
     --phase1:#E84057; --phase2:#4B8BF5; --phase3:#34C77B; --phase4:#8892A4;
   }
-  /* MIDNIGHT — dark charcoal, red accents (default) */
-  body, body.theme-midnight {
-    --bg:#0C1017; --surface:#141A24; --surface-2:#1C2430;
-    --glass:rgba(255,255,255,0.05); --glass-border:rgba(255,255,255,0.10);
-    --text:#F5F7FA; --text-2:#D0D6DE; --text-3:#8892A4;
-    --accent:#C41E3A; --gold:#E8A838; --glow:rgba(196,30,58,0.15);
-    --shadow:0 4px 24px rgba(0,0,0,0.3);
-    --stage-color:var(--phase4); --white:var(--surface); --border:var(--glass-border);
+
+  /* OBSIDIAN EMBER — volcanic glass with fire beneath (default) */
+  body, body.theme-ember {
+    --bg:#0A0806; --surface:#141210; --surface-2:#1E1A16;
+    --glass:rgba(200,80,20,0.03); --glass-border:rgba(200,80,20,0.10);
+    --text:#F0E8E0; --text-2:#D4C4B0; --text-3:#8A7A6A;
+    --accent:#E8652C; --gold:#C44820; --glow:rgba(232,101,44,0.2);
+    --shadow:0 4px 24px rgba(200,80,20,0.08);
+    --stage-color:var(--accent); --white:var(--surface); --border:var(--glass-border);
     --text-mid:var(--text-2); --text-light:var(--text-3); --navy:var(--bg);
-    --hover-bg:rgba(255,255,255,0.03); --badge-bg:var(--badge-bg);
-    --onboard-bg:rgba(11,15,25,0.85); --header-grad1:rgba(232,64,87,.08); --header-grad2:rgba(75,139,245,.06);
+    --hover-bg:rgba(200,80,20,0.04); --badge-bg:rgba(200,80,20,0.08);
+    --onboard-bg:rgba(10,8,6,0.9); --header-grad1:rgba(232,101,44,.06); --header-grad2:rgba(196,72,32,.04);
+    --phase1:#E8652C; --phase2:#C44820; --phase3:#D4783C; --phase4:#8A7A6A;
   }
-  /* ARCTIC — deep navy, cool blue accents */
-  body.theme-arctic {
-    --bg:#0A1628; --surface:#0F1E36; --surface-2:#162844;
-    --glass:rgba(130,180,255,0.04); --glass-border:rgba(130,180,255,0.10);
-    --text:#EEF4FF; --text-2:#BED0EA; --text-3:#7A94B8;
-    --accent:#4B8BF5; --gold:#5CB8FF; --glow:rgba(75,139,245,0.2);
-    --shadow:0 4px 24px rgba(0,0,0,0.4);
-    --stage-color:var(--phase2); --white:var(--surface); --border:var(--glass-border);
+  /* Ember glow effects */
+  body.theme-ember .stage{box-shadow:0 4px 20px rgba(200,80,20,0.06),inset 0 0 30px rgba(200,80,20,0.02)}
+  body.theme-ember .stage:hover{box-shadow:0 8px 32px rgba(200,80,20,0.12),inset 0 0 40px rgba(200,80,20,0.04)}
+  body.theme-ember .tab-bar-item.active{text-shadow:0 0 10px rgba(232,101,44,0.4)}
+  body.theme-ember .tip-card{border-left-color:#E8652C}
+  body.theme-ember .crisis{background:linear-gradient(135deg,#1A0800,#2A1000);border:1px solid rgba(232,101,44,0.2)}
+
+  /* MAPLE GOLD — deep forest, gold everywhere, premium (luxury) */
+  body.theme-gold {
+    --bg:#0A1208; --surface:#0F1A0D; --surface-2:#162212;
+    --glass:rgba(212,168,83,0.04); --glass-border:rgba(212,168,83,0.12);
+    --text:#FFF8E7; --text-2:#D4C9A8; --text-3:#8B7D5A;
+    --accent:#D4A853; --gold:#FFD700; --glow:rgba(212,168,83,0.25);
+    --shadow:0 4px 20px rgba(100,80,20,0.15);
+    --stage-color:#D4A853; --white:var(--surface); --border:var(--glass-border);
     --text-mid:var(--text-2); --text-light:var(--text-3); --navy:var(--bg);
-    --hover-bg:rgba(130,180,255,0.03); --badge-bg:rgba(130,180,255,0.08);
-    --onboard-bg:rgba(10,22,40,0.88); --header-grad1:rgba(75,139,245,.1); --header-grad2:rgba(92,184,255,.06);
-    --phase1:#5CB8FF; --phase4:#6882A8;
+    --hover-bg:rgba(212,168,83,0.04); --badge-bg:rgba(212,168,83,0.08);
+    --onboard-bg:rgba(10,18,8,0.9); --header-grad1:rgba(212,168,83,.08); --header-grad2:rgba(255,215,0,.04);
+    --phase1:#D4A853; --phase2:#C49B3C; --phase3:#B88E2A; --phase4:#8B7D5A;
   }
-  /* CLEAN — white, sharp, professional */
-  body.theme-clean {
-    --bg:#F5F7FA; --surface:#FFFFFF; --surface-2:#EDF0F4;
-    --glass:rgba(0,0,0,0.02); --glass-border:rgba(0,0,0,0.08);
-    --text:#111827; --text-2:#374151; --text-3:#6B7280;
-    --accent:#C41E3A; --gold:#D97706; --glow:rgba(196,30,58,0.1);
-    --shadow:0 2px 12px rgba(0,0,0,0.06);
-    --stage-color:var(--phase4); --white:#FFFFFF; --border:rgba(0,0,0,0.08);
-    --text-mid:var(--text-2); --text-light:var(--text-3); --navy:#111827;
-    --hover-bg:rgba(0,0,0,0.02); --badge-bg:rgba(0,0,0,0.04);
-    --onboard-bg:rgba(245,247,250,0.88); --header-grad1:rgba(232,64,87,.04); --header-grad2:rgba(75,139,245,.03);
-  }
-  /* SAND — warm cream, field manual */
-  body.theme-sand {
-    --bg:#FAF6F0; --surface:#FFFFFF; --surface-2:#F3EDE4;
-    --glass:rgba(139,90,43,0.03); --glass-border:rgba(139,90,43,0.10);
-    --text:#2C1810; --text-2:#5C4033; --text-3:#8B7355;
-    --accent:#A0522D; --gold:#C68B2C; --glow:rgba(160,82,45,0.12);
-    --shadow:0 2px 12px rgba(100,60,20,0.08);
-    --stage-color:var(--phase4); --white:#FFFFFF; --border:rgba(139,90,43,0.10);
+  /* Gold premium effects */
+  body.theme-gold .stage::before{background:linear-gradient(180deg,#FFD700,#D4A853,#8B6914)!important}
+  body.theme-gold .stage{box-shadow:0 2px 12px rgba(212,168,83,0.08),inset 0 1px 0 rgba(255,215,0,0.06)}
+  body.theme-gold .tab-bar-item.active{color:#FFD700;text-shadow:0 0 12px rgba(255,215,0,0.3)}
+  body.theme-gold .crisis{background:linear-gradient(135deg,#1A0A00,#2A1500);border:1px solid rgba(212,168,83,0.25)}
+  body.theme-gold .tip-card{border-left-color:#FFD700}
+
+  /* BIRCH — warm bark white, autumn maple, cabin feel (light) */
+  body.theme-birch {
+    --bg:#FAF5F0; --surface:#FFFFFF; --surface-2:#F5EDE3;
+    --glass:rgba(80,40,20,0.03); --glass-border:rgba(80,40,20,0.10);
+    --text:#2C1810; --text-2:#4A3528; --text-3:#8B7355;
+    --accent:#C45A3C; --gold:#A04828; --glow:rgba(196,90,60,0.12);
+    --shadow:0 2px 12px rgba(80,40,20,0.06);
+    --stage-color:#C45A3C; --white:#FFFFFF; --border:rgba(80,40,20,0.10);
     --text-mid:var(--text-2); --text-light:var(--text-3); --navy:#2C1810;
-    --hover-bg:rgba(139,90,43,0.03); --badge-bg:rgba(139,90,43,0.06);
-    --onboard-bg:rgba(250,246,240,0.88); --header-grad1:rgba(160,82,45,.06); --header-grad2:rgba(198,139,44,.04);
-    --phase1:#C0603A; --phase2:#8B6B3A; --phase3:#6B8B4A; --phase4:#8B7355;
+    --hover-bg:rgba(80,40,20,0.03); --badge-bg:rgba(80,40,20,0.05);
+    --onboard-bg:rgba(250,245,240,0.9); --header-grad1:rgba(196,90,60,.04); --header-grad2:rgba(160,72,40,.03);
+    --phase1:#C45A3C; --phase2:#A04828; --phase3:#8B6B3A; --phase4:#8B7355;
   }
+  /* Birch warm effects */
+  body.theme-birch .stage{box-shadow:0 1px 8px rgba(80,40,20,0.06)}
+  body.theme-birch .stage-num{background:rgba(80,40,20,0.06)}
+  body.theme-birch .contacts-header{background:linear-gradient(135deg,#F5EDE3,#FFFFFF)}
+  body.theme-birch .stage-header{background:rgba(80,40,20,0.02)}
+  body.theme-birch .faq-item.open{background:rgba(80,40,20,0.02)}
+  body.theme-birch .crisis{background:#6B2010;border:1px solid rgba(196,90,60,0.2)}
+  body.theme-birch .tip-card{border-left-color:#C45A3C}
+
   /* THEME DOT TOGGLE */
-  .theme-bar{display:flex;gap:6px;align-items:center}
-  .theme-dot{width:22px;height:22px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:all .25s;padding:0;flex-shrink:0}
-  .theme-dot:hover{transform:scale(1.15)}
-  .theme-dot.active{border-color:var(--accent);box-shadow:0 0 10px var(--glow)}
-  .theme-dot.midnight{background:#0C1017;border-color:rgba(255,255,255,0.15)}
-  .theme-dot.arctic{background:#0A1628;border-color:rgba(130,180,255,0.2)}
-  .theme-dot.clean{background:#F5F7FA;border-color:#D1D5DB}
-  .theme-dot.sand{background:#FAF6F0;border-color:#D4C4A8}
+  .theme-bar{display:flex;gap:8px;align-items:center}
+  .theme-dot{width:24px;height:24px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:all .25s;padding:0;flex-shrink:0}
+  .theme-dot:hover{transform:scale(1.2)}
+  .theme-dot.active{border-color:var(--accent);box-shadow:0 0 12px var(--glow)}
+  .theme-dot.ember{background:linear-gradient(135deg,#0A0806,#1E1208);border-color:rgba(232,101,44,0.3)}
+  .theme-dot.gold{background:linear-gradient(135deg,#0A1208,#162212);border-color:rgba(212,168,83,0.3)}
+  .theme-dot.birch{background:linear-gradient(135deg,#FAF5F0,#F5EDE3);border-color:rgba(80,40,20,0.2)}
   html{scroll-behavior:smooth}
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:0s!important;animation-duration:0s!important}}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -395,6 +407,28 @@
   .progress-stat .stat-num{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--accent);display:block}
   .progress-stat .stat-label{font-size:11px;color:var(--text-3);margin-top:2px}
 
+  /* === THEME-SPECIFIC DESIGN CHANGES === */
+  /* Ember: 16px radius, warm glow shadows, volcanic inner light */
+  body.theme-ember .faq-item.open{border-left-color:#E8652C;box-shadow:inset 3px 0 0 #E8652C,0 0 20px rgba(232,101,44,0.06)}
+  body.theme-ember .tab-bar{background:rgba(14,12,10,0.95);border-top:1px solid rgba(232,101,44,0.15)}
+  body.theme-ember .header-flag{text-shadow:0 0 30px rgba(232,101,44,0.3)}
+
+  /* Gold: 16px radius, double-border embossed effect, gold gradients */
+  body.theme-gold{--radius:16px}
+  body.theme-gold .faq-item.open{border-left-color:#D4A853;box-shadow:inset 3px 0 0 #D4A853,0 0 16px rgba(212,168,83,0.06)}
+  body.theme-gold .tab-bar{background:rgba(10,18,8,0.95);border-top:1px solid rgba(212,168,83,0.2)}
+  body.theme-gold .header-flag{text-shadow:0 0 24px rgba(255,215,0,0.4)}
+  body.theme-gold .quick-action:hover{border-color:rgba(212,168,83,0.4);box-shadow:0 8px 24px rgba(212,168,83,0.12)}
+
+  /* Birch: 12px radius (sharper, like wood), warm everything, paper feel */
+  body.theme-birch{--radius:12px;--radius-sm:8px}
+  body.theme-birch .faq-item.open{border-left-color:#C45A3C;box-shadow:inset 3px 0 0 #C45A3C}
+  body.theme-birch .tab-bar{background:rgba(250,245,240,0.97);border-top:1px solid rgba(80,40,20,0.12)}
+  body.theme-birch .header{background:var(--bg)}
+  body.theme-birch .header-flag{text-shadow:0 0 16px rgba(196,90,60,0.2)}
+  body.theme-birch .quick-action{border:1px solid rgba(80,40,20,0.12)}
+  body.theme-birch .quick-action:hover{border-color:rgba(196,90,60,0.3);box-shadow:0 4px 16px rgba(80,40,20,0.08)}
+
   /* === RESPONSIVE === */
   @media(max-width:480px){
     .stage-title{font-size:15px}.faq-q{font-size:13px;padding:12px 14px}
@@ -454,10 +488,9 @@
     <button class="lang-btn" onclick="setLang('fr',this)" style="padding:4px 12px;font-size:11px">FR</button>
     <span style="width:1px;height:16px;background:var(--glass-border);margin:0 2px"></span>
     <div class="theme-bar">
-      <button class="theme-dot midnight active" title="Midnight" onclick="setTheme('midnight')" style="width:18px;height:18px"></button>
-      <button class="theme-dot arctic" title="Arctic" onclick="setTheme('arctic')" style="width:18px;height:18px"></button>
-      <button class="theme-dot clean" title="Clean" onclick="setTheme('clean')" style="width:18px;height:18px"></button>
-      <button class="theme-dot sand" title="Sand" onclick="setTheme('sand')" style="width:18px;height:18px"></button>
+      <button class="theme-dot ember active" title="Obsidian" onclick="setTheme('ember')"></button>
+      <button class="theme-dot gold" title="Gold" onclick="setTheme('gold')"></button>
+      <button class="theme-dot birch" title="Birch" onclick="setTheme('birch')"></button>
     </div>
   </div>
 </div>
@@ -1950,7 +1983,7 @@ document.addEventListener('keydown',function(e){
 /* ===== INIT ===== */
 (function(){
   // Restore theme
-  var savedTheme=localStorage.getItem('caf_theme')||'midnight';
+  var savedTheme=localStorage.getItem('caf_theme')||'ember';
   setTheme(savedTheme);
   // Restore language
   var lang=localStorage.getItem('caf_lang');
