@@ -435,24 +435,7 @@
 <a href="#main-content" class="skip-link fr">Aller au contenu</a>
 <noscript><div class="noscript-msg">This page requires JavaScript / Cette page requiert JavaScript</div></noscript>
 
-<!-- ONBOARDING OVERLAY -->
-<div class="onboarding-overlay" id="onboarding">
-  <div class="onboarding-card">
-    <div style="font-size:32px;margin-bottom:8px">🍁</div>
-    <h2 class="en">Where are you in your CAF journey?</h2>
-    <h2 class="fr">Ou en etes-vous dans votre parcours des FAC?</h2>
-    <p class="en">We'll personalize your experience based on your career stage.</p>
-    <p class="fr">Nous personnaliserons votre experience selon votre étape de carrière.</p>
-    <div class="stage-options">
-      <button class="stage-opt" onclick="selectStage('applying')"><div class="stage-opt-icon">🤔</div><div class="stage-opt-title en">Thinking about joining</div><div class="stage-opt-title fr">Je pense a m'enrôler</div><div class="stage-opt-desc en">Researching, exploring trades</div><div class="stage-opt-desc fr">Recherche, exploration des métiers</div></button>
-      <button class="stage-opt" onclick="selectStage('waiting')"><div class="stage-opt-icon">⏳</div><div class="stage-opt-title en">Applied &amp; waiting</div><div class="stage-opt-title fr">Candidature soumise</div><div class="stage-opt-desc en">In the application process</div><div class="stage-opt-desc fr">En cours de traitement</div></button>
-      <button class="stage-opt" onclick="selectStage('bmq')"><div class="stage-opt-icon">🎖️</div><div class="stage-opt-title en">In BMQ / training</div><div class="stage-opt-title fr">En QMB / formation</div><div class="stage-opt-desc en">Currently in basic or trade training</div><div class="stage-opt-desc fr">Formation de base ou de métier</div></button>
-      <button class="stage-opt" onclick="selectStage('first_unit')"><div class="stage-opt-icon">🏠</div><div class="stage-opt-title en">At my first unit</div><div class="stage-opt-title fr">A ma première unite</div><div class="stage-opt-desc en">Posted, settling in</div><div class="stage-opt-desc fr">Mute, en installation</div></button>
-      <button class="stage-opt" onclick="selectStage('mid_career')"><div class="stage-opt-icon">📈</div><div class="stage-opt-title en">Mid-career</div><div class="stage-opt-title fr">Mi-carrière</div><div class="stage-opt-desc en">Serving, progressing, posting cycle</div><div class="stage-opt-desc fr">En service, progression, cycle de mutations</div></button>
-      <button class="stage-opt" onclick="selectStage('transitioning')"><div class="stage-opt-icon">🚪</div><div class="stage-opt-title en">Transitioning out</div><div class="stage-opt-title fr">En transition</div><div class="stage-opt-desc en">Leaving or recently released</div><div class="stage-opt-desc fr">Liberation ou recemment libéré</div></button>
-    </div>
-  </div>
-</div>
+<!-- Old onboarding overlay removed — home page welcome state handles onboarding now -->
 
 <!-- MINI CRISIS BAR -->
 <div class="mini-crisis" id="mini-crisis">
@@ -1463,12 +1446,23 @@ var currentTipIdx=-1;
 /* ===== ONBOARDING ===== */
 function selectStage(stage){
   localStorage.setItem('caf_career_stage',stage);
-  document.getElementById('onboarding').classList.add('hidden');
+  // Hide old onboarding overlay if it exists
+  var ob=document.getElementById('onboarding');
+  if(ob)ob.classList.add('hidden');
+  // Update home page to show dashboard (not welcome)
+  updateHomeDashboard();
   updateStageBadge();
   updateJourneyMap();
   filterByStage();
+  // Show tip
+  showNextTip();
 }
-function showOnboarding(){document.getElementById('onboarding').classList.remove('hidden')}
+function showOnboarding(){
+  // Reset stage and show welcome screen on Home tab
+  localStorage.removeItem('caf_career_stage');
+  switchNavTab('home');
+  updateHomeDashboard();
+}
 function updateStageBadge(){
   var stage=localStorage.getItem('caf_career_stage');
   var badge=document.getElementById('stage-badge');
@@ -1961,9 +1955,8 @@ document.addEventListener('keydown',function(e){
     document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.remove('active')});
     document.querySelector('.lang-btn:last-child').classList.add('active');
   }
-  // Onboarding
+  // Home page state (welcome vs dashboard)
   var stage=localStorage.getItem('caf_career_stage');
-  if(stage){document.getElementById('onboarding').classList.add('hidden')}
   updateStageBadge();
   updateJourneyMap();
   // Show relevance toggle if stage is set
