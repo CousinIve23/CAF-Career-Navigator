@@ -438,38 +438,44 @@
   <span class="fr">988 (crise) &middot; 1-800-268-7708 (ACC) &middot; 1-800-866-4546 (famille)</span>
 </div>
 
-<!-- HEADER — MISSION STYLE -->
-<div class="header" style="padding:48px 24px 36px">
-  <div class="header-flag" style="font-size:56px;margin-bottom:16px">🍁</div>
-  <h1 class="en" style="font-size:clamp(32px,7vw,52px);margin-bottom:4px;line-height:1">YOUR CAREER.</h1>
-  <h1 class="fr" style="font-size:clamp(32px,7vw,52px);margin-bottom:4px;line-height:1">VOTRE CARRIERE.</h1>
-  <h1 class="en" style="font-size:clamp(32px,7vw,52px);margin-bottom:4px;line-height:1">YOUR QUESTIONS.</h1>
-  <h1 class="fr" style="font-size:clamp(32px,7vw,52px);margin-bottom:4px;line-height:1">VOS QUESTIONS.</h1>
-  <h1 class="en"><span style="font-size:clamp(32px,7vw,52px);line-height:1">ANSWERED.</span></h1>
-  <h1 class="fr"><span style="font-size:clamp(32px,7vw,52px);line-height:1">REPONDU.</span></h1>
-  <p class="en" style="margin-top:20px;font-size:15px;max-width:440px;line-height:1.7;color:var(--text-2)">67 answers. 6 checklists. Every contact you need.<br>Built by someone who served. Free. Always.</p>
-  <p class="fr" style="margin-top:20px;font-size:15px;max-width:440px;line-height:1.7;color:var(--text-2)">67 reponses. 6 listes de verification. Chaque contact dont vous avez besoin.<br>Cree par quelqu'un qui a servi. Gratuit. Toujours.</p>
-  <div class="disclaimer en" style="margin-top:20px;font-size:10px;opacity:.4">Not an official CAF product</div>
-  <div class="disclaimer fr" style="margin-top:20px;font-size:10px;opacity:.4">Pas un produit officiel des FAC</div>
-</div>
-
-<!-- LANG + THEME TOGGLE -->
-<div class="lang-bar" role="group" aria-label="Language and theme selection">
-  <button class="lang-btn active" onclick="setLang('en',this)">English</button>
-  <button class="lang-btn" onclick="setLang('fr',this)">Francais</button>
-  <span style="width:1px;height:20px;background:var(--glass-border);margin:0 6px;flex-shrink:0"></span>
-  <div class="theme-bar">
-    <button class="theme-dot midnight active" title="Midnight" onclick="setTheme('midnight')"></button>
-    <button class="theme-dot arctic" title="Arctic" onclick="setTheme('arctic')"></button>
-    <button class="theme-dot clean" title="Clean" onclick="setTheme('clean')"></button>
-    <button class="theme-dot sand" title="Sand" onclick="setTheme('sand')"></button>
+<!-- COMPACT TOP BAR (shows on all tabs) -->
+<div style="background:var(--surface);border-bottom:1px solid var(--glass-border);padding:10px 20px;display:flex;align-items:center;justify-content:space-between">
+  <div style="display:flex;align-items:center;gap:10px;cursor:pointer" onclick="switchNavTab('home')">
+    <span style="font-size:22px">🍁</span>
+    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:15px;color:var(--text);letter-spacing:-.01em">CAF <span style="background:linear-gradient(135deg,#E84057,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Navigator</span></span>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <button class="lang-btn active" onclick="setLang('en',this)" style="padding:4px 12px;font-size:11px">EN</button>
+    <button class="lang-btn" onclick="setLang('fr',this)" style="padding:4px 12px;font-size:11px">FR</button>
+    <span style="width:1px;height:16px;background:var(--glass-border);margin:0 2px"></span>
+    <div class="theme-bar">
+      <button class="theme-dot midnight active" title="Midnight" onclick="setTheme('midnight')" style="width:18px;height:18px"></button>
+      <button class="theme-dot arctic" title="Arctic" onclick="setTheme('arctic')" style="width:18px;height:18px"></button>
+      <button class="theme-dot clean" title="Clean" onclick="setTheme('clean')" style="width:18px;height:18px"></button>
+      <button class="theme-dot sand" title="Sand" onclick="setTheme('sand')" style="width:18px;height:18px"></button>
+    </div>
   </div>
 </div>
+
 
 <!-- ============================================ -->
 <!-- TAB 1: HOME DASHBOARD                        -->
 <!-- ============================================ -->
 <div class="tab-content active" id="tab-home">
+
+<!-- HERO (Home only) -->
+<div class="header" style="padding:36px 24px 28px">
+  <div class="header-flag" style="font-size:42px;margin-bottom:12px">🍁</div>
+  <h1 class="en" style="font-size:clamp(24px,5.5vw,38px);margin-bottom:2px;line-height:1.05">YOUR CAREER.</h1>
+  <h1 class="fr" style="font-size:clamp(24px,5.5vw,38px);margin-bottom:2px;line-height:1.05">VOTRE CARRIERE.</h1>
+  <h1 class="en" style="font-size:clamp(24px,5.5vw,38px);margin-bottom:2px;line-height:1.05">YOUR QUESTIONS.</h1>
+  <h1 class="fr" style="font-size:clamp(24px,5.5vw,38px);margin-bottom:2px;line-height:1.05">VOS QUESTIONS.</h1>
+  <h1 class="en"><span style="font-size:clamp(24px,5.5vw,38px);line-height:1.05">ANSWERED.</span></h1>
+  <h1 class="fr"><span style="font-size:clamp(24px,5.5vw,38px);line-height:1.05">REPONDU.</span></h1>
+  <p class="en" style="margin-top:16px;font-size:14px;max-width:400px;line-height:1.7;color:var(--text-2)">67 answers. 6 checklists. Every contact you need.<br>Built by someone who served. Free. Always.</p>
+  <p class="fr" style="margin-top:16px;font-size:14px;max-width:400px;line-height:1.7;color:var(--text-2)">67 reponses. 6 listes. Chaque contact necessaire.<br>Cree par quelqu'un qui a servi. Gratuit. Toujours.</p>
+</div>
+
 <div class="dashboard">
 
   <!-- STAGE CARD -->
