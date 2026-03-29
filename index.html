@@ -386,7 +386,7 @@
   .stage-card-btn:hover{color:var(--text);border-color:var(--text-3)}
   .quick-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px}
   @media(max-width:480px){.quick-actions{grid-template-columns:1fr}}
-  .quick-action{background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--glass-border);border-radius:var(--radius);padding:20px 16px;text-align:center;cursor:pointer;transition:all .25s;font-family:'Inter',sans-serif;display:flex;flex-direction:column;align-items:center;gap:8px}
+  .quick-action{background:var(--surface);border:1px solid var(--glass-border);border-radius:var(--radius);padding:20px 16px;text-align:center;cursor:pointer;transition:all .25s;font-family:'Inter',sans-serif;display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;z-index:1}
   .quick-action:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
   .qa-icon{font-size:28px}
   .qa-label{font-size:13px;font-weight:700;color:var(--text)}
@@ -1325,11 +1325,11 @@
 <!-- BOTTOM TAB BAR -->
 <nav class="tab-bar" id="tab-bar">
   <button class="tab-bar-item active" onclick="switchNavTab('home')"><span class="tab-bar-icon">&#9679;</span><span class="tab-bar-label en">Home</span><span class="tab-bar-label fr">Accueil</span></button>
-  <button class="tab-bar-item" onclick="switchNavTab('faqs')"><span class="tab-bar-icon">&#9776;</span><span class="tab-bar-label en">Answers</span><span class="tab-bar-label fr">Réponses</span></button>
-  <button class="tab-bar-item" onclick="switchNavTab('lists')"><span class="tab-bar-icon">&#10003;</span><span class="tab-bar-label en">Checklists</span><span class="tab-bar-label fr">Listes</span></button>
-  <button class="tab-bar-item" onclick="switchNavTab('contacts')"><span class="tab-bar-icon">&#9742;</span><span class="tab-bar-label">Contacts</span></button>
   <button class="tab-bar-item" onclick="switchNavTab('saved')"><span class="tab-bar-icon">&#9825;</span><span class="tab-bar-label en">Family</span><span class="tab-bar-label fr">Famille</span></button>
+  <button class="tab-bar-item" onclick="switchNavTab('contacts')"><span class="tab-bar-icon">&#9742;</span><span class="tab-bar-label">Contacts</span></button>
   <button class="tab-bar-item" onclick="switchNavTab('reserve')"><span class="tab-bar-icon">&#9733;</span><span class="tab-bar-label">Reserve</span></button>
+  <button class="tab-bar-item" onclick="switchNavTab('lists')"><span class="tab-bar-icon">&#10003;</span><span class="tab-bar-label en">To-Do</span><span class="tab-bar-label fr">À faire</span></button>
+  <button class="tab-bar-item" onclick="switchNavTab('faqs')"><span class="tab-bar-icon">&#9776;</span><span class="tab-bar-label en">Answers</span><span class="tab-bar-label fr">Réponses</span></button>
 </nav>
 
 <div class="share-toast" id="share-toast"><span class="en">Link copied!</span><span class="fr">Lien copie!</span></div>
@@ -1724,7 +1724,7 @@ function filterPhase(phase,btn){
 var tabScrollPositions={};
 var activeNavTab='home';
 var listsRendered=false;
-var NAV_TABS=['home','faqs','lists','contacts','saved','reserve'];
+var NAV_TABS=['home','saved','contacts','reserve','lists','faqs'];
 
 function switchNavTab(tab){
   // Clear search when leaving FAQs (Fix 14)
