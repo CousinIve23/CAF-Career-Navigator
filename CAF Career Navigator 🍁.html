@@ -486,50 +486,75 @@
 <div class="tab-content active" id="tab-home">
 <div class="dashboard">
 
-  <!-- GREETING -->
-  <div style="text-align:center;padding:28px 20px 20px">
-    <div style="font-size:36px;margin-bottom:10px">🍁</div>
-    <h1 style="font-family:'Syne',sans-serif;font-size:clamp(20px,4.5vw,28px);font-weight:800;color:var(--text);letter-spacing:-.02em;line-height:1.3;margin-bottom:6px"><span class="en" id="home-greeting">Good evening</span><span class="fr" id="home-greeting-fr">Bonsoir</span><span style="color:var(--text-3)">,</span> <span style="color:var(--text-2)" id="home-greeting-stage"></span></h1>
-    <p style="font-size:13px;color:var(--text-3);line-height:1.5"><span class="en">Your career. Your questions. <strong style="color:var(--accent)">Answered.</strong></span><span class="fr">Votre carriere. Vos questions. <strong style="color:var(--accent)">Repondu.</strong></span></p>
-    <button class="stage-card-btn" onclick="showOnboarding()" style="margin-top:10px;font-size:10px;padding:4px 12px"><span class="en">Change stage</span><span class="fr">Changer l'etape</span></button>
-  </div>
-
-  <!-- TODAY'S INTEL -->
-  <div class="tip-card" id="tip-card" style="margin:0 20px 12px">
-    <div class="tip-card-icon">📋</div>
-    <div class="tip-card-body">
-      <div class="tip-card-label"><span class="en">Today's Intel</span><span class="fr">Info du jour</span></div>
-      <div class="tip-card-text" id="tip-text"></div>
-      <button class="tip-card-btn" onclick="showNextTip()"><span class="en">Next brief</span><span class="fr">Prochain briefing</span></button>
+  <!-- STATE A: NEW USER WELCOME (shown when no stage selected) -->
+  <div id="home-welcome" style="text-align:center;padding:32px 24px 24px">
+    <div style="font-size:48px;margin-bottom:16px">🍁</div>
+    <h1 style="font-family:'Syne',sans-serif;font-size:clamp(22px,5vw,32px);font-weight:800;color:var(--text);letter-spacing:-.02em;line-height:1.2;margin-bottom:12px"><span class="en">Joining the Canadian<br>Armed Forces?</span><span class="fr">Vous joignez les Forces<br>armees canadiennes?</span></h1>
+    <p style="font-size:14px;color:var(--text-2);line-height:1.7;max-width:420px;margin:0 auto 24px"><span class="en">Everything they don't tell you — from application to your first posting and beyond. For you <strong>and your family</strong>. Free. Always.</span><span class="fr">Tout ce qu'on ne vous dit pas — de la candidature a votre premiere mutation et au-dela. Pour vous <strong>et votre famille</strong>. Gratuit. Toujours.</span></p>
+    <p style="font-size:13px;color:var(--text-3);margin-bottom:16px"><span class="en">Where are you right now?</span><span class="fr">Ou en etes-vous?</span></p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:400px;margin:0 auto">
+      <button class="quick-action" onclick="selectStage('applying')" style="padding:16px 12px"><span class="qa-icon" style="font-size:24px">🤔</span><span class="qa-label" style="font-size:13px"><span class="en">Thinking about joining</span><span class="fr">Je pense a m'enroler</span></span></button>
+      <button class="quick-action" onclick="selectStage('waiting')" style="padding:16px 12px"><span class="qa-icon" style="font-size:24px">⏳</span><span class="qa-label" style="font-size:13px"><span class="en">Applied &amp; waiting</span><span class="fr">Candidature soumise</span></span></button>
+      <button class="quick-action" onclick="selectStage('bmq')" style="padding:16px 12px"><span class="qa-icon" style="font-size:24px">🎖️</span><span class="qa-label" style="font-size:13px"><span class="en">In BMQ / training</span><span class="fr">En QMB / formation</span></span></button>
+      <button class="quick-action" onclick="selectStage('first_unit')" style="padding:16px 12px"><span class="qa-icon" style="font-size:24px">🏠</span><span class="qa-label" style="font-size:13px"><span class="en">At my first unit</span><span class="fr">A ma premiere unite</span></span></button>
+      <button class="quick-action" onclick="selectStage('mid_career')" style="padding:16px 12px"><span class="qa-icon" style="font-size:24px">📈</span><span class="qa-label" style="font-size:13px"><span class="en">Serving</span><span class="fr">En service</span></span></button>
+      <button class="quick-action" onclick="selectStage('transitioning')" style="padding:16px 12px"><span class="qa-icon" style="font-size:24px">🚪</span><span class="qa-label" style="font-size:13px"><span class="en">Transitioning out</span><span class="fr">En transition</span></span></button>
+    </div>
+    <div style="margin-top:24px;padding:16px 20px;background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);max-width:400px;margin-left:auto;margin-right:auto">
+      <p style="font-size:12px;color:var(--text-3);margin-bottom:8px"><span class="en">Ready to apply?</span><span class="fr">Pret a postuler?</span></p>
+      <a href="https://forces.ca/en/how-to-join/" target="_blank" rel="noopener" style="font-size:14px;font-weight:700;color:var(--accent);text-decoration:none">forces.ca →</a>
+      <p style="font-size:11px;color:var(--text-3);margin-top:6px"><span class="en">Or call recruiting: <a href="tel:18008568488" style="color:var(--accent);text-decoration:none;font-weight:600">1-800-856-8488</a></span><span class="fr">Ou appelez le recrutement : <a href="tel:18008568488" style="color:var(--accent);text-decoration:none;font-weight:600">1-800-856-8488</a></span></p>
     </div>
   </div>
 
-  <!-- YOUR PROGRESS (hidden if no activity) -->
-  <div id="home-progress-wrap" style="margin:0 20px 12px;display:none">
-    <div class="progress-card" id="home-progress">
-      <div class="progress-stat"><span class="stat-num" id="home-cl-started">0</span><span class="stat-label en">Missions active</span><span class="stat-label fr">Missions actives</span></div>
-      <div class="progress-stat"><span class="stat-num" id="home-saved-count">0</span><span class="stat-label en">Intel saved</span><span class="stat-label fr">Intel sauvegarde</span></div>
+  <!-- STATE B: RETURNING USER DASHBOARD (shown when stage is selected) -->
+  <div id="home-dashboard" style="display:none">
+
+    <!-- GREETING -->
+    <div style="text-align:center;padding:28px 20px 16px">
+      <div style="font-size:36px;margin-bottom:10px">🍁</div>
+      <h1 style="font-family:'Syne',sans-serif;font-size:clamp(20px,4.5vw,26px);font-weight:800;color:var(--text);letter-spacing:-.02em;line-height:1.3;margin-bottom:4px"><span class="en" id="home-greeting">Good evening</span><span class="fr" id="home-greeting-fr">Bonsoir</span>.</h1>
+      <p style="font-size:14px;color:var(--text-2);margin-bottom:2px"><span class="en">You're at: <strong id="home-greeting-stage" style="color:var(--accent)"></strong></span><span class="fr">Vous etes a : <strong id="home-greeting-stage-fr" style="color:var(--accent)"></strong></span></p>
+      <button class="stage-card-btn" onclick="showOnboarding()" style="margin-top:8px;font-size:10px;padding:4px 12px"><span class="en">Change</span><span class="fr">Changer</span></button>
     </div>
-  </div>
 
-  <!-- NEED HELP NOW -->
-  <div class="crisis" id="crisis-banner" role="alert" style="margin:0 20px 12px">
-    <div class="crisis-title en">Need help now?</div>
-    <div class="crisis-title fr">Besoin d'aide maintenant?</div>
-    <div class="crisis-body"><strong>988</strong> (crisis) &middot; <strong>1-800-268-7708</strong> (VAC) &middot; <strong>1-800-866-4546</strong> (family)</div>
-  </div>
+    <!-- TODAY'S INTEL -->
+    <div class="tip-card" id="tip-card" style="margin:0 20px 12px">
+      <div class="tip-card-icon">📋</div>
+      <div class="tip-card-body">
+        <div class="tip-card-label"><span class="en">Today's Intel</span><span class="fr">Info du jour</span></div>
+        <div class="tip-card-text" id="tip-text"></div>
+        <button class="tip-card-btn" onclick="showNextTip()"><span class="en">Next brief</span><span class="fr">Prochain briefing</span></button>
+      </div>
+    </div>
 
-  <!-- WHAT'S NEW -->
-  <div class="whats-new" id="whats-new" style="margin:0 20px 12px">
-    <span class="wn-tag">NEW</span>
-    <span class="wn-text"><span class="en"><strong>March 2026:</strong> Mobility Allowance — $13,500–$27,000 per move</span><span class="fr"><strong>Mars 2026 :</strong> Indemnite de mobilite — 13 500 $–27 000 $</span></span>
-    <button class="wn-close" onclick="dismissWhatsNew()">&times;</button>
-  </div>
+    <!-- YOUR PROGRESS (hidden if no activity) -->
+    <div id="home-progress-wrap" style="margin:0 20px 12px;display:none">
+      <div class="progress-card" id="home-progress">
+        <div class="progress-stat"><span class="stat-num" id="home-cl-started">0</span><span class="stat-label en">Missions active</span><span class="stat-label fr">Missions actives</span></div>
+        <div class="progress-stat"><span class="stat-num" id="home-saved-count">0</span><span class="stat-label en">Intel saved</span><span class="stat-label fr">Intel sauvegarde</span></div>
+      </div>
+    </div>
 
-  <!-- COMPACT FOOTER (Home only) -->
-  <div style="text-align:center;padding:20px;font-size:10px;color:var(--text-3);line-height:1.8">
-    🍁 CAF Career Navigator &middot; <span class="en">Not official</span><span class="fr">Non officiel</span> &middot; March 2026<br>
-    <a href="https://github.com/CousinIve23/CAF-Career-Navigator/issues" style="color:var(--text-3);text-decoration:underline"><span class="en">Report an error</span><span class="fr">Signaler une erreur</span></a>
+    <!-- NEED HELP NOW -->
+    <div class="crisis" id="crisis-banner" role="alert" style="margin:0 20px 12px">
+      <div class="crisis-title en">Need help now?</div>
+      <div class="crisis-title fr">Besoin d'aide maintenant?</div>
+      <div class="crisis-body"><strong>988</strong> (crisis) &middot; <strong><a href="tel:18002687708" style="color:inherit;text-decoration:none">1-800-268-7708</a></strong> (VAC) &middot; <strong><a href="tel:18008664546" style="color:inherit;text-decoration:none">1-800-866-4546</a></strong> (family)</div>
+    </div>
+
+    <!-- WHAT'S NEW -->
+    <div class="whats-new" id="whats-new" style="margin:0 20px 12px">
+      <span class="wn-tag">NEW</span>
+      <span class="wn-text"><span class="en"><strong>2025:</strong> BMQ now 9 weeks. $10K bonus for eligible trades. <a href="https://forces.ca/en/how-to-join/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;font-weight:600">Apply now →</a></span><span class="fr"><strong>2025 :</strong> QMB maintenant 9 semaines. Prime de 10 000 $ pour metiers admissibles. <a href="https://forces.ca/en/how-to-join/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;font-weight:600">Postulez →</a></span></span>
+      <button class="wn-close" onclick="dismissWhatsNew()">&times;</button>
+    </div>
+
+    <!-- COMPACT FOOTER -->
+    <div style="text-align:center;padding:20px;font-size:10px;color:var(--text-3);line-height:1.8">
+      🍁 CAF Career Navigator &middot; <span class="en">Not official</span><span class="fr">Non officiel</span> &middot; <a href="https://forces.ca/en/how-to-join/" target="_blank" rel="noopener" style="color:var(--text-3);text-decoration:none;font-weight:600">forces.ca</a> &middot; <a href="https://github.com/CousinIve23/CAF-Career-Navigator/issues" style="color:var(--text-3);text-decoration:underline"><span class="en">Report an error</span><span class="fr">Signaler une erreur</span></a>
+    </div>
+
   </div>
 
 </div>
@@ -640,9 +665,9 @@
 <div class="stage s2" id="s2" data-phase="1">
   <div class="stage-header"><div class="stage-num">2</div><div class="stage-title-block"><span class="stage-emoji">🎖️</span><div class="stage-title en">BMQ — Basic Training</div><div class="stage-title fr">QMB — Instruction de base</div><div class="stage-subtitle en">What to expect at Basic Military Qualification</div><div class="stage-subtitle fr">Ce a quoi vous attendre a la QMB</div></div></div>
   <div class="faq-list">
-    <div class="faq-item" id="s2-q1" data-stages="applying,waiting,bmq"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What is BMQ and where does it happen?</span><span class="faq-q-text fr">Qu'est-ce que la QMB et ou se deroule-t-elle?</span><span class="bm-icon" onclick="toggleBookmark(event,'s2-q1')">&#9734;</span><span class="share-icon" aria-hidden="true" onclick="shareFaq(event)">&#8599;</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>BMQ</strong> is the entry-level training every CAF member must complete. Reg Force: <strong>CAFLRS</strong> in Saint-Jean-sur-Richelieu, ~10 weeks. Reserve: weekends/summer block.</p><p class="fr"><strong>La QMB</strong> est la formation initiale obligatoire. Force reguliere : <strong>ELRFC</strong> a Saint-Jean-sur-Richelieu, ~10 semaines. Reserve : fins de semaine/bloc estival.</p></div></div></div>
+    <div class="faq-item" id="s2-q1" data-stages="applying,waiting,bmq"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What is BMQ and where does it happen?</span><span class="faq-q-text fr">Qu'est-ce que la QMB et ou se deroule-t-elle?</span><span class="bm-icon" onclick="toggleBookmark(event,'s2-q1')">&#9734;</span><span class="share-icon" aria-hidden="true" onclick="shareFaq(event)">&#8599;</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>BMQ (Basic Military Qualification)</strong> is the entry-level training every CAF member must complete. <strong>9 weeks</strong> (BMOQ is 12 weeks for officers). Training locations: <strong>CAFLRS in Saint-Jean-sur-Richelieu, Quebec</strong> (primary) and <strong>CFB Borden, Ontario</strong> (Delta Division — expanded in 2025). Reserve BMQ: weekends or a condensed 2-month summer block. <strong>$10,000 completion bonus</strong> available for certain eligible trades.</p><p class="fr"><strong>La QMB (Qualification militaire de base)</strong> est la formation initiale obligatoire. <strong>9 semaines</strong> (QMBO est 12 semaines pour les officiers). Lieux de formation : <strong>ELRFC a Saint-Jean-sur-Richelieu, Quebec</strong> (principal) et <strong>BFC Borden, Ontario</strong> (Division Delta — elargie en 2025). QMB de la Reserve : fins de semaine ou bloc estival de 2 mois. <strong>Prime de 10 000 $</strong> a la completion pour certains metiers admissibles.</p></div></div></div>
 
-    <div class="faq-item" id="s2-q2" data-stages="waiting,bmq"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What should I expect during BMQ?</span><span class="faq-q-text fr">A quoi m'attendre pendant la QMB?</span><span class="bm-icon" onclick="toggleBookmark(event,'s2-q2')">&#9734;</span><span class="share-icon" aria-hidden="true" onclick="shareFaq(event)">&#8599;</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>Week-by-week reality:</strong></p><ul class="en"><li><strong>Weeks 1–2:</strong> The hardest. Sleep deprivation, constant correction, homesickness. You'll question everything. This is by design — it breaks civilian habits and builds team cohesion. Almost everyone who survives week 2 finishes BMQ.</li><li><strong>Weeks 3–5:</strong> You start getting it. Drill becomes automatic. You learn weapons handling, first aid, CAF values and ethics. Phone access begins (limited).</li><li><strong>Weeks 6–8:</strong> Field exercises. You sleep outside, navigate in the woods, do section attacks. Physically demanding but rewarding. This is where your pre-BMQ fitness pays off.</li><li><strong>Weeks 9–10:</strong> Final assessments, FORCE test, graduation prep. You can feel the finish line.</li></ul><p class="en"><strong>What to bring:</strong> Follow your joining instructions EXACTLY. In general: personal hygiene items, prescription medications, small amount of cash, ID, and a positive attitude. Do NOT bring: excessive civilian clothes, valuables, large electronics, or anything you'd be devastated to lose.</p><p class="en"><strong>Phone access:</strong> None in week 1. Limited and earned after that — typically 15-30 min a few times per week. Tell your family before you leave. Access increases as training progresses.</p><p class="fr"><strong>Semaine par semaine :</strong></p><ul class="fr"><li><strong>Semaines 1–2 :</strong> Les plus difficiles. Manque de sommeil, corrections constantes, ennui du foyer. C'est par conception — ca brise les habitudes civiles.</li><li><strong>Semaines 3–5 :</strong> Ca commence a cliquer. Exercice militaire, armes, premiers soins, valeurs des FAC. Acces au telephone commence.</li><li><strong>Semaines 6–8 :</strong> Exercices en campagne. Nuits dehors, navigation, attaques de section. Exigeant mais gratifiant.</li><li><strong>Semaines 9–10 :</strong> Evaluations finales, test FORCE, preparation de la graduation.</li></ul><p class="fr"><strong>Quoi apporter :</strong> Suivez les instructions EXACTEMENT. Hygiene personnelle, medicaments, argent comptant, ID. NE PAS apporter d'exces de vetements civils ou d'objets de valeur.</p><p class="fr"><strong>Telephone :</strong> Aucun la semaine 1. Limite apres — typiquement 15-30 min quelques fois par semaine. L'acces augmente au fil de la formation.</p></div></div></div>
+    <div class="faq-item" id="s2-q2" data-stages="waiting,bmq"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What should I expect during BMQ?</span><span class="faq-q-text fr">A quoi m'attendre pendant la QMB?</span><span class="bm-icon" onclick="toggleBookmark(event,'s2-q2')">&#9734;</span><span class="share-icon" aria-hidden="true" onclick="shareFaq(event)">&#8599;</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en"><strong>Week-by-week reality:</strong></p><ul class="en"><li><strong>Weeks 1–2:</strong> The hardest. Your day starts at <strong>5 AM</strong>. Sleep deprivation, constant correction, homesickness. You'll question everything. This is by design — it breaks civilian habits and builds team cohesion. <strong>No family visits for the first 4 weeks.</strong> Almost everyone who survives week 2 finishes BMQ.</li><li><strong>Weeks 3–5:</strong> You start getting it. Drill becomes automatic. You learn weapons handling (C7A2 service rifle), first aid, CAF values and ethics. Phone access begins (limited). Family visits allowed after week 4.</li><li><strong>Week 6:</strong> <strong>FORCE fitness test</strong> — you must pass to continue. You'll have had weeks of PT to prepare. Start training before you arrive.</li><li><strong>Weeks 7–9:</strong> Field exercises, section attacks, final assessments, graduation prep. You can feel the finish line.</li></ul><p class="en"><strong>What to bring:</strong> Follow your joining instructions EXACTLY. Personal hygiene items, prescription medications, small amount of cash, ID. Do NOT bring: excessive civilian clothes, valuables, large electronics.</p><p class="en"><strong>Phone access:</strong> None in week 1. Limited after that — typically 15-30 min a few times per week. <strong>Tell your family before you leave — they should not panic if they can't reach you.</strong> Access increases as training progresses.</p><p class="en"><strong>Pay during BMQ:</strong> You earn <strong>$4,337–$5,484/month</strong> as a new recruit during training. You are paid from day one.</p><p class="fr"><strong>Semaine par semaine :</strong></p><ul class="fr"><li><strong>Semaines 1–2 :</strong> Les plus difficiles. Votre journee commence a <strong>5 h</strong>. Manque de sommeil, corrections constantes, ennui du foyer. <strong>Aucune visite familiale les 4 premieres semaines.</strong></li><li><strong>Semaines 3–5 :</strong> Ca commence a cliquer. Exercice militaire, armes (fusil de service C7A2), premiers soins, valeurs des FAC. Acces au telephone commence. Visites permises apres la semaine 4.</li><li><strong>Semaine 6 :</strong> <strong>Test FORCE</strong> — vous devez reussir pour continuer. Commencez a vous entrainer avant d'arriver.</li><li><strong>Semaines 7–9 :</strong> Exercices en campagne, attaques de section, evaluations finales, preparation de la graduation.</li></ul><p class="fr"><strong>Quoi apporter :</strong> Suivez les instructions EXACTEMENT. Hygiene personnelle, medicaments, argent comptant, ID.</p><p class="fr"><strong>Telephone :</strong> Aucun la semaine 1. Limite apres — 15-30 min quelques fois par semaine. <strong>Prevenez votre famille — ils ne doivent pas paniquer s'ils ne peuvent pas vous joindre.</strong></p><p class="fr"><strong>Solde pendant la QMB :</strong> Vous gagnez <strong>4 337 $–5 484 $/mois</strong> comme nouvelle recrue. Vous etes paye des le jour 1.</p></div></div></div>
 
     <div class="faq-item" id="s2-q3" data-stages="waiting,bmq,first_unit,mid_career"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What is the FORCE test?</span><span class="faq-q-text fr">Qu'est-ce que le test FORCE?</span><span class="bm-icon" onclick="toggleBookmark(event,'s2-q3')">&#9734;</span><span class="share-icon" aria-hidden="true" onclick="shareFaq(event)">&#8599;</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner"><p class="en">Universal fitness standard. 4 components: <strong>Sandbag Lift</strong> (20 kg), <strong>Loaded Shuttles</strong> (20 kg/20 m), <strong>20m Rushes</strong>, <strong>Sandbag Drag</strong> (20 kg). Minimum is achievable with basic fitness. Retaken annually.</p><p class="fr">Norme universelle. 4 composantes : <strong>Lever de sacs</strong> (20 kg), <strong>Navettes avec charge</strong>, <strong>Courses de 20 m</strong>, <strong>Trainee de sac</strong>. Norme minimale atteignable. Repasse annuellement.</p></div></div></div>
 
@@ -894,14 +919,127 @@
 <!-- ============================================ -->
 <div class="tab-content" id="tab-saved">
 <div class="main">
-  <h2 style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--text);margin-bottom:4px;letter-spacing:-.02em"><span class="en">Your Intel</span><span class="fr">Votre intel</span></h2>
-  <p style="font-size:13px;color:var(--text-3);margin-bottom:16px;line-height:1.5"><span class="en">FAQs you've saved for quick access.</span><span class="fr">FAQ sauvegardees pour acces rapide.</span></p>
-  <div id="saved-list"></div>
-  <div class="empty-state" id="empty-saved" style="display:none">
-    <div class="empty-state-icon">&#9734;</div>
-    <div class="empty-state-text en">No saved items yet. Go to FAQs and tap the star to bookmark.</div>
-    <div class="empty-state-text fr">Aucun element. Allez dans FAQ et appuyez sur l'etoile.</div>
+  <h2 style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--text);margin-bottom:4px;letter-spacing:-.02em"><span class="en">For Families</span><span class="fr">Pour les familles</span></h2>
+  <p style="font-size:14px;color:var(--text-2);margin-bottom:20px;line-height:1.7"><span class="en">Your partner, child, or parent is joining or serving in the CAF. Here's what that means for <strong>you</strong>.</span><span class="fr">Votre conjoint, enfant ou parent rejoint ou sert dans les FAC. Voici ce que cela signifie pour <strong>vous</strong>.</span></p>
+
+  <!-- BMQ: WHAT YOUR FAMILY NEEDS TO KNOW -->
+  <div class="stage" style="--stage-color:var(--phase1);margin-bottom:16px">
+    <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--phase1);border-radius:4px 0 0 4px"></div>
+    <div class="stage-header"><div class="stage-num">1</div><div class="stage-title-block"><div class="stage-title en">Your Partner is Going to BMQ</div><div class="stage-title fr">Votre conjoint part pour la QMB</div><div class="stage-subtitle en">What to expect during 9 weeks of basic training</div><div class="stage-subtitle fr">A quoi s'attendre pendant 9 semaines de formation de base</div></div></div>
+    <div class="faq-list">
+      <div style="padding:16px;font-size:14px;line-height:1.8;color:var(--text-2)">
+        <ul class="en" style="padding-left:18px">
+          <li><strong>No phone contact for the first week.</strong> Limited contact after that — 15-30 minutes a few times per week. <strong>Do not panic if you don't hear from them.</strong></li>
+          <li><strong>No family visits for the first 4 weeks.</strong> Visits are allowed after week 4. Plan accordingly.</li>
+          <li><strong>Their day starts at 5 AM.</strong> They will be exhausted. When they do call, they may be short or emotional. This is normal.</li>
+          <li><strong>They WILL want to quit around week 2.</strong> Almost everyone does. Almost everyone who stays is glad they did by week 6. Support them through it.</li>
+          <li><strong>BMQ is 9 weeks</strong> (as of 2025). Training is at Saint-Jean-sur-Richelieu, QC or CFB Borden, ON.</li>
+          <li><strong>They are paid from day one.</strong> $4,337–$5,484/month during training.</li>
+          <li><strong>The MFRC supports YOU too.</strong> Call <a href="tel:18008664546" style="color:var(--accent);font-weight:700;text-decoration:none">1-800-866-4546</a> (24/7) — they help with childcare, emotional support, and connecting you with other families going through the same thing.</li>
+        </ul>
+        <ul class="fr" style="padding-left:18px">
+          <li><strong>Aucun contact telephonique la premiere semaine.</strong> Contact limite apres — 15-30 min quelques fois par semaine. <strong>Ne paniquez pas si vous n'avez pas de nouvelles.</strong></li>
+          <li><strong>Aucune visite familiale les 4 premieres semaines.</strong> Visites permises apres la semaine 4.</li>
+          <li><strong>Leur journee commence a 5 h.</strong> Ils seront epuises. Quand ils appellent, ils peuvent etre brusques ou emotifs. C'est normal.</li>
+          <li><strong>Ils VOUDRONT abandonner vers la semaine 2.</strong> Presque tout le monde le veut. Presque tous ceux qui restent sont contents a la semaine 6.</li>
+          <li><strong>La QMB dure 9 semaines</strong> (depuis 2025). Formation a Saint-Jean-sur-Richelieu, QC ou BFC Borden, ON.</li>
+          <li><strong>Ils sont payes des le jour 1.</strong> 4 337 $–5 484 $/mois pendant la formation.</li>
+          <li><strong>Le CRFM vous soutient VOUS aussi.</strong> Appelez le <a href="tel:18008664546" style="color:var(--accent);font-weight:700;text-decoration:none">1-800-866-4546</a> (24 h/24).</li>
+        </ul>
+        <div class="tip"><span class="tip-icon">💡</span><span class="en">Your feelings of worry, loneliness, and uncertainty are completely normal. You are not alone. Connect with other BMQ families through your local MFRC.</span><span class="fr">Vos sentiments d'inquietude, de solitude et d'incertitude sont completement normaux. Vous n'etes pas seul. Connectez-vous avec d'autres familles QMB par votre CRFM local.</span></div>
+      </div>
+    </div>
   </div>
+
+  <!-- POSTING: YOUR FAMILY IS MOVING -->
+  <div class="stage" style="--stage-color:var(--phase2);margin-bottom:16px">
+    <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--phase2);border-radius:4px 0 0 4px"></div>
+    <div class="stage-header"><div class="stage-num">2</div><div class="stage-title-block"><div class="stage-title en">You're Being Posted — What It Means for Your Family</div><div class="stage-title fr">Vous etes mutes — ce que ca signifie pour votre famille</div><div class="stage-subtitle en">Moves, schools, jobs, healthcare — all at once</div><div class="stage-subtitle fr">Demenagements, ecoles, emplois, sante — tout en meme temps</div></div></div>
+    <div class="faq-list">
+      <div style="padding:16px;font-size:14px;line-height:1.8;color:var(--text-2)">
+        <ul class="en" style="padding-left:18px">
+          <li><strong>Your kids will change schools.</strong> Contact the MFRC at your new base — they help with school enrollment and connecting kids with other military children.</li>
+          <li><strong>Your career may be disrupted.</strong> The <strong>Military Spouse Employment Initiative (MSEI)</strong> launched in 2025 helps spouses find federal public service jobs that move with you. Ask your MFRC.</li>
+          <li><strong>Healthcare:</strong> You'll need new provincial health cards, new family doctor, new specialists. Start this process BEFORE you move. Waitlists are real.</li>
+          <li><strong>Childcare:</strong> Contact the new base MFRC early — subsidized spots fill fast. Budget 2024 committed $100M over 5 years for military family childcare.</li>
+          <li><strong>The MFRC at your new base helps the WHOLE family transition</strong> — not just the member. Call them as soon as you get the posting message: <a href="tel:18008664546" style="color:var(--accent);font-weight:700;text-decoration:none">1-800-866-4546</a></li>
+          <li><strong>Mobility Allowance (2026):</strong> $13,500–$27,000 per move depending on how many times you've moved.</li>
+        </ul>
+        <ul class="fr" style="padding-left:18px">
+          <li><strong>Vos enfants changeront d'ecole.</strong> Contactez le CRFM a votre nouvelle base — ils aident avec l'inscription scolaire.</li>
+          <li><strong>Votre carriere peut etre perturbee.</strong> L'<strong>Initiative d'emploi pour les conjoints militaires (IECM)</strong> lancee en 2025 aide les conjoints a trouver des emplois federaux transferables.</li>
+          <li><strong>Soins de sante :</strong> Nouvelles cartes provinciales, nouveau medecin, nouveaux specialistes. Commencez AVANT le demenagement.</li>
+          <li><strong>Garde d'enfants :</strong> Contactez le CRFM de la nouvelle base tot — les places subventionnees se remplissent vite.</li>
+          <li><strong>Le CRFM aide TOUTE la famille</strong> — pas seulement le membre. Appelez des que vous recevez le message de mutation : <a href="tel:18008664546" style="color:var(--accent);font-weight:700;text-decoration:none">1-800-866-4546</a></li>
+          <li><strong>Indemnite de mobilite (2026) :</strong> 13 500 $–27 000 $ par mutation.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEPLOYMENT: YOUR PARTNER IS DEPLOYING -->
+  <div class="stage" style="--stage-color:var(--phase3);margin-bottom:16px">
+    <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--phase3);border-radius:4px 0 0 4px"></div>
+    <div class="stage-header"><div class="stage-num">3</div><div class="stage-title-block"><div class="stage-title en">Your Partner is Deploying</div><div class="stage-title fr">Votre conjoint est deploye</div><div class="stage-subtitle en">What support exists for YOU during deployment</div><div class="stage-subtitle fr">Quel soutien existe pour VOUS pendant le deploiement</div></div></div>
+    <div class="faq-list">
+      <div style="padding:16px;font-size:14px;line-height:1.8;color:var(--text-2)">
+        <ul class="en" style="padding-left:18px">
+          <li><strong>MFRC deployment support programs</strong> — workshops, family events, peer support groups, reintegration programs when they return.</li>
+          <li><strong>24/7 Family Information Line:</strong> <a href="tel:18008664546" style="color:var(--accent);font-weight:700;text-decoration:none">1-800-866-4546</a> — for anything from practical questions to emotional support.</li>
+          <li><strong>Before they leave:</strong> Arrange powers of attorney. Update their will (free through base JAG). Set up financial management for the family.</li>
+          <li><strong>Communication during deployment:</strong> Possible but can be restricted during operations. Set expectations before departure.</li>
+          <li><strong>Connect with other deployment families</strong> through your MFRC — peer support from people who understand is powerful.</li>
+          <li><strong>Your mental health matters too.</strong> Don't wait for a crisis. The MFRC provides counselling and referrals for family members.</li>
+          <li><strong>When they come home:</strong> Reintegration takes time. Operational stress reactions are normal. Give each other space and grace. The MFRC has reintegration programs for the whole family.</li>
+        </ul>
+        <ul class="fr" style="padding-left:18px">
+          <li><strong>Programmes de soutien au deploiement du CRFM</strong> — ateliers, evenements familiaux, groupes de soutien par les pairs, programmes de reintegration.</li>
+          <li><strong>Ligne d'information 24 h/24 :</strong> <a href="tel:18008664546" style="color:var(--accent);font-weight:700;text-decoration:none">1-800-866-4546</a></li>
+          <li><strong>Avant leur depart :</strong> Arrangez les procurations. Mettez a jour le testament (gratuit via le JAG). Configurez la gestion financiere.</li>
+          <li><strong>Communication pendant le deploiement :</strong> Possible mais peut etre restreinte. Etablissez des attentes avant le depart.</li>
+          <li><strong>Connectez-vous avec d'autres familles de deployes</strong> par votre CRFM.</li>
+          <li><strong>Votre sante mentale compte aussi.</strong> N'attendez pas une crise. Le CRFM offre du counseling et des references.</li>
+          <li><strong>Quand ils reviennent :</strong> La reintegration prend du temps. Les reactions de stress operationnel sont normales. Le CRFM a des programmes de reintegration pour toute la famille.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPOUSE EMPLOYMENT -->
+  <div class="stage" style="--stage-color:var(--gold);margin-bottom:16px">
+    <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold);border-radius:4px 0 0 4px"></div>
+    <div class="stage-header"><div class="stage-num">4</div><div class="stage-title-block"><div class="stage-title en">Spouse Employment &amp; Your Career</div><div class="stage-title fr">Emploi des conjoints et votre carriere</div><div class="stage-subtitle en">Finding meaningful work when you move every 2-4 years</div><div class="stage-subtitle fr">Trouver un emploi significatif quand vous demenagez tous les 2-4 ans</div></div></div>
+    <div class="faq-list">
+      <div style="padding:16px;font-size:14px;line-height:1.8;color:var(--text-2)">
+        <ul class="en" style="padding-left:18px">
+          <li><strong>Military Spouse Employment Initiative (MSEI)</strong> — launched 2025 by DND. Helps spouses find meaningful employment within the federal public service. Jobs that move with you. Ask your MFRC or visit <a href="https://www.canada.ca/en/department-national-defence/campaigns/priority-hiring.html" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600;text-decoration:none">canada.ca/caf-priority-hiring</a></li>
+          <li><strong>MFRC employment support</strong> — resume writing, job search, interview prep, skills translation from military to civilian language.</li>
+          <li><strong>Portable careers:</strong> Remote work, freelancing, federal public service, healthcare, teaching, and trades transfer well between postings.</li>
+          <li><strong>Provincial support:</strong> Some provinces (like BC) now extend employment services to military spouses BEFORE you establish residency — removing a key barrier.</li>
+          <li><strong>The reality:</strong> Moving every 2-4 years means rebuilding your professional network, finding new childcare, and starting over. It's hard. You're not failing — the system is asking a lot of you. Use every resource available.</li>
+        </ul>
+        <ul class="fr" style="padding-left:18px">
+          <li><strong>Initiative d'emploi pour les conjoints militaires (IECM)</strong> — lancee en 2025 par le MDN. Aide les conjoints a trouver un emploi dans la fonction publique federale. Demandez a votre CRFM.</li>
+          <li><strong>Soutien a l'emploi du CRFM</strong> — redaction de CV, recherche d'emploi, preparation aux entrevues.</li>
+          <li><strong>Carrieres portables :</strong> Teletravail, travail autonome, fonction publique federale, sante, enseignement.</li>
+          <li><strong>Soutien provincial :</strong> Certaines provinces etendent les services d'emploi aux conjoints militaires AVANT d'etablir la residence.</li>
+          <li><strong>La realite :</strong> Demenager tous les 2-4 ans signifie rebatir votre reseau, trouver une nouvelle garderie et recommencer. C'est difficile. Vous n'echouez pas — le systeme vous en demande beaucoup.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAMILY KEY CONTACTS -->
+  <div style="background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);padding:20px;margin-bottom:16px">
+    <h3 style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--text);margin-bottom:12px"><span class="en">Family Key Contacts</span><span class="fr">Contacts cles pour les familles</span></h3>
+    <div style="display:grid;gap:10px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="font-size:18px">📞</span><div><div style="font-size:13px;font-weight:700;color:var(--text)">MFRC / CRFM — <span class="en">24/7 Family Line</span><span class="fr">Ligne familiale 24 h/24</span></div><a href="tel:18008664546" style="font-size:14px;font-weight:700;color:var(--accent);text-decoration:none">1-800-866-4546</a></div></div>
+      <div style="display:flex;align-items:center;gap:12px"><span style="font-size:18px">🆘</span><div><div style="font-size:13px;font-weight:700;color:var(--text)"><span class="en">Crisis Helpline</span><span class="fr">Ligne de crise</span></div><a href="tel:988" style="font-size:14px;font-weight:700;color:var(--accent);text-decoration:none"><span class="en">Call or text 988</span><span class="fr">Appelez/textez 988</span></a></div></div>
+      <div style="display:flex;align-items:center;gap:12px"><span style="font-size:18px">🌐</span><div><div style="font-size:13px;font-weight:700;color:var(--text)"><span class="en">CFMWS Family Resources</span><span class="fr">Ressources familiales SBMFC</span></div><a href="https://cafconnection.ca" target="_blank" rel="noopener" style="font-size:13px;font-weight:600;color:var(--accent);text-decoration:none">cafconnection.ca</a></div></div>
+      <div style="display:flex;align-items:center;gap:12px"><span style="font-size:18px">📋</span><div><div style="font-size:13px;font-weight:700;color:var(--text)"><span class="en">FAQ for Parents of New Recruits</span><span class="fr">FAQ pour les parents de nouvelles recrues</span></div><a href="https://cfmws.ca/support-services/families/parents-of-caf-members/faq-for-parents-of-new-recruits" target="_blank" rel="noopener" style="font-size:13px;font-weight:600;color:var(--accent);text-decoration:none">cfmws.ca →</a></div></div>
+    </div>
+  </div>
+
 </div>
 </div>
 
@@ -912,7 +1050,7 @@
   <button class="tab-bar-item" onclick="switchNavTab('faqs')"><span class="tab-bar-icon">&#9776;</span><span class="tab-bar-label">FAQs</span></button>
   <button class="tab-bar-item" onclick="switchNavTab('lists')"><span class="tab-bar-icon">&#10003;</span><span class="tab-bar-label en">Missions</span><span class="tab-bar-label fr">Missions</span></button>
   <button class="tab-bar-item" onclick="switchNavTab('contacts')"><span class="tab-bar-icon">&#9742;</span><span class="tab-bar-label">Contacts</span></button>
-  <button class="tab-bar-item" onclick="switchNavTab('saved')"><span class="tab-bar-icon">&#9733;</span><span class="tab-bar-label en">Intel</span><span class="tab-bar-label fr">Intel</span><span class="tab-bar-badge" id="saved-badge" style="display:none">0</span></button>
+  <button class="tab-bar-item" onclick="switchNavTab('saved')"><span class="tab-bar-icon">&#9825;</span><span class="tab-bar-label en">Family</span><span class="tab-bar-label fr">Famille</span></button>
 </nav>
 
 <div class="share-toast" id="share-toast"><span class="en">Link copied!</span><span class="fr">Lien copie!</span></div>
@@ -1355,6 +1493,20 @@ function renderSavedTab(){
 /* renderContactsTab removed — contacts rendered directly in HTML */
 
 function updateHomeDashboard(){
+  var stage=localStorage.getItem('caf_career_stage');
+  var welcome=document.getElementById('home-welcome');
+  var dashboard=document.getElementById('home-dashboard');
+  if(!welcome||!dashboard)return;
+
+  // Show welcome if no stage, dashboard if stage selected
+  if(!stage){
+    welcome.style.display='block';
+    dashboard.style.display='none';
+    return;
+  }
+  welcome.style.display='none';
+  dashboard.style.display='block';
+
   // Time-based greeting
   var hour=new Date().getHours();
   var greetEN=hour<12?'Good morning':hour<18?'Good afternoon':'Good evening';
@@ -1363,11 +1515,13 @@ function updateHomeDashboard(){
   var greetFrEl=document.getElementById('home-greeting-fr');
   if(greetEl)greetEl.textContent=greetEN;
   if(greetFrEl)greetFrEl.textContent=greetFR;
-  // Stage name (Fix 8)
-  var stage=localStorage.getItem('caf_career_stage');
-  var stageLabels={applying:'Exploring',waiting:'Applied & Waiting',bmq:'In BMQ',first_unit:'First Unit',mid_career:'Mid-Career',transitioning:'Transitioning Out'};
+  // Stage name
+  var stageLabelsEN={applying:'Exploring',waiting:'Applied & Waiting',bmq:'In BMQ',first_unit:'First Unit',mid_career:'Mid-Career',transitioning:'Transitioning Out'};
+  var stageLabelsFR={applying:'Exploration',waiting:'Candidature soumise',bmq:'En QMB',first_unit:'Premiere unite',mid_career:'Mi-carriere',transitioning:'En transition'};
   var stageEl=document.getElementById('home-greeting-stage');
-  if(stageEl)stageEl.textContent=stage?stageLabels[stage]:'Cpl Bloggins';
+  var stageElFr=document.getElementById('home-greeting-stage-fr');
+  if(stageEl)stageEl.textContent=stageLabelsEN[stage]||stage;
+  if(stageElFr)stageElFr.textContent=stageLabelsFR[stage]||stage;
   // Update saved count
   var bm=JSON.parse(localStorage.getItem('caf_bookmarks')||'[]');
   var savedEl=document.getElementById('home-saved-count');
