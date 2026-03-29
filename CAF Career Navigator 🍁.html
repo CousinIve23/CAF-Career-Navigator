@@ -23,7 +23,7 @@
   body, body.theme-midnight {
     --bg:#0C1017; --surface:#141A24; --surface-2:#1C2430;
     --glass:rgba(255,255,255,0.05); --glass-border:rgba(255,255,255,0.10);
-    --text:#F2F4F7; --text-2:#B8C0CC; --text-3:#7A8494;
+    --text:#F5F7FA; --text-2:#D0D6DE; --text-3:#8892A4;
     --accent:#C41E3A; --gold:#E8A838; --glow:rgba(196,30,58,0.15);
     --shadow:0 4px 24px rgba(0,0,0,0.3);
     --stage-color:var(--phase4); --white:var(--surface); --border:var(--glass-border);
@@ -35,7 +35,7 @@
   body.theme-arctic {
     --bg:#0A1628; --surface:#0F1E36; --surface-2:#162844;
     --glass:rgba(130,180,255,0.04); --glass-border:rgba(130,180,255,0.10);
-    --text:#E8F0FF; --text-2:#A8BCDA; --text-3:#6882A8;
+    --text:#EEF4FF; --text-2:#BED0EA; --text-3:#7A94B8;
     --accent:#4B8BF5; --gold:#5CB8FF; --glow:rgba(75,139,245,0.2);
     --shadow:0 4px 24px rgba(0,0,0,0.4);
     --stage-color:var(--phase2); --white:var(--surface); --border:var(--glass-border);
@@ -338,6 +338,41 @@
   body.theme-clean .stage-header,body.theme-sand .stage-header{background:rgba(0,0,0,0.015)}
   body.theme-clean .faq-item.open,body.theme-sand .faq-item.open{background:rgba(0,0,0,0.02)}
 
+  /* === BOTTOM TAB BAR === */
+  .tab-bar{position:fixed;bottom:0;left:0;right:0;height:60px;z-index:90;display:flex;align-items:stretch;justify-content:space-around;background:var(--surface);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid var(--glass-border);padding-bottom:env(safe-area-inset-bottom)}
+  .tab-bar-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;padding:8px 0;color:var(--text-3);font-size:10px;font-weight:600;letter-spacing:.02em;transition:color .2s;background:none;border:none;font-family:'Inter',sans-serif;flex:1;position:relative}
+  .tab-bar-item.active{color:var(--accent)}
+  .tab-bar-item:hover:not(.active){color:var(--text-2)}
+  .tab-bar-icon{font-size:20px;line-height:1}
+  .tab-bar-label{font-size:10px}
+  .tab-bar-badge{position:absolute;top:4px;right:calc(50% - 18px);background:var(--accent);color:white;font-size:8px;font-weight:700;border-radius:8px;padding:1px 5px;min-width:14px;text-align:center}
+
+  /* === TAB CONTENT === */
+  .tab-content{display:none;padding-bottom:76px}
+  .tab-content.active{display:block;animation:tabFadeIn .25s ease}
+  @keyframes tabFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+  /* === HOME DASHBOARD === */
+  .dashboard{max-width:720px;margin:0 auto;padding:20px 20px 20px}
+  .stage-card{background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--glass-border);border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+  .stage-card-left{display:flex;align-items:center;gap:12px}
+  .stage-card-dot{width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--glow)}
+  .stage-card-info{font-size:14px;color:var(--text)}
+  .stage-card-info strong{font-weight:700}
+  .stage-card-info small{display:block;font-size:11px;color:var(--text-3);margin-top:2px}
+  .stage-card-btn{background:var(--glass);border:1px solid var(--glass-border);border-radius:50px;padding:6px 14px;font-size:11px;font-weight:600;color:var(--text-2);cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s}
+  .stage-card-btn:hover{color:var(--text);border-color:var(--text-3)}
+  .quick-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px}
+  @media(max-width:480px){.quick-actions{grid-template-columns:1fr}}
+  .quick-action{background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--glass-border);border-radius:var(--radius);padding:20px 16px;text-align:center;cursor:pointer;transition:all .25s;font-family:'Inter',sans-serif;display:flex;flex-direction:column;align-items:center;gap:8px}
+  .quick-action:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
+  .qa-icon{font-size:28px}
+  .qa-label{font-size:13px;font-weight:700;color:var(--text)}
+  .qa-count{font-size:11px;color:var(--text-3)}
+  .progress-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);padding:16px 20px;margin-bottom:16px;display:flex;justify-content:space-around;text-align:center}
+  .progress-stat .stat-num{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--accent);display:block}
+  .progress-stat .stat-label{font-size:11px;color:var(--text-3);margin-top:2px}
+
   /* === RESPONSIVE === */
   @media(max-width:480px){
     .stage-title{font-size:15px}.faq-q{font-size:13px;padding:12px 14px}
@@ -412,11 +447,6 @@
   <p class="fr">Orientation personnalisee, listes de verification et 67 reponses aux questions que personne n'explique clairement.</p>
   <div class="disclaimer en">Built free by a CAF community member &middot; Not an official CAF product</div>
   <div class="disclaimer fr">Cree gratuitement par un membre de la communaute des FAC &middot; Pas un produit officiel</div>
-  <div class="stage-badge" id="stage-badge" onclick="showOnboarding()" style="display:none">
-    <span class="stage-badge-dot"></span>
-    <span id="stage-badge-text"></span>
-    <span style="opacity:.6;font-size:10px">&#9998;</span>
-  </div>
 </div>
 
 <!-- LANG + THEME TOGGLE -->
@@ -432,20 +462,82 @@
   </div>
 </div>
 
-<!-- JOURNEY MAP -->
-<div class="journey-map" id="journey-map">
-  <a class="jm-node" href="#phase-1" data-phase="1"><div class="jm-dot"></div><div class="jm-label en">Getting In</div><div class="jm-label fr">S'enroler</div></a>
-  <div class="jm-line"></div>
-  <a class="jm-node" href="#phase-2" data-phase="2"><div class="jm-dot"></div><div class="jm-label en">Career</div><div class="jm-label fr">Carriere</div></a>
-  <div class="jm-line"></div>
-  <a class="jm-node" href="#phase-3" data-phase="3"><div class="jm-dot"></div><div class="jm-label en">Life &amp; Family</div><div class="jm-label fr">Vie &amp; famille</div></a>
-  <div class="jm-line"></div>
-  <a class="jm-node" href="#phase-4" data-phase="4"><div class="jm-dot"></div><div class="jm-label en">Transitions</div><div class="jm-label fr">Transitions</div></a>
+<!-- ============================================ -->
+<!-- TAB 1: HOME DASHBOARD                        -->
+<!-- ============================================ -->
+<div class="tab-content active" id="tab-home">
+<div class="dashboard">
+
+  <!-- STAGE CARD -->
+  <div class="stage-card" id="home-stage-card">
+    <div class="stage-card-left">
+      <div class="stage-card-dot"></div>
+      <div class="stage-card-info"><strong id="home-stage-name"></strong><small class="en">Your current career stage</small><small class="fr">Votre etape de carriere actuelle</small></div>
+    </div>
+    <button class="stage-card-btn" onclick="showOnboarding()"><span class="en">Change</span><span class="fr">Changer</span></button>
+  </div>
+
+  <!-- WHAT'S NEW -->
+  <div class="whats-new" id="whats-new">
+    <span class="wn-tag">NEW</span>
+    <span class="wn-text"><span class="en"><strong>March 2026:</strong> Mobility Allowance replaces Posting Allowance — $13,500–$27,000 per move</span><span class="fr"><strong>Mars 2026 :</strong> L'indemnite de mobilite remplace l'indemnite de mutation — 13 500 $–27 000 $ par mutation</span></span>
+    <button class="wn-close" onclick="dismissWhatsNew()">&times;</button>
+  </div>
+
+  <!-- TIP CARD -->
+  <div class="tip-card" id="tip-card">
+    <div class="tip-card-icon">💡</div>
+    <div class="tip-card-body">
+      <div class="tip-card-label"><span class="en">Did you know?</span><span class="fr">Le saviez-vous?</span></div>
+      <div class="tip-card-text" id="tip-text"></div>
+      <button class="tip-card-btn" onclick="showNextTip()"><span class="en">Show another tip</span><span class="fr">Autre conseil</span></button>
+    </div>
+  </div>
+
+  <!-- QUICK ACTIONS -->
+  <div class="quick-actions">
+    <button class="quick-action" onclick="switchNavTab('faqs')"><span class="qa-icon">📋</span><span class="qa-label en">Search FAQs</span><span class="qa-label fr">Chercher FAQ</span><span class="qa-count">67 <span class="en">answers</span><span class="fr">reponses</span></span></button>
+    <button class="quick-action" onclick="switchNavTab('lists')"><span class="qa-icon">✅</span><span class="qa-label en">Checklists</span><span class="qa-label fr">Listes</span><span class="qa-count" id="home-cl-count">6 <span class="en">lists</span><span class="fr">listes</span></span></button>
+    <button class="quick-action" onclick="switchNavTab('contacts')"><span class="qa-icon">📞</span><span class="qa-label en">Contacts</span><span class="qa-label fr">Contacts</span><span class="qa-count">10 <span class="en">services</span><span class="fr">services</span></span></button>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-card" id="home-progress">
+    <div class="progress-stat"><span class="stat-num" id="home-cl-started">0</span><span class="stat-label en">Checklists started</span><span class="stat-label fr">Listes commencees</span></div>
+    <div class="progress-stat"><span class="stat-num" id="home-saved-count">0</span><span class="stat-label en">FAQs saved</span><span class="stat-label fr">FAQ sauvegardees</span></div>
+  </div>
+
+  <!-- CRISIS -->
+  <div class="crisis" id="crisis-banner" role="alert">
+    <div class="crisis-title en">In crisis? Help is available 24/7</div>
+    <div class="crisis-title fr">En crise? De l'aide est disponible 24 h/24</div>
+    <div class="crisis-body en">988 Suicide Crisis Helpline: <strong>Call or text 988</strong> &middot; VAC Assistance: <strong>1-800-268-7708</strong> &middot; MFRC Family Line: <strong>1-800-866-4546</strong></div>
+    <div class="crisis-body fr">Ligne de crise suicide 988 : <strong>Appelez ou textez le 988</strong> &middot; Assistance ACC : <strong>1-800-268-7708</strong> &middot; Ligne familiale CRFM : <strong>1-800-866-4546</strong></div>
+  </div>
+
+  <!-- JOURNEY MAP -->
+  <div class="journey-map" id="journey-map" style="border:1px solid var(--glass-border);border-radius:var(--radius);margin-bottom:16px">
+    <a class="jm-node" href="#" onclick="switchNavTab('faqs');return false" data-phase="1"><div class="jm-dot"></div><div class="jm-label en">Getting In</div><div class="jm-label fr">S'enroler</div></a>
+    <div class="jm-line"></div>
+    <a class="jm-node" href="#" onclick="switchNavTab('faqs');return false" data-phase="2"><div class="jm-dot"></div><div class="jm-label en">Career</div><div class="jm-label fr">Carriere</div></a>
+    <div class="jm-line"></div>
+    <a class="jm-node" href="#" onclick="switchNavTab('faqs');return false" data-phase="3"><div class="jm-dot"></div><div class="jm-label en">Life &amp; Family</div><div class="jm-label fr">Vie</div></a>
+    <div class="jm-line"></div>
+    <a class="jm-node" href="#" onclick="switchNavTab('faqs');return false" data-phase="4"><div class="jm-dot"></div><div class="jm-label en">Transitions</div><div class="jm-label fr">Transitions</div></a>
+  </div>
+
+</div>
 </div>
 
+<!-- ============================================ -->
+<!-- TAB 2: FAQs                                  -->
+<!-- ============================================ -->
+<div class="tab-content" id="tab-faqs">
+<div class="main" id="main-content">
+
 <!-- SEARCH -->
-<div class="search-wrap">
-  <div class="search-box">
+<div style="max-width:720px;margin:0 auto 12px;padding:0 20px">
+  <div class="search-box" style="position:relative">
     <span class="search-icon">&#128269;</span>
     <input class="search-input" id="search-input" type="text" autocomplete="off">
     <button class="search-clear" id="search-clear" onclick="clearSearch()">&times;</button>
@@ -453,49 +545,13 @@
   <div class="search-count" id="search-count"></div>
 </div>
 
-<!-- TOOLBAR -->
-<div class="toolbar-wrap">
-  <div class="toolbar">
-    <button class="tab-btn active" data-tab="all" onclick="switchTab('all',this)"><span class="en">All</span><span class="fr">Tout</span></button>
-    <button class="tab-btn" data-tab="saved" onclick="switchTab('saved',this)"><span class="en">My Saved</span><span class="fr">Sauvegardes</span><span class="tab-badge" id="saved-count" style="display:none">0</span></button><button class="clear-saved-btn" id="clear-saved-btn" onclick="clearAllSaved()" style="display:none"><span class="en">Clear all</span><span class="fr">Tout effacer</span></button>
-    <button class="tab-btn" data-tab="checklists" onclick="switchTab('checklists',this)"><span class="en">Checklists</span><span class="fr">Listes</span></button>
-    <div class="toolbar-right">
-      <button class="relevance-toggle" id="relevance-toggle" onclick="toggleRelevance()" style="display:none"><span class="en">Relevant only</span><span class="fr">Pour moi</span></button>
-      <button class="expand-btn" id="expand-btn" onclick="toggleAll()"><span class="en">Expand all</span><span class="fr">Tout ouvrir</span></button>
-    </div>
-  </div>
+<!-- FAQ TOOLBAR -->
+<div style="max-width:720px;margin:0 auto 12px;padding:0 20px;display:flex;gap:8px;flex-wrap:wrap">
+  <button class="relevance-toggle" id="relevance-toggle" onclick="toggleRelevance()" style="display:none"><span class="en">Relevant only</span><span class="fr">Pour moi</span></button>
+  <button class="expand-btn" id="expand-btn" onclick="toggleAll()"><span class="en">Expand all</span><span class="fr">Tout ouvrir</span></button>
 </div>
 
-<!-- MAIN CONTENT -->
-<div class="main" id="main-content">
-
-<!-- FAQ VIEW -->
 <div id="faq-view">
-
-<!-- WHAT'S NEW -->
-<div class="whats-new" id="whats-new">
-  <span class="wn-tag">NEW</span>
-  <span class="wn-text"><span class="en"><strong>March 2026:</strong> Mobility Allowance replaces Posting Allowance — $13,500–$27,000 per move</span><span class="fr"><strong>Mars 2026 :</strong> L'indemnite de mobilite remplace l'indemnite de mutation — 13 500 $–27 000 $ par mutation</span></span>
-  <button class="wn-close" onclick="dismissWhatsNew()">&times;</button>
-</div>
-
-<!-- TIP CARD -->
-<div class="tip-card" id="tip-card">
-  <div class="tip-card-icon">💡</div>
-  <div class="tip-card-body">
-    <div class="tip-card-label"><span class="en">Did you know?</span><span class="fr">Le saviez-vous?</span></div>
-    <div class="tip-card-text" id="tip-text"></div>
-    <button class="tip-card-btn" onclick="showNextTip()"><span class="en">Show another tip</span><span class="fr">Autre conseil</span></button>
-  </div>
-</div>
-
-<!-- CRISIS BANNER -->
-<div class="crisis" id="crisis-banner" role="alert">
-  <div class="crisis-title en">In crisis? Help is available 24/7</div>
-  <div class="crisis-title fr">En crise? De l'aide est disponible 24 h/24</div>
-  <div class="crisis-body en">988 Suicide Crisis Helpline: <strong>Call or text 988</strong> &middot; VAC Assistance: <strong>1-800-268-7708</strong> &middot; MFRC Family Line: <strong>1-800-866-4546</strong></div>
-  <div class="crisis-body fr">Ligne de crise suicide 988 : <strong>Appelez ou textez le 988</strong> &middot; Assistance ACC : <strong>1-800-268-7708</strong> &middot; Ligne familiale CRFM : <strong>1-800-866-4546</strong></div>
-</div>
 
 <!-- QUICK CONTACTS — EVERY SERVICE EXPLAINED -->
 <div class="contacts-card" id="contacts-card">
@@ -765,37 +821,65 @@
 </div>
 
 </div><!-- end #faq-view -->
+</div><!-- end .main -->
+</div><!-- end tab-faqs -->
 
-<!-- CHECKLISTS VIEW -->
-<div class="checklists-view" id="checklists-view"></div>
-
-<!-- EMPTY STATE FOR SAVED -->
-<div class="empty-state" id="empty-saved" style="display:none">
-  <div class="empty-state-icon">&#9734;</div>
-  <div class="empty-state-text en">No saved items yet. Tap the star on any FAQ to bookmark it.</div>
-  <div class="empty-state-text fr">Aucun element sauvegarde. Appuyez sur l'etoile pour enregistrer une FAQ.</div>
+<!-- ============================================ -->
+<!-- TAB 3: CHECKLISTS                            -->
+<!-- ============================================ -->
+<div class="tab-content" id="tab-lists">
+<div class="main">
+  <h2 style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--text);margin-bottom:16px;letter-spacing:-.02em"><span class="en">Your Checklists</span><span class="fr">Vos listes de verification</span></h2>
+  <div class="checklists-view active" id="checklists-view"></div>
+</div>
 </div>
 
-</div><!-- end .main -->
+<!-- ============================================ -->
+<!-- TAB 4: CONTACTS                              -->
+<!-- ============================================ -->
+<div class="tab-content" id="tab-contacts">
+<div class="main">
+  <h2 style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--text);margin-bottom:16px;letter-spacing:-.02em"><span class="en">Key Contacts — Every Service Explained</span><span class="fr">Contacts cles — chaque service explique</span></h2>
+  <div id="contacts-in-tab"></div>
+</div>
+</div>
 
-<!-- FOOTER -->
-<div class="footer">
-  <div class="footer-phase-links">
-    <a class="footer-phase-link" href="#phase-1"><span class="en">Getting In</span><span class="fr">S'enroler</span></a>
-    <a class="footer-phase-link" href="#phase-2"><span class="en">Career</span><span class="fr">Carriere</span></a>
-    <a class="footer-phase-link" href="#phase-3"><span class="en">Life &amp; Family</span><span class="fr">Vie</span></a>
-    <a class="footer-phase-link" href="#phase-4">Transitions</a>
+<!-- ============================================ -->
+<!-- TAB 5: SAVED                                 -->
+<!-- ============================================ -->
+<div class="tab-content" id="tab-saved">
+<div class="main">
+  <h2 style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--text);margin-bottom:6px;letter-spacing:-.02em"><span class="en">Saved FAQs</span><span class="fr">FAQ sauvegardees</span></h2>
+  <p style="font-size:13px;color:var(--text-3);margin-bottom:16px"><span class="en">Tap the star on any FAQ to save it here.</span><span class="fr">Appuyez sur l'etoile de n'importe quelle FAQ pour la sauvegarder ici.</span></p>
+  <div id="saved-list"></div>
+  <div class="empty-state" id="empty-saved" style="display:none">
+    <div class="empty-state-icon">&#9734;</div>
+    <div class="empty-state-text en">No saved items yet. Go to FAQs and tap the star to bookmark.</div>
+    <div class="empty-state-text fr">Aucun element. Allez dans FAQ et appuyez sur l'etoile.</div>
   </div>
+</div>
+</div>
+
+<!-- FOOTER (inside no tab — always at bottom of page) -->
+<div class="footer" style="margin-bottom:60px">
   <strong>🍁 CAF Career Navigator</strong><br>
   <span class="en">Built free by a CAF community member</span><span class="fr">Cree gratuitement par un membre de la communaute des FAC</span><br>
-  <strong>NOT an official Canadian Armed Forces product</strong><br>
-  <span style="opacity:.5">Last updated: March 2026</span><br>
-  <a href="https://github.com/CousinIve23/CAF-Career-Navigator/issues" style="color:rgba(255,255,255,0.5);font-size:10px;text-decoration:underline"><span class="en">Found an error? Report it here</span><span class="fr">Erreur trouvee? Signalez-la ici</span></a>
+  <strong>NOT an official Canadian Armed Forces product</strong> &middot; <span style="opacity:.5">March 2026</span><br>
+  <a href="https://github.com/CousinIve23/CAF-Career-Navigator/issues" style="color:var(--text-3);font-size:10px;text-decoration:underline"><span class="en">Found an error? Report it here</span><span class="fr">Erreur trouvee? Signalez-la ici</span></a>
   <div class="footer-crisis"><span class="en">Crisis: <strong>988</strong> &middot; VAC: <strong>1-800-268-7708</strong> &middot; Family: <strong>1-800-866-4546</strong></span><span class="fr">Crise : <strong>988</strong> &middot; ACC : <strong>1-800-268-7708</strong> &middot; Famille : <strong>1-800-866-4546</strong></span></div>
 </div>
 
+<!-- BOTTOM TAB BAR -->
+<nav class="tab-bar" id="tab-bar">
+  <button class="tab-bar-item active" onclick="switchNavTab('home')"><span class="tab-bar-icon">🏠</span><span class="tab-bar-label en">Home</span><span class="tab-bar-label fr">Accueil</span></button>
+  <button class="tab-bar-item" onclick="switchNavTab('faqs')"><span class="tab-bar-icon">📋</span><span class="tab-bar-label">FAQs</span></button>
+  <button class="tab-bar-item" onclick="switchNavTab('lists')"><span class="tab-bar-icon">✅</span><span class="tab-bar-label en">Lists</span><span class="tab-bar-label fr">Listes</span></button>
+  <button class="tab-bar-item" onclick="switchNavTab('contacts')"><span class="tab-bar-icon">📞</span><span class="tab-bar-label">Contacts</span></button>
+  <button class="tab-bar-item" onclick="switchNavTab('saved')"><span class="tab-bar-icon">⭐</span><span class="tab-bar-label en">Saved</span><span class="tab-bar-label fr">Favoris</span><span class="tab-bar-badge" id="saved-badge" style="display:none">0</span></button>
+</nav>
+
 <div class="share-toast" id="share-toast"><span class="en">Link copied!</span><span class="fr">Lien copie!</span></div>
-<button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0})" aria-label="Back to top">&#8593;</button>
+<button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0})" aria-label="Back to top" style="bottom:80px">&#8593;</button>
 
 <script>
 /* ===== TIPS DATA ===== */
@@ -1184,6 +1268,87 @@ window.addEventListener('scroll',function(){
   }
 })();
 
+/* ===== NAV TAB SWITCHING ===== */
+function switchNavTab(tab){
+  // Hide all tab contents
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+  var el=document.getElementById('tab-'+tab);
+  if(el)el.classList.add('active');
+  // Update tab bar active state
+  document.querySelectorAll('.tab-bar-item').forEach(function(b,i){
+    var tabs=['home','faqs','lists','contacts','saved'];
+    b.classList.toggle('active',tabs[i]===tab);
+  });
+  // Scroll to top of new tab
+  window.scrollTo(0,0);
+  // Tab-specific actions
+  if(tab==='lists')renderChecklists();
+  if(tab==='saved')renderSavedTab();
+  if(tab==='contacts')renderContactsTab();
+  if(tab==='faqs'){updateSearchPlaceholder();filterByStage()}
+  // Update home dashboard stats
+  if(tab==='home')updateHomeDashboard();
+}
+
+function renderSavedTab(){
+  var bm=JSON.parse(localStorage.getItem('caf_bookmarks')||'[]');
+  var list=document.getElementById('saved-list');
+  var empty=document.getElementById('empty-saved');
+  if(!list)return;
+  if(bm.length===0){list.innerHTML='';if(empty)empty.style.display='block';return}
+  if(empty)empty.style.display='none';
+  var fr=document.body.classList.contains('fr-mode');
+  var html='';
+  bm.forEach(function(id){
+    var faq=document.getElementById(id);
+    if(!faq)return;
+    var qText=faq.querySelector('.faq-q-text'+(fr?'.fr':'.en'));
+    if(!qText)qText=faq.querySelector('.faq-q-text');
+    var text=qText?qText.textContent:'';
+    html+='<div style="background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);padding:14px 16px;margin-bottom:8px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:10px" onclick="switchNavTab(\'faqs\');setTimeout(function(){var el=document.getElementById(\''+id+'\');if(el){el.scrollIntoView({behavior:\'smooth\',block:\'center\'});toggle(el.querySelector(\'.faq-q\'))}},200)">';
+    html+='<span style="color:var(--gold);font-size:16px">&#9733;</span>';
+    html+='<span style="font-size:14px;font-weight:600;color:var(--text)">'+text+'</span>';
+    html+='</div>';
+  });
+  list.innerHTML=html;
+}
+
+function renderContactsTab(){
+  var dest=document.getElementById('contacts-in-tab');
+  var src=document.getElementById('contacts-card');
+  if(!dest||!src||dest.innerHTML)return;
+  // Clone contacts body content into the tab (always expanded)
+  var body=src.querySelector('.contacts-body');
+  if(body)dest.innerHTML=body.innerHTML;
+}
+
+function updateHomeDashboard(){
+  // Update stage name
+  var stage=localStorage.getItem('caf_career_stage');
+  var labels={applying:'Exploring',waiting:'Applied & Waiting',bmq:'In BMQ',first_unit:'First Unit',mid_career:'Mid-Career',transitioning:'Transitioning'};
+  var labelsFr={applying:'Exploration',waiting:'Candidature soumise',bmq:'En QMB',first_unit:'Premiere unite',mid_career:'Mi-carriere',transitioning:'En transition'};
+  var fr=document.body.classList.contains('fr-mode');
+  var nameEl=document.getElementById('home-stage-name');
+  if(nameEl)nameEl.textContent=stage?(fr?labelsFr[stage]:labels[stage]):(fr?'Non defini':'Not set');
+  // Update saved count
+  var bm=JSON.parse(localStorage.getItem('caf_bookmarks')||'[]');
+  var savedEl=document.getElementById('home-saved-count');
+  if(savedEl)savedEl.textContent=bm.length;
+  // Update checklist started count
+  var saved=JSON.parse(localStorage.getItem('caf_checklists')||'{}');
+  var started=0;
+  CHECKLISTS.forEach(function(cl){
+    var hasCheck=false;
+    cl.items.forEach(function(it){if(saved[cl.id+'_'+it.id])hasCheck=true});
+    if(hasCheck)started++;
+  });
+  var clEl=document.getElementById('home-cl-started');
+  if(clEl)clEl.textContent=started;
+  // Update saved badge
+  var badge=document.getElementById('saved-badge');
+  if(badge){if(bm.length>0){badge.style.display='inline';badge.textContent=bm.length}else{badge.style.display='none'}}
+}
+
 /* ===== THEME TOGGLE ===== */
 function setTheme(theme){
   document.body.className=document.body.className.replace(/theme-\w+/g,'').trim()+' theme-'+theme;
@@ -1328,6 +1493,8 @@ document.addEventListener('keydown',function(e){
   showNextTip();
   // Stage filter
   filterByStage();
+  // Home dashboard
+  updateHomeDashboard();
   // FAQ counts
   addFaqCounts();
   // Scroll entrance animations
