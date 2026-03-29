@@ -500,43 +500,56 @@
 <!-- TAB 1: HOME DASHBOARD                        -->
 <!-- ============================================ -->
 <div class="tab-content active" id="tab-home">
-<div class="dashboard" style="max-width:720px;margin:0 auto;padding:20px 20px 80px">
+<div class="dashboard" style="max-width:720px;margin:0 auto;padding:12px 16px 80px">
 
-  <!-- HERO -->
-  <div style="text-align:center;padding:16px 0 20px">
-    <div style="font-size:40px;margin-bottom:8px">🍁</div>
-    <h1 style="font-family:'Syne',sans-serif;font-size:clamp(20px,4.5vw,28px);font-weight:800;color:var(--text);letter-spacing:-.02em;line-height:1.2;margin-bottom:8px"><span class="en">CAF Career Navigator</span><span class="fr">Navigateur de carrière des FAC</span></h1>
-    <p style="font-size:13px;color:var(--text-2);line-height:1.6"><span class="en">Everything they don't tell you — for new recruits, families, and Reservists.</span><span class="fr">Tout ce qu'on ne vous dit pas — pour les recrues, les familles et les réservistes.</span></p>
-  </div>
-
-  <!-- APPLY NOW -->
-  <div style="background:var(--accent);border-radius:var(--radius);padding:16px 20px;margin-bottom:12px;text-align:center">
-    <p style="font-size:12px;color:rgba(255,255,255,0.8);margin-bottom:6px"><span class="en">Ready to join? BMQ is now 9 weeks. $10K bonus for eligible trades.</span><span class="fr">Prêt à joindre? La QMB est maintenant 9 semaines. Prime de 10 000 $.</span></p>
-    <a href="https://forces.ca/en/how-to-join/" target="_blank" rel="noopener" style="font-size:16px;font-weight:800;color:white;text-decoration:none;font-family:'Syne',sans-serif">Apply Now → forces.ca</a><br>
-    <a href="tel:18008568488" style="font-size:13px;color:rgba(255,255,255,0.9);text-decoration:none;font-weight:600"><span class="en">Or call recruiting:</span><span class="fr">Ou appelez :</span> 1-800-856-8488</a>
-  </div>
-
-  <!-- ESSENTIAL NUMBERS (the screenshot-worthy card) -->
-  <div style="background:var(--surface);border:1px solid var(--glass-border);border-radius:var(--radius);padding:16px 20px;margin-bottom:12px">
-    <h3 style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px"><span class="en">Essential Numbers — Save This</span><span class="fr">Numéros essentiels — Sauvegardez ceci</span></h3>
-    <div style="display:grid;gap:10px">
-      <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--glass-border)"><span style="font-size:18px">🆘</span><div style="flex:1"><div style="font-size:12px;color:var(--text-3)"><span class="en">Crisis / Suicide</span><span class="fr">Crise / Suicide</span></div><a href="tel:988" style="font-size:16px;font-weight:700;color:var(--accent);text-decoration:none"><span class="en">Call or text 988</span><span class="fr">Appelez/textez 988</span></a></div></div>
-      <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--glass-border)"><span style="font-size:18px">📞</span><div style="flex:1"><div style="font-size:12px;color:var(--text-3)"><span class="en">Member Assistance (24/7)</span><span class="fr">Assistance aux membres (24 h/24)</span></div><a href="tel:18002687708" style="font-size:16px;font-weight:700;color:var(--accent);text-decoration:none">1-800-268-7708</a></div></div>
-      <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--glass-border)"><span style="font-size:18px">👨‍👩‍👧</span><div style="flex:1"><div style="font-size:12px;color:var(--text-3)"><span class="en">Family Information Line (24/7)</span><span class="fr">Ligne d'information familiale (24 h/24)</span></div><a href="tel:18008664546" style="font-size:16px;font-weight:700;color:var(--accent);text-decoration:none">1-800-866-4546</a></div></div>
-      <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--glass-border)"><span style="font-size:18px">🛡️</span><div style="flex:1"><div style="font-size:12px;color:var(--text-3)"><span class="en">Sexual Misconduct (SMRC) — Confidential 24/7</span><span class="fr">Inconduite sexuelle (CIIS) — Confidentiel 24 h/24</span></div><a href="tel:18447501648" style="font-size:16px;font-weight:700;color:var(--accent);text-decoration:none">1-844-750-1648</a></div></div>
-      <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--glass-border)"><span style="font-size:18px">🤝</span><div style="flex:1"><div style="font-size:12px;color:var(--text-3)"><span class="en">Peer Support — HOPE Program (M-F)</span><span class="fr">Soutien par les pairs — Programme HOPE (L-V)</span></div><a href="tel:18008836094" style="font-size:16px;font-weight:700;color:var(--accent);text-decoration:none">1-800-883-6094</a></div></div>
-      <div style="display:flex;align-items:center;gap:12px;padding:8px 0"><span style="font-size:18px">🍁</span><div style="flex:1"><div style="font-size:12px;color:var(--text-3)"><span class="en">CAF Recruiting</span><span class="fr">Recrutement des FAC</span></div><a href="tel:18008568488" style="font-size:16px;font-weight:700;color:var(--accent);text-decoration:none">1-800-856-8488</a></div></div>
+  <!-- COMPACT HERO + APPLY -->
+  <div style="display:flex;align-items:center;gap:16px;padding:12px 0 16px;border-bottom:1px solid var(--glass-border);margin-bottom:14px">
+    <div style="flex:1">
+      <h1 style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--text);letter-spacing:-.02em;line-height:1.2;margin-bottom:4px"><span class="en">Everything they don't tell you.</span><span class="fr">Tout ce qu'on ne vous dit pas.</span></h1>
+      <p style="font-size:12px;color:var(--text-3);line-height:1.4"><span class="en">80 answers · 6 checklists · For recruits, families &amp; Reservists</span><span class="fr">80 réponses · 6 listes · Pour recrues, familles et réservistes</span></p>
     </div>
+    <a href="https://forces.ca/en/how-to-join/" target="_blank" rel="noopener" style="background:var(--accent);color:white;padding:10px 16px;border-radius:var(--radius);font-size:13px;font-weight:700;text-decoration:none;font-family:'Syne',sans-serif;white-space:nowrap;text-align:center;line-height:1.3"><span class="en">Apply Now</span><span class="fr">Postuler</span><br><span style="font-size:10px;font-weight:400;opacity:.8">forces.ca</span></a>
   </div>
 
-  <!-- KEY WEBSITES -->
-  <div style="background:var(--surface);border:1px solid var(--glass-border);border-radius:var(--radius);padding:16px 20px;margin-bottom:12px">
-    <h3 style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px"><span class="en">Key Websites</span><span class="fr">Sites web essentiels</span></h3>
-    <div style="display:grid;gap:8px">
-      <a href="https://forces.ca/en/how-to-join/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--glass-border);text-decoration:none"><span style="font-size:14px;font-weight:700;color:var(--accent)">forces.ca</span><span style="font-size:12px;color:var(--text-3)"><span class="en">Apply, track your application, explore trades</span><span class="fr">Postuler, suivre votre candidature, explorer les métiers</span></span></a>
-      <a href="https://cafconnection.ca" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--glass-border);text-decoration:none"><span style="font-size:14px;font-weight:700;color:var(--accent)">cafconnection.ca</span><span style="font-size:12px;color:var(--text-3)"><span class="en">Family resources, MFRC, programs</span><span class="fr">Ressources familiales, CRFM, programmes</span></span></a>
-      <a href="https://cfmws.ca" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--glass-border);text-decoration:none"><span style="font-size:14px;font-weight:700;color:var(--accent)">cfmws.ca</span><span style="font-size:12px;color:var(--text-3)"><span class="en">CF1 membership, PSP, discounts</span><span class="fr">Adhésion FC1, PSP, rabais</span></span></a>
-      <a href="https://veterans.gc.ca" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:8px 0;text-decoration:none"><span style="font-size:14px;font-weight:700;color:var(--accent)">veterans.gc.ca</span><span style="font-size:12px;color:var(--text-3)"><span class="en">Veteran benefits, My VAC Account</span><span class="fr">Avantages des vétérans, Mon dossier ACC</span></span></a>
+  <!-- CONTENT PREVIEWS — the hook that makes people explore -->
+  <div style="display:grid;gap:10px;margin-bottom:14px">
+
+    <!-- Preview: New Recruits -->
+    <div onclick="switchNavTab('faqs')" style="background:var(--surface);border:1px solid var(--glass-border);border-left:3px solid var(--phase1);border-radius:var(--radius);padding:14px 16px;cursor:pointer;transition:all .2s">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--phase1);margin-bottom:6px"><span class="en">For New Recruits</span><span class="fr">Pour les nouvelles recrues</span></div>
+      <p style="font-size:14px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:4px"><span class="en">"I applied 3 months ago and heard nothing..."</span><span class="fr">« J'ai postulé il y a 3 mois sans nouvelles... »</span></p>
+      <p style="font-size:12px;color:var(--text-2);line-height:1.5"><span class="en">The average wait is 250 days. You're not rejected. We explain every step, what to do while you wait, and how to prepare for BMQ (now 9 weeks, $10K bonus).</span><span class="fr">L'attente moyenne est de 250 jours. Vous n'êtes pas refusé. On vous explique chaque étape.</span></p>
+      <span style="font-size:11px;font-weight:600;color:var(--accent);margin-top:6px;display:inline-block"><span class="en">Explore 80 answers →</span><span class="fr">Explorer 80 réponses →</span></span>
+    </div>
+
+    <!-- Preview: Families -->
+    <div onclick="switchNavTab('saved')" style="background:var(--surface);border:1px solid var(--glass-border);border-left:3px solid var(--phase3);border-radius:var(--radius);padding:14px 16px;cursor:pointer;transition:all .2s">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--phase3);margin-bottom:6px"><span class="en">For Families</span><span class="fr">Pour les familles</span></div>
+      <p style="font-size:14px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:4px"><span class="en">"My child is going to BMQ and I'm terrified..."</span><span class="fr">« Mon enfant part pour la QMB et j'ai peur... »</span></p>
+      <p style="font-size:12px;color:var(--text-2);line-height:1.5"><span class="en">No visits for 4 weeks. They'll want to quit at week 2 — that's normal. We explain what to expect, when you'll hear from them, and how the MFRC supports YOU.</span><span class="fr">Pas de visites pendant 4 semaines. Ils voudront abandonner à la semaine 2 — c'est normal.</span></p>
+      <span style="font-size:11px;font-weight:600;color:var(--accent);margin-top:6px;display:inline-block"><span class="en">Read the family guide →</span><span class="fr">Lire le guide familial →</span></span>
+    </div>
+
+    <!-- Preview: Reservists -->
+    <div onclick="switchNavTab('reserve')" style="background:var(--surface);border:1px solid var(--glass-border);border-left:3px solid var(--phase2);border-radius:var(--radius);padding:14px 16px;cursor:pointer;transition:all .2s">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--phase2);margin-bottom:6px"><span class="en">For Reservists</span><span class="fr">Pour les réservistes</span></div>
+      <p style="font-size:14px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:4px"><span class="en">"What's the difference between Class A, B, and C?"</span><span class="fr">« Quelle est la différence entre classe A, B et C? »</span></p>
+      <p style="font-size:12px;color:var(--text-2);line-height:1.5"><span class="en">A = part-time parade nights. B = full-time contract. C = deployment (voluntary). We break down pay, benefits, and everything that's different from Reg Force.</span><span class="fr">A = temps partiel. B = contrat temps plein. C = déploiement (volontaire).</span></p>
+      <span style="font-size:11px;font-weight:600;color:var(--accent);margin-top:6px;display:inline-block"><span class="en">Reserve guide →</span><span class="fr">Guide de la réserve →</span></span>
+    </div>
+
+  </div>
+
+  <!-- ESSENTIAL NUMBERS — compact 2-col grid -->
+  <div style="background:var(--surface);border:1px solid var(--glass-border);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px">
+    <h3 style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px"><span class="en">📞 Essential Numbers</span><span class="fr">📞 Numéros essentiels</span></h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div style="padding:8px;background:var(--hover-bg);border-radius:8px;text-align:center"><div style="font-size:10px;color:var(--text-3)"><span class="en">Crisis</span><span class="fr">Crise</span></div><a href="tel:988" style="font-size:15px;font-weight:700;color:var(--accent);text-decoration:none">988</a></div>
+      <div style="padding:8px;background:var(--hover-bg);border-radius:8px;text-align:center"><div style="font-size:10px;color:var(--text-3)"><span class="en">Member Help</span><span class="fr">Aide membre</span></div><a href="tel:18002687708" style="font-size:13px;font-weight:700;color:var(--accent);text-decoration:none">1-800-268-7708</a></div>
+      <div style="padding:8px;background:var(--hover-bg);border-radius:8px;text-align:center"><div style="font-size:10px;color:var(--text-3)"><span class="en">Family Line</span><span class="fr">Ligne famille</span></div><a href="tel:18008664546" style="font-size:13px;font-weight:700;color:var(--accent);text-decoration:none">1-800-866-4546</a></div>
+      <div style="padding:8px;background:var(--hover-bg);border-radius:8px;text-align:center"><div style="font-size:10px;color:var(--text-3)"><span class="en">Recruiting</span><span class="fr">Recrutement</span></div><a href="tel:18008568488" style="font-size:13px;font-weight:700;color:var(--accent);text-decoration:none">1-800-856-8488</a></div>
+      <div style="padding:8px;background:var(--hover-bg);border-radius:8px;text-align:center"><div style="font-size:10px;color:var(--text-3)">SMRC</div><a href="tel:18447501648" style="font-size:13px;font-weight:700;color:var(--accent);text-decoration:none">1-844-750-1648</a></div>
+      <div style="padding:8px;background:var(--hover-bg);border-radius:8px;text-align:center"><div style="font-size:10px;color:var(--text-3)">HOPE</div><a href="tel:18008836094" style="font-size:13px;font-weight:700;color:var(--accent);text-decoration:none">1-800-883-6094</a></div>
     </div>
   </div>
 
