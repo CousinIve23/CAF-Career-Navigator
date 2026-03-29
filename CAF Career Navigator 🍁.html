@@ -89,8 +89,8 @@
   .journey-map{background:var(--surface);border-bottom:1px solid var(--glass-border);padding:18px 24px;display:flex;align-items:center;justify-content:center;gap:0}
   .jm-node{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;text-decoration:none;flex-shrink:0;padding:0 6px;transition:transform .2s}
   .jm-node:hover{transform:scale(1.08)}
-  .jm-dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--text-3);background:transparent;transition:all .3s}
-  .jm-node.active .jm-dot{border-color:var(--accent);background:var(--accent);box-shadow:0 0 12px var(--glow),0 0 4px var(--accent)}
+  .jm-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--text-3);background:transparent;transition:all .3s}
+  .jm-node.active .jm-dot{border-color:var(--accent);background:var(--accent);box-shadow:0 0 16px rgba(196,30,58,0.4),0 0 6px var(--accent)}
   .jm-label{font-size:10px;font-weight:600;color:var(--text-3);text-align:center;max-width:70px;line-height:1.2;transition:all .2s;letter-spacing:.02em}
   .jm-node.active .jm-label{color:var(--text);font-weight:700}
   .jm-line{flex:1;height:2px;background:var(--glass-border);min-width:24px;max-width:60px;transition:background .3s}
@@ -112,7 +112,8 @@
 
   /* === TOOLBAR === */
   .toolbar-wrap{background:var(--surface);border-bottom:1px solid var(--glass-border);padding:10px 20px}
-  .toolbar{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .toolbar{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:8px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .toolbar::-webkit-scrollbar{display:none}
   .tab-btn{padding:7px 16px;border-radius:50px;border:1px solid var(--glass-border);font-size:12px;font-weight:600;cursor:pointer;background:var(--glass);color:var(--text-2);transition:all .25s;font-family:'Inter',sans-serif}
   .tab-btn.active{background:rgba(232,64,87,.12);color:var(--accent);border-color:rgba(232,64,87,.3);box-shadow:0 0 16px var(--glow)}
   .tab-btn:hover:not(.active){background:rgba(255,255,255,0.06)}
@@ -156,12 +157,12 @@
   .stage{margin-bottom:20px;border-radius:var(--radius);overflow:hidden;background:var(--surface);border:1px solid var(--glass-border);position:relative}
   .stage::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px}
   .stage.filtered-out{display:none}
-  .stage-header{padding:18px 20px 14px 24px;display:flex;align-items:flex-start;gap:14px;background:transparent}
-  .stage-num{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:15px;flex-shrink:0;background:var(--glass);color:var(--stage-color);border:1px solid var(--glass-border)}
+  .stage-header{padding:20px 20px 16px 24px;display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,0.015);border-bottom:1px solid var(--glass-border)}
+  .stage-num{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:17px;flex-shrink:0;background:rgba(255,255,255,0.06);color:var(--stage-color);border:1px solid rgba(255,255,255,0.1)}
   .stage-title-block{flex:1}
   .stage-emoji{font-size:16px;margin-bottom:3px;display:block}
-  .stage-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;line-height:1.2;margin-bottom:3px;color:var(--text);letter-spacing:-.01em}
-  .stage-subtitle{font-size:12px;color:var(--text-3);line-height:1.4}
+  .stage-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;line-height:1.2;margin-bottom:4px;color:var(--text);letter-spacing:-.02em}
+  .stage-subtitle{font-size:12px;color:var(--text-3);line-height:1.5}
 
   /* Stage accent colors — left bar + number badge */
   .s1,.s2,.s3{--stage-color:var(--phase1)}
@@ -179,7 +180,7 @@
   .faq-item:last-child{border-bottom:none}
   .faq-item:hover{background:rgba(255,255,255,0.02)}
   .faq-item.filtered-out{display:none}
-  .faq-item.not-relevant{opacity:.3}
+  .faq-item.not-relevant{opacity:.5}
   .faq-item.not-relevant.hide-irrelevant{display:none}
   .faq-item.bookmarked .bm-icon{opacity:1;color:var(--gold)}
   .bm-icon.pulse{animation:bmpulse .3s ease}
@@ -220,6 +221,7 @@
   .share-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--surface-2);color:var(--text);padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;z-index:200;opacity:0;transition:opacity .3s;pointer-events:none;border:1px solid var(--glass-border);box-shadow:0 8px 32px rgba(0,0,0,0.3)}
   .share-toast.show{opacity:1}
   .faq-chevron{font-size:12px;flex-shrink:0;transition:transform .35s cubic-bezier(.34,1.56,.64,1);opacity:.3;color:var(--text-2)}
+  .faq-item.open{border-left:3px solid var(--stage-color);background:rgba(255,255,255,0.02)}
   .faq-item.open .faq-chevron{transform:rotate(180deg);opacity:.6}
   .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease}
   .faq-item.open .faq-a{max-height:4000px}
@@ -268,7 +270,8 @@
   .back-to-top:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,0.4)}
 
   /* === FOOTER === */
-  .footer{background:var(--surface);border-top:1px solid var(--glass-border);padding:32px 24px;color:var(--text-3);font-size:12px;line-height:1.8;text-align:center}
+  .footer{background:var(--surface);border-top:none;padding:32px 24px;color:var(--text-3);font-size:12px;line-height:1.8;text-align:center;position:relative}
+  .footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),var(--phase2),var(--phase3),transparent)}
   .footer strong{color:var(--text-2)}
   .footer-phase-links{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:16px}
   .footer-phase-link{color:var(--text-3);text-decoration:none;font-size:11px;font-weight:600;padding:5px 12px;border:1px solid var(--glass-border);border-radius:50px;transition:all .2s;background:var(--glass)}
@@ -362,8 +365,8 @@
   <div class="header-flag">🍁</div>
   <h1 class="en">CAF Career <span>Navigator</span></h1>
   <h1 class="fr">Navigateur de <span>carriere</span> des FAC</h1>
-  <p class="en">Your daily career companion — personalized guidance, checklists, and 67 answers to the questions nobody else explains clearly.</p>
-  <p class="fr">Votre compagnon de carriere quotidien — orientation personnalisee, listes de verification et 67 reponses aux questions que personne n'explique clairement.</p>
+  <p class="en">Personalized guidance, checklists, and 67 answers to the questions nobody else explains clearly.</p>
+  <p class="fr">Orientation personnalisee, listes de verification et 67 reponses aux questions que personne n'explique clairement.</p>
   <div class="disclaimer en">Built free by a CAF community member &middot; Not an official CAF product</div>
   <div class="disclaimer fr">Cree gratuitement par un membre de la communaute des FAC &middot; Pas un produit officiel</div>
   <div class="stage-badge" id="stage-badge" onclick="showOnboarding()" style="display:none">
