@@ -238,7 +238,7 @@
   .faq-list{padding:0 16px 16px}
   .faq-item{margin-bottom:2px;border:none;border-bottom:1px solid var(--glass-border);overflow:hidden;background:transparent;transition:all .2s}
   .faq-item:last-child{border-bottom:none}
-  .faq-item:hover{background:var(--hover-bg)}
+  .faq-item:hover{background:var(--hover-bg);transform:translateX(2px);transition:all .15s ease}
   .faq-item.filtered-out{display:none}
   .faq-item.not-relevant{opacity:.5}
   .faq-item.not-relevant.hide-irrelevant{display:none}
@@ -355,7 +355,7 @@
   .tab-bar-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;padding:8px 0;color:var(--text-3);font-size:10px;font-weight:600;letter-spacing:.02em;transition:color .2s,border-color .2s,transform .1s;background:none;border:none;border-top:3px solid transparent;font-family:'Inter',sans-serif;flex:1;position:relative}
   .tab-bar-item.active{color:var(--accent);border-top-color:var(--accent)}
   .tab-bar-item:active{transform:scale(0.92)}
-  .tab-bar-item.active::after{content:'';position:absolute;bottom:8px;width:4px;height:4px;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--accent)}
+  .tab-bar-item.active::after{content:'';position:absolute;bottom:6px;width:4px;height:4px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)}
   .tab-bar-item:hover:not(.active){color:var(--text-2)}
   .tab-bar-icon{font-size:22px;line-height:1}
   .tab-bar-label{font-size:10px}
@@ -370,7 +370,7 @@
   .stage{transition:transform .3s ease,box-shadow .3s ease;transform:perspective(1000px) rotateX(0) rotateY(0)}
   .stage:hover{transform:perspective(1000px) rotateX(0.5deg) translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
   .quick-action{transition:transform .3s ease,box-shadow .3s ease;transform:perspective(800px) rotateX(0)}
-  .quick-action:hover{transform:perspective(800px) rotateX(2deg) translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.25)}
+  .quick-action:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 8px 24px rgba(0,0,0,0.15)}
   .checklist-card{transition:transform .3s ease,box-shadow .3s ease}
   .checklist-card:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.2)}
   .tip-card{transition:transform .3s ease}
@@ -529,7 +529,7 @@
   </div>
 
   <!-- Hidden tip card for JS -->
-  <div id="tip-card" style="display:none"><div id="tip-text"></div></div>
+  <div id="tip-card"><div id="tip-text"></div></div>
 
 </div>
 </div>
@@ -1083,7 +1083,7 @@
     </div></div></div>
 
     <div class="faq-item" id="sp-q1" data-stages="applying,waiting"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">My child wants to join the CAF. What do I need to know?</span><span class="faq-q-text fr">Mon enfant veut joindre les FAC. Que dois-je savoir?</span><span class="bm-icon" onclick="toggleBookmark(event,'sp-q1')">&#9734;</span><span class="share-icon" aria-hidden="true" onclick="shareFaq(event)">&#8599;</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner">
-      <p class="en"><strong>First: this is a real career with real benefits.</strong> The CAF is one of Canada's largest employers. Your child will receive:</p>
+      <p class="en"><strong>First: take a breath.</strong> Your feelings are valid — worry, pride, confusion, fear. Every military parent feels them. Now let's talk about what this actually means. The CAF is a real career with real benefits: The CAF is one of Canada's largest employers. Your child will receive:</p>
       <ul class="en">
         <li><strong>Paid training from day one</strong> — $4,337-$5,484/month during BMQ. They don't pay for training, the military pays THEM.</li>
         <li><strong>Full health, dental, and vision coverage</strong> — for them and eventually their dependents</li>
@@ -1094,7 +1094,7 @@
       </ul>
       <p class="en"><strong>If they're under 18:</strong> You must provide written parental consent for enrolment. The minimum age is 16 for Reserve, 17 for Regular Force.</p>
       <div class="tip"><span class="tip-icon">💡</span><span class="en">Your support matters more than you know. Research shows that parental support is one of the strongest predictors of a recruit's success in training. They need to know you're behind them — even if you're worried.</span><span class="fr">Votre soutien compte plus que vous ne le pensez. La recherche montre que le soutien parental est l'un des plus forts predicteurs de reussite d'une recrue a l'entrainement.</span></div>
-      <p class="fr"><strong>Premierement : c'est une vraie carrière avec de vrais avantages.</strong> Les FAC sont l'un des plus grands employeurs du Canada. Votre enfant recevra :</p>
+      <p class="fr"><strong>Premièrement : respirez.</strong> Vos sentiments sont valides. Maintenant, parlons de ce que cela signifie réellement. C'est une vraie carrière avec de vrais avantages.</strong> Les FAC sont l'un des plus grands employeurs du Canada. Votre enfant recevra :</p>
       <ul class="fr">
         <li><strong>Formation payee des le jour 1</strong> — 4 337 $-5 484 $/mois pendant la QMB</li>
         <li><strong>Couverture sante, dentaire et vision completes</strong></li>
@@ -1155,7 +1155,7 @@
         <li><strong>Facebook support groups:</strong> Search for "Support to Parents of CAF members" — a community of parents going through exactly what you are.</li>
         <li><strong>Your child's MFRC:</strong> Once they're posted to a base, the MFRC there can connect you with parent support programs, even if you live in a different city.</li>
       </ul>
-      <p class="en"><strong>What parents consistently say:</strong> The worry never fully goes away. But the pride you feel at their BMQ graduation, the growth you see in them, and the knowledge that they're serving their country — it's worth it. They chose something meaningful. That reflects well on how you raised them.</p>
+      <p class="en"><strong>What parents consistently say:</strong> The worry never fully goes away. But many parents describe a complex mix of ongoing worry and deep pride. The growth you see in them is real. And the community of military families who understand what you're going through — that support network is invaluable.</p>
       <p class="fr"><strong>Vous n'etes pas seul.</strong> Les FAC reconnaissent que le service militaire affecte toute la famille — y compris les parents.</p>
       <ul class="fr">
         <li><strong>FAQ des SBMFC pour les parents :</strong> <a href="https://cfmws.ca/support-services/families/parents-of-caf-members/faq-for-parents-of-new-recruits" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600;text-decoration:none">cfmws.ca/parents →</a></li>
@@ -1322,7 +1322,7 @@
       <tr style="border-bottom:1px solid var(--glass-border)"><td style="padding:10px 12px 10px 0;font-weight:700;color:var(--text)">Benefits</td><td style="padding:10px 8px">Full health, dental, vision, SISIP from day 1</td><td style="padding:10px 8px">Limited on Class A. Full on Class B 180+ days or Class C</td></tr>
       <tr style="border-bottom:1px solid var(--glass-border)"><td style="padding:10px 12px 10px 0;font-weight:700;color:var(--text)">Postings</td><td style="padding:10px 8px">Move every 2-4 years (you go where they send you)</td><td style="padding:10px 8px">Stay in your home city with your local unit</td></tr>
       <tr style="border-bottom:1px solid var(--glass-border)"><td style="padding:10px 12px 10px 0;font-weight:700;color:var(--text)">Deployments</td><td style="padding:10px 8px">Can be ordered to deploy</td><td style="padding:10px 8px"><strong>Voluntary</strong> — you choose</td></tr>
-      <tr style="border-bottom:1px solid var(--glass-border)"><td style="padding:10px 12px 10px 0;font-weight:700;color:var(--text)">Commitment</td><td style="padding:10px 8px">Full-time, 24/7 under NDA</td><td style="padding:10px 8px">1 evening/week + 1 weekend/month + summer training</td></tr>
+      <tr style="border-bottom:1px solid var(--glass-border)"><td style="padding:10px 12px 10px 0;font-weight:700;color:var(--text)">Commitment</td><td style="padding:10px 8px">Full-time, 24/7 under the National Defence Act (NDA)</td><td style="padding:10px 8px">1 evening/week + 1 weekend/month + summer training</td></tr>
       <tr><td style="padding:10px 12px 10px 0;font-weight:700;color:var(--text)">Best for</td><td style="padding:10px 8px">People who want military as their career</td><td style="padding:10px 8px">Students, parents, people with civilian careers who want to serve part-time</td></tr>
     </table>
     <table style="width:100%;border-collapse:collapse;font-size:13px;color:var(--text-2);line-height:1.6" class="fr">
@@ -1384,7 +1384,7 @@
 
     <div class="faq-item" id="sr-q5" data-stages="applying,waiting,first_unit,mid_career"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">What benefits do I actually get as a Reservist?</span><span class="faq-q-text fr">Quels avantages ai-je reellement comme réserviste?</span><span class="bm-icon" onclick="toggleBookmark(event,'sr-q5')">&#9734;</span><span class="share-icon" aria-hidden="true" onclick="shareFaq(event)">&#8599;</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner">
       <p class="en"><strong>This depends entirely on your class of service:</strong></p>
-      <ul class="en"><li><strong>Class A (part-time):</strong> Pay for days worked. Limited medical/dental during training periods. NO automatic SISIP/LTD. NO pension. Education reimbursement ($2K/year). Civilian employer protection. That's essentially it.</li><li><strong>Class B under 180 days:</strong> Same as Class A plus some additional medical coverage during the contract period.</li><li><strong>Class B 180+ days:</strong> NOW you get the good stuff — SISIP/LTD automatic, full health and dental, pension contributions. Essentially Reg Force benefits for the duration.</li><li><strong>Class C (operations):</strong> Full Regular Force benefits package. Same pay, same SISIP, same pension, same everything. You ARE Reg Force for the duration of the deployment.</li></ul>
+      <ul class="en"><li><strong>Class A (part-time):</strong> Pay for days worked. Limited medical/dental during training periods. NO automatic SISIP/LTD. Reserve Force Pension Plan (you qualify once you earn ~$7,000/year — most active Reservists hit this). Education reimbursement ($2K/year). Civilian employer protection. That's essentially it.</li><li><strong>Class B under 180 days:</strong> Same as Class A plus some additional medical coverage during the contract period.</li><li><strong>Class B 180+ days:</strong> NOW you get the good stuff — SISIP/LTD automatic, full health and dental, pension contributions. Essentially Reg Force benefits for the duration.</li><li><strong>Class C (operations):</strong> Full Regular Force benefits package. Same pay, same SISIP, same pension, same everything. You ARE Reg Force for the duration of the deployment.</li></ul>
       <div class="tip"><span class="tip-icon">💡</span><span class="en"><strong>The 180-day threshold is critical.</strong> If you're offered a Class B contract, try to get it to 180+ days. The différence in benefits coverage is enormous. Below 180 days, you're essentially uninsured for long-term disability.</span><span class="fr"><strong>Le seuil de 180 jours est critique.</strong> Si on vous offre un contrat de classe B, essayez d'obtenir 180+ jours. La différence en couverture est enorme.</span></div>
       <p class="fr"><strong>Cela depend entierement de votre classe de service :</strong></p>
       <ul class="fr"><li><strong>Classe A (temps partiel) :</strong> Solde pour les jours travailles. Medical/dentaire limite pendant les périodes de formation. PAS de RARM/AILD automatique. PAS de pension. Remboursement d'etudes (2 000 $/an). Protection de l'employeur civil.</li><li><strong>Classe B moins de 180 jours :</strong> Comme la classe A plus une couverture médicale additionnelle.</li><li><strong>Classe B 180+ jours :</strong> RARM/AILD automatique, sante et dentaire complets, cotisations de pension.</li><li><strong>Classe C (operations) :</strong> Avantages complets de la Force régulière. Meme solde, meme RARM, meme pension.</li></ul>
@@ -1393,7 +1393,7 @@
     <div class="faq-item" id="sr-q6" data-stages="first_unit,mid_career"><button class="faq-q" aria-expanded="false" onclick="toggle(this)"><span class="faq-q-text en">Can I transfer from Reserve to Regular Force?</span><span class="faq-q-text fr">Puis-je transférér de la Reserve a la Force régulière?</span><span class="bm-icon" onclick="toggleBookmark(event,'sr-q6')">&#9734;</span><span class="share-icon" aria-hidden="true" onclick="shareFaq(event)">&#8599;</span><span class="faq-chevron" aria-hidden="true">&#9660;</span></button><div class="faq-a" role="region"><div class="faq-a-inner">
       <p class="en"><strong>Yes — and your Reserve experience gives you a significant advantage.</strong> The process is called a Component Transfer (CT). You apply through recruiting, similar to a new application but faster because:</p>
       <ul class="en"><li>Your BMQ qualification transfers — you don't redo basic training</li><li>Your trade qualifications may transfer (depends on the trade)</li><li>Your rank and time in rank are recognized</li><li>Your medical and security screening are already on file</li></ul>
-      <p class="en">However: it's still competitive. Not guaranteed. Processing can take 6-12 months. Your CO must support the request. The CAF needs people in your chosen trade.</p>
+      <p class="en">However: it's still competitive. Not guaranteed. Processing can take 12-24 months. Your CO must support the request. The CAF needs people in your chosen trade.</p>
       <p class="en"><strong>Going the other way (Reg → Reserve):</strong> Also possible. But your pension accrual under the Regular Force pension plan stops at the date of transfer. This is a major financial décision — consult SISIP Financial before deciding.</p>
       <div class="tip"><span class="tip-icon">💡</span><span class="en"><strong>Many people join the Reserve first to try military life, then transfer to Regular Force once they're sure.</strong> This is a completely valid strategy. You get paid to train, you learn if military life is for you, and if you decide to go full-time, you have a head start over civilian applicants.</span><span class="fr"><strong>Beaucoup de gens joignent la Reserve d'abord pour essayer la vie militaire, puis transférént a la Force régulière.</strong> C'est une strategie tout a fait valide. Vous etes paye pour vous entrainer, vous apprenez si la vie militaire est pour vous, et si vous decidez d'y aller a temps plein, vous avez une longueur d'avance.</span></div>
       <p class="fr"><strong>Oui — et votre experience de réserviste vous donne un avantage significatif.</strong> Le processus s'appelle un transfert entre composantes (TC). Vous postulez via le recrutement, similaire a une nouvelle demande mais plus rapide car :</p>
